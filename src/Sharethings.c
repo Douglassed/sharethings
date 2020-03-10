@@ -5,7 +5,7 @@
 #include <stdlib.h>
 
 int main(int argc, char *argv[]) {
-    char NDC[10],MDP[10],ch;
+    char NDC[100],MDP[100],ch;
     char *mdp;
     int i = 0;
     printf("Bienvenue dans Sharethings ! \n");
