@@ -1,5 +1,18 @@
-#include "menus.h"
+#include "../include/menus.h"
 #include <stdio.h>
+#include <stdlib.h>
+
+struct _menus {
+    char* etoiles;
+    char normal;
+};
+
+void testchar(){
+    Menus m = (Menus)malloc(sizeof(Menus));
+    m->etoiles = "bonjour";
+    m->normal = 'a';
+    printf("%s\n", m->etoiles);
+}
 
 void menu_signin(){
   printf("Login:");
