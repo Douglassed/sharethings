@@ -7,12 +7,7 @@ struct _menus {
     char normal;
 };
 
-void testchar(){
-    Menus m = (Menus)malloc(sizeof(Menus));
-    m->etoiles = "bonjour";
-    m->normal = 'a';
-    printf("%s\n", m->etoiles);
-}
+
 
 void menu_signin(){
   printf("Login:");

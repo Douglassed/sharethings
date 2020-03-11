@@ -1,38 +1,39 @@
-#include "../include/ressources.h"
-#include "../include/personnes.h"
-#include "../include/menus.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
+#include "../include/personnes.h"
 
-int main(int argc, char *argv[]) {
-    char NDC[100],MDP[100],ch;
-    char *mdp;
+#include "../include/menus.h"
+#include "../include/ressources.h"
+
+int main (int argc, char *argv[]) {
+    mafonction(12);
+    char ret = '\n';
+    printf("%d",ret);
+    char NDC[100],ch;
     int i = 0;
     printf("Bienvenue dans Sharethings ! \n");
     printf("Entrez votre nom de compte: \n");
     ch = getchar();
-    while ( ch != 10 && ch != 32){
-        MDP[i] = ch;
+    while ( ch != 10 ){
+        NDC[i] = ch;
         ch = getchar();
         i++;
     }
-    printf("%s",MDP);
-    /*for (i = 0; i < 5; i++){
-        ch = mdp[i];
-        printf("%c",ch);
+    char ndc[i];
+    for (int j = 0; j < i; j++){
+        ndc[j] = NDC[j];
     }
-    /*printf("Entrez votre mot de passe: ");
-    int i = 0;
-    ch = 'a';
-    do{
-        ch = getchar();
-        MDP[i] = ch;
-        printf("%c\n",ch);
-        printf("%d",i);
-        i++;
+    char *password; // password string pointer
+    password = getpass("Enter Password: "); // get a password
 
-    }while (ch != '\n' && i<15);*/
-    //for (int i = 0; i < 8; i++){
+    //vider le buffer avant d'entrz le mot de passe
+
+
+
+
+    printf("nom de compte : %s\n",ndc);
+    printf("votre mot de passe: %s\n",password);
 
 
     return 0;

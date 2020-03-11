@@ -3,7 +3,6 @@
 
 typedef struct _menus * Menus;
 
-void testchar();
 void menu_signin();
 void menu_admin();
 void menu_accueil();
