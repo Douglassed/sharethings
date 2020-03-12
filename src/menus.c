@@ -3,16 +3,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-
-struct _menus {
-    char* etoiles;
-    char normal;
-};
-
-void monmenus(){
-    printf("menus ok\n");
-}
-
 void menu_signin(){
 
     char NDC[100],ch;
@@ -44,7 +34,7 @@ void menu_accueil(){
   printf(" ----------------------------\n");
   printf("|Bienvenue dans Sharethings !|\n");
   printf(" ----------------------------\n\n");
-  printf("1 - Se connecter\n2 - S'inscrire\n\n")
+  printf("1 - Se connecter\n2 - S'inscrire\n\n");
   printf("choisissez : ");
   int choix;
   do{
@@ -54,7 +44,7 @@ void menu_accueil(){
       }else if (choix == 2){
           menu_signup();
       }else{
-          printf("erreur : \n", );
+          printf("erreur : \n");
       }
   }while (choix != 1 || choix != 2);
 
