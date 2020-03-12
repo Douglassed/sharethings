@@ -9,6 +9,5 @@ int main (int argc, char *argv[]) {
     menu_accueil();
 
 
-
     return 0;
 }
