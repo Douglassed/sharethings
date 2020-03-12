@@ -3,4 +3,5 @@
 
 typedef struct _ressources * Ressources;
 
+void maressource();
 #endif

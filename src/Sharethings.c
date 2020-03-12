@@ -2,14 +2,16 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include "../include/personnes.h"
-
-#include "../include/menus.h"
 #include "../include/ressources.h"
+#include "../include/menus.h"
+
 
 int main (int argc, char *argv[]) {
-    mafonction(12);
+    monmenus();
+    maressources();
+    mapersonnes();
     char ret = '\n';
-    printf("%d",ret);
+    printf("%d\n",ret);
     char NDC[100],ch;
     int i = 0;
     printf("Bienvenue dans Sharethings ! \n");

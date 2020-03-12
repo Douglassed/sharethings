@@ -7,7 +7,9 @@ struct _menus {
     char normal;
 };
 
-
+void monmenus(){
+    printf("menus ok\n");
+}
 
 void menu_signin(){
   printf("Login:");

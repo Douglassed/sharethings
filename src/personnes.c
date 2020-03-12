@@ -6,7 +6,6 @@ struct _personnes {
 };
 
 
-void mafonction(int aff){
-
-    printf("%d\n", aff);
+void mapersonnes(){
+    printf("personnes ok\n");
 }

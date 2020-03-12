@@ -4,6 +4,6 @@
 typedef struct _personnes * Personnes;
 
 
-void mafonction(int aff);
+void mapersonnes();
 
 #endif

@@ -1,4 +1,5 @@
 #include "../include/ressources.h"
+#include <stdio.h>
 
 struct _ressources {
     char* ID;
@@ -8,3 +9,7 @@ struct _ressources {
     int description;
     int type;
 };
+
+void maressources(){
+    printf("ressources ok\n");
+}
