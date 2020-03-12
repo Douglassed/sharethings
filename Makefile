@@ -2,7 +2,7 @@ GCC=gcc
 LDFLAGS=-lm
 LIB=./lib
 INCLUDE=./include
-CFLAGS= -g
+CFLAGS= -Wall -g
 SRC=./src
 OBJ=$(SRC:.c=.o)
 EXEC=Sharethings
@@ -10,7 +10,8 @@ EXEC=Sharethings
 all:$(EXEC)
 
 $(EXEC): $(INCLUDE)/*.h total
-	mv src/*.o lib
+	#mv src/*.o lib
+	mv *.o lib
 	gcc $(CFLAGS) -o $(EXEC) $(LIB)/*.o -I$(INCLUDE) -L$(LIB) $(LDFLAGS)
 
 
