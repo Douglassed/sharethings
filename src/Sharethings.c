@@ -6,8 +6,6 @@
 
 
 int main (int argc, char *argv[]) {
-    system("clear");
-
     menu_accueil();
 
 

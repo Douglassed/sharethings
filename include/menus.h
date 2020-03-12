@@ -7,5 +7,7 @@ void monmenus();
 void menu_signin();
 void menu_admin();
 void menu_accueil();
+void lire_entier(int *a);
+int lire_fin_ligne ();
 
 #endif
