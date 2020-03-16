@@ -16,7 +16,7 @@ void monmenus(){
 
 void menu_sign(int sign){
 
-    char NDC[100],ch;
+    char NDC[200],ch;
     int i = 0;
     printf("Entrez votre nom de compte : ");
     ch = getchar();
@@ -25,10 +25,7 @@ void menu_sign(int sign){
         ch = getchar();
         i++;
     }
-    char ndc[i];
-    for (int j = 0; j < i; j++){
-        ndc[j] = NDC[j];
-    }
+    printf("caractère : %c\n",NDC[10]);
     char *password; // password string pointer
     password = getpass("Enter votre mot de passe : "); // get a password
     if (sign == 2){
@@ -36,7 +33,7 @@ void menu_sign(int sign){
         passwordbis = getpass("Confirmez votre mot de passe : "); // get a password
     }
     system("clear");
-    printf("Vous etes : %s\n\n",ndc);
+    printf("Vous etes : %s\n\n",NDC);
 }
 
 void menu_accueil(){
