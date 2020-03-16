@@ -1,16 +1,4 @@
 {
-  "data": [
-    {
-      "ID": "Clement",
-      "MDP": "azertyuiop"
-    },
-    {
-      "ID": "Vladidi",
-      "MDP": "loverussia1230"
-    },
-    {
-      "ID": "admin",
-      "MDP": "cyr59evvyw0s"
-    }
-  ]
+  "Clement": "azertyuiop",
+  "Louloi": "huhu"
 }
