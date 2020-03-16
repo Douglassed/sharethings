@@ -1,5 +1,5 @@
 GCC=gcc
-LDFLAGS=-lm
+LDFLAGS=-ljson-c
 LIB=./lib
 INCLUDE=./include
 CFLAGS= -Wall -g
