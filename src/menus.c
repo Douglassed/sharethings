@@ -4,6 +4,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <ctype.h>
+#include <stdbool.h>
 
 struct _menus {
     char* etoiles;
@@ -14,9 +15,39 @@ void monmenus(){
     printf("menus ok\n");
 }
 
-void menu_sign(int sign){
-
+char* menu_signup(){
+    bool compare = true;
     char NDC[200],ch;
+    char *passwordbis; // password string pointer
+    char *password; // password string pointer
+    int i = 0;
+    do{
+        i = 0;
+        printf("Entrez votre nom de compte : ");
+        ch = getchar();
+        while ( ch != 10 ){
+            NDC[i] = ch;
+            ch = getchar();
+            i++;
+        }
+        password = getpass("Enter votre mot de passe : "); // get a password
+        passwordbis = getpass("Confirmez votre mot de passe : "); // get a password
+        bool compare = compare_mdp(password,passwordbis);
+        if (!compare){
+            printf("mot de passe non similaire\n");
+        }
+        printf("appuyez sur entrer pour continuer\n");
+        getchar();
+    }while(compare == false);
+    system("clear");
+    printf("Vous etes : %s\n\n",NDC);
+    return NDC;
+}
+
+/*void menu_signin(){
+    char NDC[200],ch;
+    char *passwordbis; // password string pointer
+    char *password; // password string pointer
     int i = 0;
     printf("Entrez votre nom de compte : ");
     ch = getchar();
@@ -25,15 +56,32 @@ void menu_sign(int sign){
         ch = getchar();
         i++;
     }
-    printf("caractère : %c\n",NDC[10]);
-    char *password; // password string pointer
+
     password = getpass("Enter votre mot de passe : "); // get a password
-    if (sign == 2){
-        char *passwordbis; // password string pointer
-        passwordbis = getpass("Confirmez votre mot de passe : "); // get a password
+
+    passwordbis = getpass("Confirmez votre mot de passe : "); // get a password
+    bool compare = compare_mdp(password,passwordbis);
+    if (!compare){
+        printf("mot de passe non similaire");
+    }
+    printf("appuyez sur entrer pour continuer\n");
+        getchar();
+
     }
     system("clear");
     printf("Vous etes : %s\n\n",NDC);
+}*/
+
+bool compare_mdp(char *password,char *passwordbis){
+    int j = 0;
+    bool correct = true;
+    while(password[j] != '\0' && passwordbis[j] != '\0' && correct == true && j != 10){
+        if (password[j] != passwordbis[j]){
+            correct = true;
+        }
+        j++;
+    }
+    return correct;
 }
 
 void menu_accueil(){
@@ -44,14 +92,15 @@ void menu_accueil(){
   printf(" ----------------------------\n\n");
   int erreur;
   int choix;
+  char *NDC;
   do{
       printf("| 1 | - Se connecter\n| 2 | - S'inscrire\n\n");
       printf("choisissez : ");
       erreur = lire_entier(&choix);
       if (choix == 1){
-          menu_sign(1);
+          //menu_signin();
       }else if (choix == 2){
-          menu_sign(2);
+          NDC = menu_signup();
       }else{
           printf("erreur, tapez 1 ou 2 \n\n");
       }
