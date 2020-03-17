@@ -5,10 +5,10 @@
 typedef struct _menus * Menus;
 
 void monmenus();
-char* menu_signup();
-char* menu_signin();
+void menu_signup();
+void menu_signin();
 
-bool compare_mdp(char *password);
+bool compare_mdp(char *password,char *passwordbis);
 
 void menu_admin();
 void menu_accueil();
