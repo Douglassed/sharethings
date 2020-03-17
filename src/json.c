@@ -1,6 +1,12 @@
-#include "../include/json.h"
 #include <stdio.h>
+#include <stdlib.h>
+#include "../include/personnes.h"
+#include "../include/ressources.h"
+#include "../include/menus.h"
+#include "../include/json.h"
 #include <json-c/json.h>
+#include <string.h>
+
 
 void afficher_liste_obj_raw(char *obj){
   //char *field = "consoles";    Le mot a noter comme cela avec les guillemets
@@ -96,6 +102,8 @@ void afficher_liste_obj(char *obj){
 /*-------------------------------------------------------------------------*/
 
 char* chercher_mdp(char *iD){
+    char* test; //modif
+    char *stock = malloc(sizeof(char)*20);//modif
     FILE *fic;
 	  char buffer[2048];
 	  struct json_object *parsed_json;
@@ -108,7 +116,16 @@ char* chercher_mdp(char *iD){
 	  parsed_json = json_tokener_parse(buffer);
 
 	  json_object_object_get_ex(parsed_json, iD, &mdp);
-    return(json_object_get_string(mdp));
+      test = json_object_get_string(mdp);
+      int i=0;
+      while(test[i] != '\0'){//modif
+          stock[i] = test[i];//modif
+          stock[i+1] = '\0';//modif
+          i++;//modif
+      }//modif
+      printf("%s\n",stock );//modif
+      strcpy(stock,json_object_get_string(mdp));
+    return stock;//modif
 
 	  //printf("Le MDP est %s\n", json_object_get_string(mdp));
   }

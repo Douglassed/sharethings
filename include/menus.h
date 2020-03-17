@@ -6,7 +6,7 @@ typedef struct _menus * Menus;
 
 void monmenus();
 char* menu_signup();
-//void menu_signin();
+char* menu_signin();
 
 bool compare_mdp(char *password);
 

@@ -17,12 +17,12 @@ void monmenus(){
 }
 
 char* menu_signup(){
-    bool compare = true;
+    bool compare = false;
     char NDC[30],ch;
     char *password; // password string pointer
     int i = 0;
     int index;
-    do{
+    while(compare == false);{
         i = 0;
         printf("Entrez votre nom de compte : ");
         ch = getchar();
@@ -49,13 +49,13 @@ char* menu_signup(){
             getchar();
             system("clear");
         }
-    }while(compare != false);
+    }
     system("clear");
     printf("Vous etes : %s\n\n",NDC);
     return NDC;
 }
 
-void menu_signin(){
+char* menu_signin(){
     bool verif;
     char NDC[200],ch;
     char *password; // password string pointer
@@ -71,7 +71,7 @@ void menu_signin(){
 
     password = getpass("Enter votre mot de passe : "); // get a password
     //verifier nom de compte et mot de passe
-    verif = false;
+    verif = true;
     if (!verif){
         printf("\ncombinaison nom de compte et mot de passe erronée\n\n");
         printf("appuyez sur entrer pour continuer\n");
@@ -81,6 +81,7 @@ void menu_signin(){
 
     system("clear");
     printf("Vous etes : %s\n\n",NDC);
+    return NDC;
 }
 
 bool compare_mdp(char *password){
@@ -95,7 +96,6 @@ bool compare_mdp(char *password){
         if (password[j] != passwordbis[j]){
             correct = false;
         }
-
         j++;
     }
     return correct;
@@ -115,9 +115,12 @@ void menu_accueil(){
       printf("choisissez : ");
       erreur = lire_entier(&choix);
       if (choix == 1){
-          menu_signin();
+          NDC=menu_signin();
+          printf("test nom de compte :%s\n",NDC );
+
       }else if (choix == 2){
           NDC = menu_signup();
+          printf("test nom de compte :%s\n",NDC );
       }else{
           printf("erreur, tapez 1 ou 2 \n\n");
       }
