@@ -8,7 +8,8 @@
 
 int main (int argc, char *argv[]) {
     //menu_accueil();
-    //char *id = "Clement";
-    //hercher_mdp(id);
+    char *id = "Clement";
+    char *IDD = chercher_mdp(id);
+    printf("%s\n", IDD);
     return 0;
 }
