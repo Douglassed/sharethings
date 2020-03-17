@@ -95,7 +95,7 @@ void afficher_liste_obj(char *obj){
 
 /*-------------------------------------------------------------------------*/
 
-char* chercher_mdp(char *iD){
+void chercher_mdp(char *iD, char **p){
     FILE *fic;
 	  char buffer[2048];
 	  struct json_object *parsed_json;
@@ -108,7 +108,7 @@ char* chercher_mdp(char *iD){
 	  parsed_json = json_tokener_parse(buffer);
 
 	  json_object_object_get_ex(parsed_json, iD, &mdp);
-    return(json_object_get_string(mdp));
+    *p = (json_object_get_string(mdp));
 
 	  //printf("Le MDP est %s\n", json_object_get_string(mdp));
   }
