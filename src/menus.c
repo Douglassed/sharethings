@@ -17,47 +17,51 @@ void monmenus(){
 }
 
 void menu_signup(){
-    bool compare = false;
+    bool compare;
     char NDC[30],ch;
+    char *ndc = malloc(sizeof(char)*30);
     char *password; // password string pointer
-    int i = 0;
+    int i;
     int index;
     char *passwordbis; // password string pointer
-    printf("test ?\n" );
-
-    while(compare == false){
-        i = 0;
-        printf("Entrez votre nom de compte : ");
+    A:
+    i = 0;
+    printf("Entrez votre nom de compte : ");
+    ch = getchar();
+    while ( ch != 10 ){
+        ndc[i] = ch;
         ch = getchar();
-        while ( ch != 10 ){
-            NDC[i] = ch;
-            ch = getchar();
-            i++;
-        }
-        password = getpass("Entrer votre mot de passe : "); // get a password
-        index = 0;
-        char stock_password[30];
-        while(password[index] != '\0'){
-            stock_password[index] = password[index];
-            stock_password[index+1] = '\0';
-            index++;
-        }
-        passwordbis = getpass("confirmez votre mot de passe : "); // get a password
-        printf("stock_password : %s\n",stock_password );
-        printf("passwordbis : %s\n",passwordbis );
-        bool compare = compare_mdp(stock_password,passwordbis);
-        if (!compare){
-            printf("mot de passe non similaire\n");
-            printf("appuyez sur entrer pour continuer\n");
-            printf("%d\n",compare );
-            getchar();
-            system("clear");
-        }
+        i++;
     }
-    system("clear");
-    printf("Vous etes : %s\n\n",NDC);
-}
+    ndc[i] = '\0';
+    password = getpass("Entrer votre mot de passe : "); // get a password
+    index = 0;
+    char stock_password[30];
+    while(password[index] != '\0'){
+        stock_password[index] = password[index];
+        stock_password[index+1] = '\0';
+        index++;
+    }
+    passwordbis = getpass("confirmez votre mot de passe : "); // get a password
+    compare = compare_mdp(stock_password,passwordbis);
+    if (condition(ndc,"Nom de compte") || condition(passwordbis,"Mot de passe")){
+        printf("appuyez sur entrer pour continuer\n");
+        getchar();
+        system("clear");
+        goto A;
+    }
+    if (!compare){
+        printf("\nmot de passe non similaire\n\n");
+        printf("appuyez sur entrer pour continuer\n");
+        getchar();
+        system("clear");
+        goto A;
+    }
 
+    system("clear");
+    printf("Vous etes : %s\n\n",ndc);
+}
+/*-----------------------SIGNIN-----------------------*/
 void menu_signin(){
     bool verif;
     char NDC[200],ch;
@@ -73,14 +77,11 @@ void menu_signin(){
         ch = getchar();
         i++;
     }
-
+    NDC[i] = '\0';
     password = getpass("Enter votre mot de passe : "); // get a password
     //verifier nom de compte et mot de passe
-    printf("%s\n",NDC );
-    chercher_mdp(NDC,&password_check);
+    afficher_mdp(NDC,&password_check);
     printf("%s\n",password_check );
-
-    printf("??\n" );
     verif = compare_mdp(password_check,password);
     if (!verif){
         printf("\ncombinaison nom de compte et mot de passe erronée\n\n");
@@ -89,28 +90,21 @@ void menu_signin(){
         system("clear");
         goto error_signin;
     }
-    getchar();
     system("clear");
     printf("Vous etes : %s\n\n",NDC);
-    return NDC;
 }
 
 bool compare_mdp(char *password,char *passwordbis){
     int j = 0;
     bool correct = true;
 
-    printf("%s longuer %ld\n",password,strlen(password) );
-    printf("%s longuer %ld\n",passwordbis, strlen(passwordbis) );
-    /*while(!((password[j] != '\0' || passwordbis[j] != '\0') || correct == false)){
+    while(!((password[j] != '\0' || passwordbis[j] != '\0') || correct == false)){
         if (password[j] != passwordbis[j]){
-            correct = ;
-        }
-        if (password[j] != '\0'){
-            if (passwordbis[j] != '\0')
+            correct = false;
         }
         j++;
-    }*/
-    return correct;
+    }
+    return (correct && (strlen(passwordbis) == strlen(password)));
 }
 
 void menu_accueil(){
@@ -134,7 +128,7 @@ void menu_accueil(){
           printf("erreur, tapez 1 ou 2 \n\n");
       }
   }while ((choix != 1 && choix != 2) || erreur == 1);
-
+  menu_user();
 
 }
 
@@ -176,4 +170,12 @@ void menu_user(){
     printf("2 - Gestion des ressources\n");
     printf("3 - Parametre compte\n\n");
     printf("    Choisissez entre les differents menus : ");
+}
+
+bool condition(char *ndc, char *format){
+    if (strlen(ndc) > 20 || strlen(ndc) < 3){
+        printf("Erreur : %s doit être compris entre 3 et 20 caractères\n", format);
+        return true;
+    }
+    return false;
 }
