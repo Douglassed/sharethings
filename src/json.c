@@ -1,6 +1,12 @@
-#include "../include/json.h"
 #include <stdio.h>
+#include <stdlib.h>
+#include "../include/personnes.h"
+#include "../include/ressources.h"
+#include "../include/menus.h"
+#include "../include/json.h"
 #include <json-c/json.h>
+#include <string.h>
+
 
 void afficher_liste_obj_raw(char *obj){
   //char *field = "consoles";    Le mot a noter comme cela avec les guillemets
