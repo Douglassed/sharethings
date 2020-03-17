@@ -10,9 +10,9 @@
 
 int main (int argc, char *argv[]) {
     //menu_accueil();
-    char *id = "Clement";
-    char *IDD;
-    chercher_mdp(id, &IDD);
-    printf("%s\n", IDD);
+    char *id = "Clezzzment";
+    char *MDP = "default";
+    chercher_mdp(id, &MDP);
+    printf("%s\n", MDP);
     return 0;
 }
