@@ -4,6 +4,6 @@
 void afficher_liste_obj_raw(char *);
 void afficher_detail_obj(char *, int);
 void afficher_liste_obj(char *);
-void afficher_mdp(char *);
+char* chercher_mdp(char *);
 
 #endif

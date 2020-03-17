@@ -7,8 +7,8 @@
 
 
 int main (int argc, char *argv[]) {
-    menu_accueil();
-    char *objet = "livre";
-    afficher_liste_obj(objet);
+    //menu_accueil();
+    //char *id = "Clement";
+    //hercher_mdp(id);
     return 0;
 }

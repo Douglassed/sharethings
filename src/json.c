@@ -95,13 +95,13 @@ void afficher_liste_obj(char *obj){
 
 /*-------------------------------------------------------------------------*/
 
-void afficher_mdp(char *iD){
+char* chercher_mdp(char *iD){
   FILE *fic;
   char buffer[2048];
   struct json_object *parsed_json;
   struct json_object *mdp;
 
-  fic = fopen("JsonClient.json","r");
+  fic = fopen("./json/Client.json","r");
   fread(buffer, 2048, 1, fic);
   fclose(fic);
 
@@ -109,7 +109,9 @@ void afficher_mdp(char *iD){
 
   json_object_object_get_ex(parsed_json, iD, &mdp);
 
-  printf("Le MDP est %s\n", json_object_get_string(mdp));
+  //printf("Le MDP est %s\n", json_object_get_string(mdp));
+
+  return(json_object_get_string(mdp));
 }
 //Exemple d'utilisation:
 //char *id = "Clement";
