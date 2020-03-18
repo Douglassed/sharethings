@@ -8,7 +8,7 @@ void monmenus();
 void menu_signup();
 void menu_signin();
 
-bool compare_mdp(char *password,char *passwordbis);
+bool compare_char(char *password,char *passwordbis);
 
 void menu_admin();
 void menu_accueil();
