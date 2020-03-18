@@ -7,9 +7,7 @@ typedef struct _menus * Menus;
 void monmenus();
 void menu_signup();
 void menu_signin();
-
 bool compare_char(char *password,char *passwordbis);
-
 void menu_admin();
 void menu_accueil();
 int lire_entier(int *a);
