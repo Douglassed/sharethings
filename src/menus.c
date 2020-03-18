@@ -43,7 +43,7 @@ void menu_signup(){
         index++;
     }
     passwordbis = getpass("confirmez votre mot de passe : "); // get a password
-    compare = compare_mdp(stock_password,passwordbis);
+    compare = compare_char(stock_password,passwordbis);
     if (condition(ndc,"Nom de compte") || condition(passwordbis,"Mot de passe")){
         printf("appuyez sur entrer pour continuer\n");
         getchar();
@@ -62,9 +62,10 @@ void menu_signup(){
     printf("Vous etes : %s\n\n",ndc);
 }
 /*-----------------------SIGNIN-----------------------*/
-void menu_signin(){
+void menu_signin(char *ndc[30]){
     bool verif;
-    char NDC[200],ch;
+    char ch;
+    char *NDC = malloc(sizeof(char)*25);
     char *password; // password string pointer
     char *password_check;
     int i;
@@ -80,9 +81,14 @@ void menu_signin(){
     NDC[i] = '\0';
     password = getpass("Enter votre mot de passe : "); // get a password
     //verifier nom de compte et mot de passe
-    afficher_mdp(NDC,&password_check);
-    printf("%s\n",password_check );
-    verif = compare_mdp(password_check,password);
+    chercher_mdp(NDC,&password_check);
+    verif = compare_char(password_check,password);
+    if (condition(NDC,"Nom de compte") || condition(password,"Mot de passe")){
+        printf("appuyez sur entrer pour continuer\n");
+        getchar();
+        system("clear");
+        goto error_signin;
+    }
     if (!verif){
         printf("\ncombinaison nom de compte et mot de passe erronée\n\n");
         printf("appuyez sur entrer pour continuer\n");
@@ -92,9 +98,11 @@ void menu_signin(){
     }
     system("clear");
     printf("Vous etes : %s\n\n",NDC);
+    *ndc = NDC;
+
 }
 
-bool compare_mdp(char *password,char *passwordbis){
+bool compare_char(char *password,char *passwordbis){
     int j = 0;
     bool correct = true;
 
@@ -115,20 +123,25 @@ void menu_accueil(){
   printf(" ----------------------------\n\n");
   int erreur;
   int choix;
-  char *NDC;
+  char NDC[25];
   do{
       printf("| 1 | - Se connecter\n| 2 | - S'inscrire\n\n");
       printf("choisissez : ");
       erreur = lire_entier(&choix);
       if (choix == 1){
-          menu_signin();
+          menu_signin(&NDC);
       }else if (choix == 2){
           menu_signup();
       }else{
           printf("erreur, tapez 1 ou 2 \n\n");
       }
   }while ((choix != 1 && choix != 2) || erreur == 1);
-  menu_user();
+  if (compare_char(NDC,"admin")){
+      menu_admin();
+  }else{
+      menu_user(&NDC);
+
+  }
 
 }
 
@@ -164,12 +177,20 @@ int lire_fin_ligne (){
     return res;
 }
 
-void menu_user(){
+void menu_user(char **ndc){
     printf("menus : \n\n");
     printf("1 - Rechercher une ressource\n");
     printf("2 - Gestion des ressources\n");
     printf("3 - Parametre compte\n\n");
-    printf("    Choisissez entre les differents menus : ");
+    printf("%s, Choisissez : \n",*ndc);
+}
+
+void menu_admin(){
+    printf("menus : \n\n");
+    printf("1 - \n");
+    printf("2 - Gestion des ressources\n");
+    printf("3 - Parametre compte\n\n");
+    printf("admin, Choisissez : \n");
 }
 
 bool condition(char *ndc, char *format){
