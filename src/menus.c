@@ -55,9 +55,13 @@ void menu_signup(){
         system("clear");
         goto A;
     }
-
+    stocker_id_mdp_inscription(ndc, stock_password);
     system("clear");
-    printf("Vous etes : %s\n\n",ndc);
+    printf("Vous vous êtes inscrit !\nSous le pseudo : %s\n", ndc);
+    printf("\nappuyez sur entrer pour continuer\n");
+
+    getchar();
+    menu_accueil();
 }
 
 /*-----------------------SIGNIN-----------------------*/
@@ -100,6 +104,7 @@ void menu_signin(char *ndc[30]){
     printf("Vous etes : %s\n\n",NDC);
     *ndc = NDC;
 
+
 }
 
 bool compare_char(char *password,char *passwordbis){
@@ -141,7 +146,6 @@ void menu_accueil(){
       menu_admin();
   }else{
       menu_user(&NDC);
-
   }
 
 }
