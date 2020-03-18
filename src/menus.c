@@ -7,15 +7,6 @@
 #include <ctype.h>
 #include <stdbool.h>
 
-struct _menus {
-    char* etoiles;
-    char normal;
-};
-
-void monmenus(){
-    printf("menus ok\n");
-}
-
 void menu_signup(){
     bool compare;
     char NDC[30],ch;
@@ -34,6 +25,13 @@ void menu_signup(){
         i++;
     }
     ndc[i] = '\0';
+    //verif nom de compte
+    if (existe_id(ndc)){
+        printf("nom de compte déjà existant\n");
+        getchar();
+        system("clear");
+        goto A;
+    }
     password = getpass("Entrer votre mot de passe : "); // get a password
     index = 0;
     char stock_password[30];
@@ -61,7 +59,9 @@ void menu_signup(){
     system("clear");
     printf("Vous etes : %s\n\n",ndc);
 }
+
 /*-----------------------SIGNIN-----------------------*/
+
 void menu_signin(char *ndc[30]){
     bool verif;
     char ch;
@@ -123,7 +123,7 @@ void menu_accueil(){
   printf(" ----------------------------\n\n");
   int erreur;
   int choix;
-  char NDC[25];
+  char NDC[30];
   do{
       printf("| 1 | - Se connecter\n| 2 | - S'inscrire\n\n");
       printf("choisissez : ");
@@ -136,6 +136,7 @@ void menu_accueil(){
           printf("erreur, tapez 1 ou 2 \n\n");
       }
   }while ((choix != 1 && choix != 2) || erreur == 1);
+  printf("%s\n", NDC);
   if (compare_char(NDC,"admin")){
       menu_admin();
   }else{
@@ -187,15 +188,15 @@ void menu_user(char **ndc){
 
 void menu_admin(){
     printf("menus : \n\n");
-    printf("1 - \n");
+    printf("1 - Détruire le monde\n");
     printf("2 - Gestion des ressources\n");
     printf("3 - Parametre compte\n\n");
     printf("admin, Choisissez : \n");
 }
 
 bool condition(char *ndc, char *format){
-    if (strlen(ndc) > 20 || strlen(ndc) < 3){
-        printf("Erreur : %s doit être compris entre 3 et 20 caractères\n", format);
+    if (strlen(ndc) > 20 || strlen(ndc) < 2){
+        printf("Erreur : %s doit être compris entre 2 et 20 caractères\n", format);
         return true;
     }
     return false;
