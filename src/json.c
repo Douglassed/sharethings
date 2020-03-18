@@ -102,7 +102,7 @@ void afficher_liste_obj(char *obj){
 
 /*-------------------------------------------------------------------------*/
 
-void afficher_mdp(char *iD, char ** p){
+void chercher_mdp(char *iD, char ** p){
     FILE *fic;
 	  char buffer[2048];
 	  struct json_object *parsed_json;
