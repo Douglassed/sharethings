@@ -27,7 +27,7 @@ void menu_signup(){
     ndc[i] = '\0';
     //verif nom de compte
     if (existe_id(ndc)){
-        printf("nom de compte déjà existant\n");
+        printf("Erreur : Nom de compte déjà existant\n");
         getchar();
         system("clear");
         goto A;
@@ -49,7 +49,7 @@ void menu_signup(){
         goto A;
     }
     if (!compare){
-        printf("\nmot de passe non similaire\n\n");
+        printf("\nErreur : mot de passe non similaire\n\n");
         printf("appuyez sur entrer pour continuer\n");
         getchar();
         system("clear");
@@ -66,10 +66,10 @@ void menu_signup(){
 
 /*-----------------------SIGNIN-----------------------*/
 
-void menu_signin(char *ndc[30]){
+void menu_signin(char **ndc){
     bool verif;
     char ch;
-    char *NDC = malloc(sizeof(char)*25);
+    char *NDC = malloc(sizeof(char)*30);
     char *password; // password string pointer
     char *password_check;
     int i;
@@ -94,16 +94,14 @@ void menu_signin(char *ndc[30]){
         goto error_signin;
     }
     if (!verif){
-        printf("\ncombinaison nom de compte et mot de passe erronée\n\n");
+        printf("\nErreur : combinaison nom de compte et mot de passe erronée\n\n");
         printf("appuyez sur entrer pour continuer\n");
         getchar();
         system("clear");
         goto error_signin;
     }
     system("clear");
-    printf("Vous etes : %s\n\n",NDC);
     *ndc = NDC;
-
 
 }
 
@@ -128,7 +126,7 @@ void menu_accueil(){
   printf(" ----------------------------\n\n");
   int erreur;
   int choix;
-  char NDC[30];
+  char *NDC;
   do{
       printf("| 1 | - Se connecter\n| 2 | - S'inscrire\n\n");
       printf("choisissez : ");
@@ -138,10 +136,9 @@ void menu_accueil(){
       }else if (choix == 2){
           menu_signup();
       }else{
-          printf("erreur, tapez 1 ou 2 \n\n");
+          printf("Erreur : tapez 1 ou 2 \n\n");
       }
   }while ((choix != 1 && choix != 2) || erreur == 1);
-  printf("%s\n", NDC);
   if (compare_char(NDC,"admin")){
       menu_admin();
   }else{
@@ -158,10 +155,10 @@ int lire_entier(int *a){
         nb_lu=scanf("%d",a);
         nb_jete=lire_fin_ligne();
         if (nb_lu != 1){
-            printf("veuillez tapez un entier\n\n");
+            printf("Erreur : veuillez entrez un entier\n\n");
             erreur = 1;
         }else if (nb_jete!=0){
-            printf("veuillez ne tapez qu'une seule chaine de caractère\n\n");
+            printf("Erreur : veuillez ne pas séparer votre chaine de caractère\n\n");
             erreur = 1;
         }
 
@@ -183,19 +180,69 @@ int lire_fin_ligne (){
 }
 
 void menu_user(char **ndc){
-    printf("menus : \n\n");
-    printf("1 - Rechercher une ressource\n");
-    printf("2 - Gestion des ressources\n");
-    printf("3 - Parametre compte\n\n");
-    printf("%s, Choisissez : \n",*ndc);
+    int choix;
+    bool sorti = false;
+    do {
+        printf("menus : \n\n");
+        printf("1 - Rechercher une ressource\n");
+        printf("2 - Gestion des ressources\n");
+        printf("3 - Quittez le programme\n\n");
+        printf("%s, Choisissez : ",*ndc);
+        lire_entier(&choix);
+        switch (choix) {
+            case 1:
+                system("clear");
+                system("sh script/afficheRessources.sh");
+                //ressource
+                goto texte;
+            case 2:
+                //modif mdp inscrits
+                goto texte;
+            case 3:
+                sorti = true;
+                break;
+            default:
+                printf("Erreur : Entrez un entier entre 1 et 3 !\n");
+                texte:
+                printf("appuyez sur entrer pour continuer\n");
+                getchar();
+                system("clear");
+                break;
+        }
+    }while (!sorti);
 }
 
 void menu_admin(){
-    printf("menus : \n\n");
-    printf("1 - Détruire le monde\n");
-    printf("2 - Gestion des ressources\n");
-    printf("3 - Parametre compte\n\n");
-    printf("admin, Choisissez : \n");
+    bool sorti = false;
+    int choix;
+    do {
+        printf("menus : \n\n");
+        printf("1 - Afficher liste inscrit\n");
+        printf("2 - Modifier le mot de passe d'un inscrit\n");
+        printf("3 - Quittez le programme\n\n");
+        printf("admin, Choisissez : ");
+        lire_entier(&choix);
+        switch (choix) {
+            case 1:
+                system("clear");
+                printf("Liste des inscrits\n\n");
+                system("grep \":\" json/Client.json | cut -f1 -d ':'");
+                goto texte;
+            case 2:
+                //modif mdp inscrits
+                break;
+            case 3:
+                sorti = true;
+                break;
+            default:
+                printf("Erreur : Entrez un entier entre 1 et 3 !\n");
+                texte:
+                printf("\nappuyez sur entrer pour continuer\n");
+                getchar();
+                system("clear");
+                break;
+        }
+    }while (!sorti);
 }
 
 bool condition(char *ndc, char *format){
