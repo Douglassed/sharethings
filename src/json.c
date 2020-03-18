@@ -6,6 +6,7 @@
 #include "../include/json.h"
 #include <json-c/json.h>
 #include <string.h>
+#include <stdbool.h>
 
 
 void afficher_liste_obj_raw(char *obj){
@@ -126,3 +127,53 @@ void afficher_mdp(char *iD, char ** p){
 //char *MDP = "basique";
 //afficher_mdp(id, &MDP);
 //printf("%s\n", MDP);
+
+/*-------------------------------------------------------------------------*/
+
+bool existe_id(char *iD){
+    FILE *fic;
+	  char buffer[2048];
+	  struct json_object *parsed_json;
+	  struct json_object *mdp;
+
+	  fic = fopen("./json/Client.json","r");
+	  fread(buffer, 2048, 1, fic);
+	  fclose(fic);
+
+	  parsed_json = json_tokener_parse(buffer);
+
+	  json_object_object_get_ex(parsed_json, iD, &mdp);
+    if (json_object_get_string(mdp) == NULL)
+    {
+      //printf("L'ID n'existe pas");
+      return(false);
+    }
+    else
+    {
+      //printf("L'ID existe");
+      return(true);
+    }
+  }
+//Exemple d'utilisation:
+//char *Id = "Cleeement";
+//bool ok = existe_id(Id);
+
+/*-------------------------------------------------------------------------*/
+
+void stocker_id_mdp_inscription(char *iD, char* mdp){
+    FILE *fic = fopen("./json/Client.json", "r+");
+
+    fseek(fic, -3, SEEK_END);
+
+    fputs(",\n  \"", fic);
+    fputs(iD, fic);
+    fputs("\": \"", fic);
+    fputs(mdp, fic);
+    fputs("\"\n}\n", fic);
+
+    fclose(fic);
+  }
+//Exemple d'utilisation:
+//char *i = "New";
+//char *m = "koikoi";
+//stocker_id_mdp_inscription(i, m);
