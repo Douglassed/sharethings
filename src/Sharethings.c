@@ -9,8 +9,7 @@
 
 
 int main (int argc, char *argv[]) {
-    //menu_accueil();
-    admin_del_someone(7);
+    menu_accueil();
     /*char *id = "Clezzzment";
     char *MDP = "default";
     chercher_mdp(id, &MDP);

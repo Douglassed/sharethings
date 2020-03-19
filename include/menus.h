@@ -13,6 +13,8 @@ void menu_accueil();
 int lire_entier(int *a);
 int lire_fin_ligne ();
 bool condition(char *ndc, char *format);
+void modif_user(int choix);
+
 
 
 #endif
