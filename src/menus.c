@@ -215,6 +215,7 @@ void menu_user(char **ndc){
 void menu_admin(){
     bool sorti = false;
     int choix;
+    int choix_user;
     do {
         printf("menus : \n\n");
         printf("1 - Afficher liste inscrit\n");
@@ -225,8 +226,11 @@ void menu_admin(){
         switch (choix) {
             case 1:
                 system("clear");
-                printf("Liste des inscrits\n\n");
-                system("grep \":\" json/Client.json | cut -f1 -d ':'");
+                printf("Liste des inscrits :\n\n");
+                system("grep ':' json/Client.json | cut -f1 -d ':' | grep -n '\"' ");
+                printf("choisir l'inscrit à modifier :");
+                lire_entier(&choix_user);
+
                 goto texte;
             case 2:
                 //modif mdp inscrits
@@ -251,4 +255,16 @@ bool condition(char *ndc, char *format){
         return true;
     }
     return false;
+}
+
+void modif_user(int choix){
+    int jsp;
+    //thomas : affiche le user : choix
+    printf("1 - modifier le mot de passe\n");
+    printf("2 - Supprimer le compte\n");
+    printf("3 - Annuler\n");
+    
+
+
+
 }
