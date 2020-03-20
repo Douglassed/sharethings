@@ -180,59 +180,107 @@ void stocker_id_mdp_inscription(char *iD, char* mdp){
 
 /*-------------------------------------------------------------------------*/
 
-  void modifier_fichier_base_proto(){ //ne sert a rien, sert de base, schema pour autre fonction
-    /* Open the file for reading and the other to write */
-    char *line_buf = NULL;
-    size_t line_buf_size = 0;
-    int line_count = 0;
-    ssize_t line_size;
-    FILE *fp = fopen("./json/Client.json", "r");
-    FILE *fic2 = fopen("./json/Client2.json", "w");
-    if (!fp)
-    {
-      fprintf(stderr, "Error opening file '%s'\n", "./json/Client.json");
-      return EXIT_FAILURE;
-    }
-
-    /* Get the first line of the file. */
-    line_size = getline(&line_buf, &line_buf_size, fp);
-
-    /* Loop through until we are done with the file. */
-    while (line_size >= 0)
-    {
-      /* Increment our line count */
-      line_count++;
-
-      /* Show the line details and printing them into the second file */
-      printf("Contents: %s", line_buf);
-      fputs(line_buf, fic2);
-
-      /* Get the next line */
-      line_size = getline(&line_buf, &line_buf_size, fp);
-    }
-
-    /* Free the allocated line buffer */
-    free(line_buf);
-    line_buf = NULL;
-
-    /* Close files now that we are done with */
-    fclose(fp);
-    fclose(fic2);
+void modifier_fichier_base_proto(){ //ne sert a rien, sert de base, schema pour autre fonction
+  /* Open the file for reading and the other to write */
+  char *line_buf = NULL;
+  size_t line_buf_size = 0;
+  int line_count = 0;
+  ssize_t line_size;
+  FILE *fp = fopen("./json/Client.json", "r");
+  FILE *fic2 = fopen("./json/Client2.json", "w");
+  if (!fp)
+  {
+    fprintf(stderr, "Error opening file '%s'\n", "./json/Client.json");
+    return EXIT_FAILURE;
   }
-  //Exemple d'utilisation:
-  //modifier_fichier();
+
+  /* Get the first line of the file. */
+  line_size = getline(&line_buf, &line_buf_size, fp);
+
+  /* Loop through until we are done with the file. */
+  while (line_size >= 0)
+  {
+    /* Increment our line count */
+    line_count++;
+
+    /* Show the line details and printing them into the second file */
+    printf("Contents: %s", line_buf);
+    fputs(line_buf, fic2);
+
+    /* Get the next line */
+    line_size = getline(&line_buf, &line_buf_size, fp);
+  }
+
+  /* Free the allocated line buffer */
+  free(line_buf);
+  line_buf = NULL;
+
+  /* Close files now that we are done with */
+  fclose(fp);
+  fclose(fic2);
+}
+//Exemple d'utilisation:
+//modifier_fichier();
 
 /*-------------------------------------------------------------------------*/
 
-  void admin_del_someone(int choix){
+void admin_del_someone(int choix){
+  /* Open the file for reading and the other to write */
+  char *line_buf = NULL;
+  size_t line_buf_size = 0;
+  int line_count = 0;
+  int line_count_check = 0;
+  ssize_t line_size;
+  FILE *fp = fopen("./json/Client.json", "r");
+  FILE *fic2 = fopen("./json/Client2.json", "w");
+  if (!fp)
+  {
+    fprintf(stderr, "Error opening file '%s'\n", "./json/Client.json");
+    return EXIT_FAILURE;
+  }
+
+  /* Get the first line of the file. */
+  line_size = getline(&line_buf, &line_buf_size, fp);
+
+  /* Loop through until we are done with the file. */
+  while (line_size >= 0)
+  {
+    /* Increment our line count */
+    line_count++;
+
+    /* Show the line details and printing them into the second file */
+    //printf("Contents: %s", line_buf);
+    if(line_count!=(choix+1))
+        fputs(line_buf, fic2);
+
+    /* Get the next line */
+    line_size = getline(&line_buf, &line_buf_size, fp);
+  }
+
+  /* Free the allocated line buffer */
+  free(line_buf);
+  line_buf = NULL;
+
+  /* Close files now that we are done with */
+  fclose(fp);
+  fclose(fic2);
+  system("sh ./script/scriptVirgule.sh ./json/Client2.json");
+  remove("./json/Client.json");
+  rename("./json/Client2.json", "./json/Client.json");
+  //return 1;
+}
+//Exemple d'utilisation:
+//admin_del_someone(7);
+
+/*-------------------------------------------------------------------------*/
+
+bool check_n_id_existe(int choix){
     /* Open the file for reading and the other to write */
     char *line_buf = NULL;
     size_t line_buf_size = 0;
     int line_count = 0;
-    int line_count_check = 0;
     ssize_t line_size;
     FILE *fp = fopen("./json/Client.json", "r");
-    FILE *fic2 = fopen("./json/Client2.json", "w");
     if (!fp)
     {
       fprintf(stderr, "Error opening file '%s'\n", "./json/Client.json");
@@ -242,28 +290,23 @@ void stocker_id_mdp_inscription(char *iD, char* mdp){
     /* Get the first line of the file. */
     line_size = getline(&line_buf, &line_buf_size, fp);
 
-    /* Check choix autorisé */
-
-    /*while (line_size >= 0)
-      line_count_check++;
-    if(choix>=line_count_check-2){
-      printf("Choix invalide");
-      //return 0;
-    }*/
-
     /* Loop through until we are done with the file. */
     while (line_size >= 0)
     {
-      /* Increment our line count */
       line_count++;
-
-      /* Show the line details and printing them into the second file */
-      //printf("Contents: %s", line_buf);
-      if(line_count!=(choix+1))
-          fputs(line_buf, fic2);
 
       /* Get the next line */
       line_size = getline(&line_buf, &line_buf_size, fp);
+    }
+
+    /* Check choix autorisé */
+    if(choix>=(line_count-1)){
+      printf("Choix invalide\n");
+      return(false);
+    }
+    else{
+      printf("Choix valide\n");
+      return(true);
     }
 
     /* Free the allocated line buffer */
@@ -272,11 +315,46 @@ void stocker_id_mdp_inscription(char *iD, char* mdp){
 
     /* Close files now that we are done with */
     fclose(fp);
-    fclose(fic2);
-    system("sh ./script/scriptVirgule.sh ./json/Client2.json");
-    remove("./json/Client.json");
-    rename("./json/Client2.json", "./json/Client.json");
-    //return 1;
   }
-  //Exemple d'utilisation:
-  //admin_del_someone(7);
+//check_n_id_existe(6);
+
+/*-------------------------------------------------------------------------*/
+
+void print_id(int choix){
+  /* Open the file for reading and the other to write */
+  char *line_buf = NULL;
+  size_t line_buf_size = 0;
+  int line_count = 0;
+  ssize_t line_size;
+  FILE *fp = fopen("./json/Client.json", "r");
+  if (!fp)
+  {
+    fprintf(stderr, "Error opening file '%s'\n", "./json/Client.json");
+    return EXIT_FAILURE;
+  }
+
+  /* Get the first line of the file. */
+  line_size = getline(&line_buf, &line_buf_size, fp);
+
+  /* Loop through until we are done with the file. */
+  while (line_size >= 0)
+  {
+    line_count++;
+  /* Printing the lane we want */
+    if(line_count==(choix+1)){
+      for(int i = 3; (line_buf[i])!= '"'; i++){
+        printf("%c", line_buf[i]);
+      }
+    }
+    /* Get the next line */
+    line_size = getline(&line_buf, &line_buf_size, fp);
+  }
+
+  /* Free the allocated line buffer */
+  free(line_buf);
+  line_buf = NULL;
+
+  /* Close files now that we are done with */
+  fclose(fp);
+}
+//print_id(5);

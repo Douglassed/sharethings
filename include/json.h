@@ -10,5 +10,7 @@ bool existe_id(char *);
 void stocker_id_mdp_inscription(char *, char *);
 void modifier_fichier_base_proto(void);
 void admin_del_someone(int);
+bool check_n_id_existe(int);
+void print_id(int);
 
 #endif
