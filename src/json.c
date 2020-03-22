@@ -296,12 +296,11 @@ bool check_n_id_existe(int choix){
     }
 
     /* Check choix autorisé */
-    if(choix>=(line_count-1)){
-      printf("Choix invalide\n");
+    if(choix>=(line_count-1) || choix < 1){
+      printf("\nChoix invalide\n");
       return(false);
     }
     else{
-      printf("Choix valide\n");
       return(true);
     }
 

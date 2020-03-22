@@ -187,7 +187,7 @@ int lire_entier(int *a){
         printf("\nErreur : veuillez entrez un entier\n\n");
         erreur = 1;
     }else if (nb_jete!=0){
-        printf("Erreur : veuillez ne pas séparer votre chaine de caractère\n\n");
+        printf("\nErreur : veuillez ne pas séparer votre chaine de caractère\n\n");
         erreur = 1;
     }
     return erreur;
@@ -240,13 +240,14 @@ void menu_user(char **ndc){
                 printf("Gestion du compte\n");
                 //1 - modifier mot de passe
                 //supression de son compte
+                goto texte;
             case 4:
                 sorti = true;
                 break;
             default:
                 printf("Erreur : Entrez un entier entre 1 et 4 !\n");
                 texte:
-                printf("appuyez sur entrer pour continuer\n");
+                printf("\nappuyez sur entrer pour continuer\n");
                 getchar();
                 system("clear");
                 break;
@@ -265,28 +266,27 @@ void menu_admin(){
     /* affichage du menu admin et choix de l'action */
     do {
         printf("menus : \n\n");
-        printf("1 - Afficher liste inscrit\n");
-        printf("2 - Modifier le mot de passe d'un inscrit\n");
-        printf("3 - Quittez le programme\n\n");
+        printf("1 - Modifier un inscrit\n");
+        printf("2 - Quittez le programme\n\n");
         printf("admin, Choisissez : ");
         lire_entier(&choix);
         switch (choix) {
             case 1:
                 system("clear");
                 printf("Liste des inscrits :\n\n");
+                printf("0:  Annuler\n\n");
                 system("grep ':' json/Client.json | cut -f1 -d ':' | grep -n '\"' ");
-                printf("choisir l'inscrit à modifier :");
+                printf("\nchoisir l'inscrit à modifier : ");
                 lire_entier(&choix_user);
-
+                if (check_n_id_existe(choix_user)){
+                    modif_user(choix_user);
+                }
                 goto texte;
             case 2:
-                //modif mdp inscrits
-                break;
-            case 3:
                 sorti = true;
                 break;
             default:
-                printf("Erreur : Entrez un entier entre 1 et 3 !\n");
+                printf("Erreur : Entrez un entier entre 1 et 2 !\n");
                 texte:
                 printf("\nappuyez sur entrer pour continuer\n");
                 getchar();
@@ -309,15 +309,44 @@ bool condition(char *ndc, char *format){
 
 /*-------------------------------------------------------------------------*/
 
-void modif_user(int choix){
+void modif_user(int user){
     /* déclaration */
-    int jsp;
-    //thomas : affiche le user : choix
+    int choice;
+    bool sorti = false;
+
+    /* affcihe le menu modification d'un utilisateur */
+    printf("pour ");
+    system("clear");
+    print_id(user);
+    printf(" :\n");
     printf("1 - modifier le mot de passe\n");
     printf("2 - Supprimer le compte\n");
     printf("3 - Annuler\n");
+    printf("Choix : ");
+    lire_entier(&choice);
 
-
-
-
+    /* gestion du choix */
+        do{
+        switch (choice) {
+            case 1:
+                //modif mdp
+                sorti = true;
+            case 2:
+                printf("\n");
+                print_id(user);
+                admin_del_someone(user);
+                printf(" a été supprimer\n");
+                sorti = true;
+                break;
+            case 3:
+                sorti = true;
+                break;
+            default:
+                printf("Erreur : Entrez un entier entre 1 et 3 !\n");
+                printf("\nappuyez sur entrer pour continuer\n");
+                getchar();
+                system("clear");
+                break;
+        }
+    } while (!sorti);
 }
