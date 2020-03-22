@@ -1,8 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "../include/personnes.h"
-#include "../include/ressources.h"
-#include "../include/menus.h"
 #include "../include/json.h"
 #include <json-c/json.h>
 #include <string.h>
@@ -229,7 +226,6 @@ void admin_del_someone(int choix){
   char *line_buf = NULL;
   size_t line_buf_size = 0;
   int line_count = 0;
-  int line_count_check = 0;
   ssize_t line_size;
   FILE *fp = fopen("./json/Client.json", "r");
   FILE *fic2 = fopen("./json/Client2.json", "w");

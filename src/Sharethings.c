@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-#include "../include/personnes.h"
-#include "../include/ressources.h"
 #include "../include/menus.h"
 #include "../include/json.h"
 #include <json-c/json.h>
