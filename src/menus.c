@@ -223,7 +223,8 @@ void menu_user(char **ndc){
         printf("menus : \n\n");
         printf("1 - Rechercher une ressource\n");
         printf("2 - Gestion des ressources\n");
-        printf("3 - Quittez le programme\n\n");
+        printf("3 - Gestion du compte\n");
+        printf("4 - Quittez le programme\n\n");
         printf("%s, Choisissez : ",*ndc);
         lire_entier(&choix);
         switch (choix) {
@@ -236,10 +237,14 @@ void menu_user(char **ndc){
                 //modif mdp inscrits
                 goto texte;
             case 3:
+                printf("Gestion du compte\n");
+                //1 - modifier mot de passe
+                //supression de son compte
+            case 4:
                 sorti = true;
                 break;
             default:
-                printf("Erreur : Entrez un entier entre 1 et 3 !\n");
+                printf("Erreur : Entrez un entier entre 1 et 4 !\n");
                 texte:
                 printf("appuyez sur entrer pour continuer\n");
                 getchar();
