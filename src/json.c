@@ -296,12 +296,11 @@ bool check_n_id_existe(int choix){
     }
 
     /* Check choix autorisé */
-    if(choix>=(line_count-1)){
-      //printf("Choix invalide\n");
+    if(choix>=(line_count-1) || choix < 1){
+      printf("\nChoix invalide\n");
       return(false);
     }
     else{
-      //printf("Choix valide\n");
       return(true);
     }
 
@@ -354,3 +353,79 @@ void print_id(int choix){
   fclose(fp);
 }
 //print_id(5);
+
+/*-------------------------------------------------------------------------*/
+
+void fprint_id(int choix){
+    /* Open the file for reading and the other to write */
+    char *line_buf = NULL;
+    size_t line_buf_size = 0;
+    int line_count = 0;
+    ssize_t line_size;
+    FILE *fp = fopen("./json/Client.json", "r");
+    FILE *ft = fopen("temp.txt", "w");
+    if (!fp)
+    {
+      fprintf(stderr, "Error opening file '%s'\n", "./json/Client.json");
+      return EXIT_FAILURE;
+    }
+
+    /* Get the first line of the file. */
+    line_size = getline(&line_buf, &line_buf_size, fp);
+
+    /* Loop through until we are done with the file. */
+    while (line_size >= 0)
+    {
+      line_count++;
+    /* Printing the lane */
+      if(line_count==(choix+1)){
+        for(int i = 3; (line_buf[i])!= '"'; i++)
+          fputc(line_buf[i], ft);
+      }
+      /* Get the next line */
+      line_size = getline(&line_buf, &line_buf_size, fp);
+    }
+
+    /* Free the allocated line buffer */
+    free(line_buf);
+    line_buf = NULL;
+
+    /* Close files now that we are done with */
+    fclose(fp);
+    fclose(ft);
+  }
+//fprint_id(1);
+
+/*-------------------------------------------------------------------------*/
+
+int num_id(char* iD){
+    FILE *ftp = fopen("temp.txt", "r");
+    char lettre;
+    bool check = false;
+    int j;
+    int i = 1;
+    while(check == false){
+      FILE *ftp = fopen("temp.txt", "r");
+      fprint_id(i);
+      j = 0;
+      check = true;
+      do{
+        lettre = fgetc(ftp);
+        //printf("%c", lettre);
+        //printf("%c", iD[j]);
+        if(lettre!=iD[j])
+          check = false;
+        j++;
+      }while((iD[j]!='\0') && (check==true) && !(feof(ftp)));
+      //printf("\n");
+      fclose(ftp);
+      i++;
+    }
+    //printf("%d\n", (i-1));
+    return(i-1);
+  }
+//char *nom = "Lou";
+//int a = num_id(nom);
+//printf("%d\n", a);
+
+}
