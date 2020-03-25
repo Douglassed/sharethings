@@ -404,11 +404,18 @@ int num_id(char* iD){
     bool check = false;
     int j;
     int i = 1;
+    int position_curseur;
+    A:
     while(check == false){
       FILE *ftp = fopen("temp.txt", "r");
       fprint_id(i);
       j = 0;
       check = true;
+
+      fseek(ftp, 0, SEEK_END);
+      position_curseur = ftell(ftp);
+      fseek(ftp, 0, SEEK_SET);
+      //printf("PC:%d\n", position_curseur);
       do{
         lettre = fgetc(ftp);
         //printf("%c", lettre);
@@ -416,11 +423,16 @@ int num_id(char* iD){
         if(lettre!=iD[j])
           check = false;
         j++;
-      }while((iD[j]!='\0') && (check==true) && !(feof(ftp)));
+      }while((iD[j]!='\0') && (check==true));
       //printf("\n");
       fclose(ftp);
       i++;
+      if(position_curseur!=j){
+        check = false;
+        goto A;
+      }
     }
+    //printf("PC:%d J:%d final\n", position_curseur,j);
     //printf("%d\n", (i-1));
     return(i-1);
   }
