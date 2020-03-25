@@ -439,5 +439,3 @@ int num_id(char* iD){
 //char *nom = "Lou";
 //int a = num_id(nom);
 //printf("%d\n", a);
-
-}
