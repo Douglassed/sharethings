@@ -32,6 +32,7 @@ void menu_signup(){
     /* vérification de l'existance du com de compte */
     if (existe_id(ndc)){
         printf("Erreur : Nom de compte déjà existant\n");
+        printf("appuyez sur entrer pour continuer\n");
         getchar();
         system("clear");
         goto A;
@@ -123,9 +124,12 @@ bool compare_char(char *password,char *passwordbis){
     /* déclaration */
     int j = 0;
     bool correct = true;
-
+    /*printf("%s\n", password);
+    printf("%s\n", passwordbis);
+    printf("%c\n", password[j]);
+    printf("%c\n", passwordbis[j]);*/
     /* test de la similitude des mots de passe */
-    while(!((password[j] != '\0' || passwordbis[j] != '\0') || correct == false)){
+    while(password[j] != '\0' && passwordbis[j] != '\0' ){
         if (password[j] != passwordbis[j]){
             correct = false;
         }
@@ -150,7 +154,7 @@ void menu_accueil(){
         printf(" ----------------------------\n\n");
         printf("| 1 | - Se connecter\n| 2 | - S'inscrire\n\n");
         printf("choisissez : ");
-        erreur = lire_entier(&choix);
+        erreur = lire_entier(&choix, 1, 2);
       if (choix == 1){
           menu_signin(&NDC);
       }else if (choix == 2){
@@ -174,7 +178,7 @@ void menu_accueil(){
 
 /*-------------------------------------------------------------------------*/
 
-int lire_entier(int *a){
+int lire_entier(int *a,int min, int max){
     /* déclaration */
     int nb_lu;
     int nb_jete;
@@ -189,7 +193,11 @@ int lire_entier(int *a){
     }else if (nb_jete!=0){
         printf("\nErreur : veuillez ne pas séparer votre chaine de caractère\n\n");
         erreur = 1;
+    }else if (max != 0 && (*a < min || *a > max)){
+        printf("\nErreur : Entrez un entier entre %d et %d compris !\n", min, max);
+        erreur = 1;
     }
+
     return erreur;
 }
 
@@ -223,10 +231,11 @@ void menu_user(char **ndc){
         printf("menus : \n\n");
         printf("1 - Rechercher une ressource\n");
         printf("2 - Gestion des ressources\n");
-        printf("3 - Gestion du compte\n");
-        printf("4 - Quittez le programme\n\n");
+        printf("3 - Supprimer son compte\n");
+        printf("4 - modifier son mot de passe\n");
+        printf("5 - Quittez le programme\n\n");
         printf("%s, Choisissez : ",*ndc);
-        lire_entier(&choix);
+        lire_entier(&choix, 1, 5);
         switch (choix) {
             case 1:
                 system("clear");
@@ -235,25 +244,35 @@ void menu_user(char **ndc){
                 goto texte;
             case 2:
                 //modif mdp inscrits
-                goto texte;
+                break;
             case 3:
+                if (verification()){
+                    admin_del_someone(num_id(*ndc));
+                    printf("Le compte %s a été supprimer avec succès\n", *ndc);
+                    printf("\nVous allez quitter le programme\n");
+                    sorti = true;
+                }
+                goto texte;
+            case 4:
                 printf("Gestion du compte\n");
                 //1 - modifier mot de passe
                 //supression de son compte
                 goto texte;
-            case 4:
+            case 5:
                 sorti = true;
                 break;
             default:
-                printf("Erreur : Entrez un entier entre 1 et 4 !\n");
                 texte:
                 printf("\nappuyez sur entrer pour continuer\n");
                 getchar();
                 system("clear");
                 break;
         }
-    }while (!sorti);
+
+    }while (sorti == false);
+
 }
+
 
 /*-------------------------------------------------------------------------*/
 
@@ -269,7 +288,7 @@ void menu_admin(){
         printf("1 - Modifier un inscrit\n");
         printf("2 - Quittez le programme\n\n");
         printf("admin, Choisissez : ");
-        lire_entier(&choix);
+        lire_entier(&choix, 1, 2);
         switch (choix) {
             case 1:
                 system("clear");
@@ -277,7 +296,7 @@ void menu_admin(){
                 printf("0:  Annuler\n\n");
                 system("grep ':' json/Client.json | cut -f1 -d ':' | grep -n '\"' ");
                 printf("\nchoisir l'inscrit à modifier : ");
-                lire_entier(&choix_user);
+                lire_entier(&choix_user, 0, 0);
                 if (check_n_id_existe(choix_user)){
                     modif_user(choix_user);
                 }
@@ -309,7 +328,7 @@ bool condition(char *ndc, char *format){
 
 /*-------------------------------------------------------------------------*/
 
-void modif_user(int user){
+void modif_user(int nbuser){
     /* déclaration */
     int choice;
     bool sorti = false;
@@ -317,13 +336,13 @@ void modif_user(int user){
     /* affcihe le menu modification d'un utilisateur */
     printf("pour ");
     system("clear");
-    print_id(user);
+    print_id(nbuser);
     printf(" :\n");
     printf("1 - modifier le mot de passe\n");
     printf("2 - Supprimer le compte\n");
     printf("3 - Annuler\n");
     printf("Choix : ");
-    lire_entier(&choice);
+    lire_entier(&choice, 1, 3);
 
     /* gestion du choix */
         do{
@@ -333,8 +352,8 @@ void modif_user(int user){
                 sorti = true;
             case 2:
                 printf("\n");
-                print_id(user);
-                admin_del_someone(user);
+                print_id(nbuser);
+                admin_del_someone(nbuser);
                 printf(" a été supprimer\n");
                 sorti = true;
                 break;
@@ -349,4 +368,27 @@ void modif_user(int user){
                 break;
         }
     } while (!sorti);
+}
+
+bool verification(void){
+    int verif;
+    verif:
+    system("clear");
+    printf("Êtes vous sur ? \n\n");
+    printf("1 - Oui \n");
+    printf("2 - Non \n");
+    printf("\nChoix : ");
+    if (lire_entier(&verif, 1, 2)){
+        printf("\nappuyez sur entrer pour continuer\n");
+        getchar();
+        system("clear");
+        goto verif;
+    }else if (verif == 1){
+        system("clear");
+        return true;
+    }else {
+        system("clear");
+        return false;
+    }
+
 }
