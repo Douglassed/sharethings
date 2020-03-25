@@ -12,5 +12,7 @@ void modifier_fichier_base_proto(void);
 void admin_del_someone(int choix);
 bool check_n_id_existe(int choix);
 void print_id(int choix);
+void fprint_id(int choix);
+int num_id(char* iD);
 
 #endif
