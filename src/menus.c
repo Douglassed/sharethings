@@ -7,7 +7,7 @@
 #include <ctype.h>
 #include <stdbool.h>
 
-void menu_signup(){
+void menu_signup(char * modif){
     /* déclaration des variables */
     bool compare;
     char NDC[30],ch;
@@ -20,22 +20,30 @@ void menu_signup(){
     /* stockage du nom de compte */
     A:
     i = 0;
-    printf("Entrez votre nom de compte : ");
-    ch = getchar();
-    while ( ch != 10 ){
-        ndc[i] = ch;
+    if (modif == " "){
+        printf("Entrez votre nom de compte : ");
         ch = getchar();
-        i++;
-    }
-    ndc[i] = '\0';
+        while ( ch != 10 ){
+            ndc[i] = ch;
+            ch = getchar();
+            i++;
+        }
+        ndc[i] = '\0';
 
-    /* vérification de l'existance du com de compte */
-    if (existe_id(ndc)){
-        printf("Erreur : Nom de compte déjà existant\n");
-        printf("appuyez sur entrer pour continuer\n");
-        getchar();
-        system("clear");
-        goto A;
+        /* vérification de l'existance du com de compte */
+        if (existe_id(ndc)){
+            printf("Erreur : Nom de compte déjà existant\n");
+            printf("appuyez sur entrer pour continuer\n");
+            getchar();
+            system("clear");
+            goto A;
+        }
+    }else{
+        while (modif[i] != '\0'){
+            ndc[i] = modif[i];
+            i++;
+        }
+        ndc[i] = '\0';
     }
     /* stockage du mot de passe */
     password = getpass("Entrer votre mot de passe : "); // get a password
@@ -71,10 +79,12 @@ void menu_signup(){
     /* message de finalisation */
     stocker_id_mdp_inscription(ndc, stock_password);
     system("clear");
-    printf("Vous vous êtes inscrit !\nSous le pseudo : %s\n", ndc);
-    printf("\nappuyez sur entrer pour continuer\n");
-    getchar();
-    menu_accueil();
+        if (modif == " "){
+        printf("Vous vous êtes inscrit !\nSous le pseudo : %s\n", ndc);
+        printf("\nappuyez sur entrer pour continuer\n");
+        getchar();
+        menu_accueil();
+    }
 }
 
 /*-------------------------------------------------------------------------*/
@@ -106,6 +116,10 @@ void menu_signin(char **ndc){
     /* test de l'exactitude du mot de passe */
     chercher_mdp(NDC,&password_check);
     verif = compare_char(password_check,password);
+    for (int j=0;j<15;j++){
+        printf("%d ", password_check[j]);
+    }
+    printf("mdp : %c et mdp : %s\n", password_check[2], password);
     if (!verif){
         printf("\nErreur : combinaison nom de compte et mot de passe erronée\n\n");
         printf("appuyez sur entrer pour continuer\n");
@@ -124,10 +138,7 @@ bool compare_char(char *password,char *passwordbis){
     /* déclaration */
     int j = 0;
     bool correct = true;
-    /*printf("%s\n", password);
-    printf("%s\n", passwordbis);
-    printf("%c\n", password[j]);
-    printf("%c\n", passwordbis[j]);*/
+
     /* test de la similitude des mots de passe */
     while(password[j] != '\0' && passwordbis[j] != '\0' ){
         if (password[j] != passwordbis[j]){
@@ -158,7 +169,7 @@ void menu_accueil(){
       if (choix == 1){
           menu_signin(&NDC);
       }else if (choix == 2){
-          menu_signup();
+          menu_signup(" ");
       }else{
           printf("Erreur : tapez 1 ou 2 \n\n");
           printf("appuyez sur entrer pour continuer\n");
@@ -240,37 +251,40 @@ void menu_user(char **ndc){
             case 1:
                 system("clear");
                 system("sh script/afficheRessources.sh");
-                //ressource
-                goto texte;
+                break;
             case 2:
-                //modif mdp inscrits
+                // Gestion des ressources
                 break;
             case 3:
                 if (verification()){
                     admin_del_someone(num_id(*ndc));
                     printf("Le compte %s a été supprimer avec succès\n", *ndc);
                     printf("\nVous allez quitter le programme\n");
-                    sorti = true;
+                    goto LEAVE;
                 }
-                goto texte;
+                break;
             case 4:
-                printf("Gestion du compte\n");
-                //1 - modifier mot de passe
-                //supression de son compte
-                goto texte;
+                system("clear");
+                printf("Votre nouveau mot de passe : \n\n");
+                admin_del_someone(num_id(*ndc));
+                menu_signup(*ndc);
+                system("clear");
+                printf("Mot de passe enregistré !\n");
+                break;
             case 5:
-                sorti = true;
+                goto LEAVE;
                 break;
             default:
-                texte:
-                printf("\nappuyez sur entrer pour continuer\n");
-                getchar();
-                system("clear");
                 break;
         }
-
+        printf("\nappuyez sur entrer pour continuer\n");
+        getchar();
+        system("clear");
     }while (sorti == false);
-
+    LEAVE:
+    system("clear");
+    printf("Aurevoir %s, et a bientot sur Sharethings :p\n", *ndc);
+    getchar();
 }
 
 
