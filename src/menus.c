@@ -7,7 +7,7 @@
 #include <ctype.h>
 #include <stdbool.h>
 
-void menu_signup(char * modif){
+int menu_signup(char * modif){
     /* déclaration des variables */
     bool compare;
     char NDC[30],ch;
@@ -18,7 +18,6 @@ void menu_signup(char * modif){
     char *passwordbis; // password string pointer
 
     /* stockage du nom de compte */
-    A:
     i = 0;
     if (modif == " "){
         printf("Entrez votre nom de compte : ");
@@ -36,7 +35,7 @@ void menu_signup(char * modif){
             printf("appuyez sur entrer pour continuer\n");
             getchar();
             system("clear");
-            goto A;
+            return 1;
         }
     }else{
         while (modif[i] != '\0'){
@@ -64,7 +63,7 @@ void menu_signup(char * modif){
         printf("appuyez sur entrer pour continuer\n");
         getchar();
         system("clear");
-        goto A;
+        return 1;
     }
 
     /* vérification de la similitude des mots de passe et gestion erreur */
@@ -73,7 +72,7 @@ void menu_signup(char * modif){
         printf("appuyez sur entrer pour continuer\n");
         getchar();
         system("clear");
-        goto A;
+        return 1;
     }
 
     /* message de finalisation */
@@ -83,13 +82,13 @@ void menu_signup(char * modif){
         printf("Vous vous êtes inscrit !\nSous le pseudo : %s\n", ndc);
         printf("\nappuyez sur entrer pour continuer\n");
         getchar();
-        menu_accueil();
     }
+    return 0;
 }
 
 /*-------------------------------------------------------------------------*/
 
-void menu_signin(char **ndc){
+int menu_signin(char **ndc){
     /* déclaration des variables */
     bool verif;
     char ch;
@@ -99,7 +98,6 @@ void menu_signin(char **ndc){
     int i;
 
     /* récuperation du nom de compte */
-    error_signin:
     printf("Entrez votre nom de compte : ");
     ch = getchar();
     i=0;
@@ -116,19 +114,17 @@ void menu_signin(char **ndc){
     /* test de l'exactitude du mot de passe */
     chercher_mdp(NDC,&password_check);
     verif = compare_char(password_check,password);
-    for (int j=0;j<15;j++){
-        printf("%d ", password_check[j]);
-    }
-    printf("mdp : %c et mdp : %s\n", password_check[2], password);
+
     if (!verif){
         printf("\nErreur : combinaison nom de compte et mot de passe erronée\n\n");
         printf("appuyez sur entrer pour continuer\n");
         getchar();
         system("clear");
-        goto error_signin;
+        return 1;
     }
     system("clear");
     *ndc = NDC;
+    return 0;
 
 }
 
@@ -146,37 +142,41 @@ bool compare_char(char *password,char *passwordbis){
         }
         j++;
     }
-    return (correct && (strlen(passwordbis) == strlen(password)));
+    if (correct && (strlen(passwordbis) == strlen(password))){
+        return true;
+    }
+    return false;
 }
 
 /*-------------------------------------------------------------------------*/
 
 void menu_accueil(){
     /* déclaration */
-    int erreur;
+    int restart;
     int choix;
     char *NDC;
-    system("clear");
 
     /* affichage du menu d'accueil */
     do{
+        system("clear");
         printf(" ----------------------------\n");
         printf("|Bienvenue dans Sharethings !|\n");
         printf(" ----------------------------\n\n");
         printf("| 1 | - Se connecter\n| 2 | - S'inscrire\n\n");
         printf("choisissez : ");
-        erreur = lire_entier(&choix, 1, 2);
+        restart = lire_entier(&choix, 1, 2);
       if (choix == 1){
-          menu_signin(&NDC);
+          restart = menu_signin(&NDC);
       }else if (choix == 2){
           menu_signup(" ");
+          restart = 1;
       }else{
           printf("Erreur : tapez 1 ou 2 \n\n");
           printf("appuyez sur entrer pour continuer\n");
           getchar();
           system("clear");
       }
-  } while ((choix != 1 && choix != 2) || erreur == 1);
+  } while ((choix != 1 && choix != 2) || restart == 1);
 
   /* accès menu admin ou utilisateur*/
   if (compare_char(NDC,"admin")){
@@ -201,12 +201,15 @@ int lire_entier(int *a,int min, int max){
     if (nb_lu != 1){
         printf("\nErreur : veuillez entrez un entier\n\n");
         erreur = 1;
+        *a = -1;
     }else if (nb_jete!=0){
         printf("\nErreur : veuillez ne pas séparer votre chaine de caractère\n\n");
         erreur = 1;
+        *a = -1;
     }else if (max != 0 && (*a < min || *a > max)){
         printf("\nErreur : Entrez un entier entre %d et %d compris !\n", min, max);
         erreur = 1;
+        *a = -1;
     }
 
     return erreur;
@@ -235,8 +238,7 @@ int lire_fin_ligne (){
 void menu_user(char **ndc){
     /* déclaration */
     int choix;
-    bool sorti = false;
-
+    bool sortir = false;
     /* affichage du menu utilisateur et choix de l'action */
     do {
         printf("menus : \n\n");
@@ -260,27 +262,29 @@ void menu_user(char **ndc){
                     admin_del_someone(num_id(*ndc));
                     printf("Le compte %s a été supprimer avec succès\n", *ndc);
                     printf("\nVous allez quitter le programme\n");
-                    goto LEAVE;
+                    sortir = true;
                 }
                 break;
             case 4:
                 system("clear");
-                printf("Votre nouveau mot de passe : \n\n");
+                printf("Nouveau mot de passe : \n\n");
                 admin_del_someone(num_id(*ndc));
-                menu_signup(*ndc);
+                while (menu_signup(*ndc) == 1);
                 system("clear");
                 printf("Mot de passe enregistré !\n");
                 break;
             case 5:
-                goto LEAVE;
+                sortir = true;
                 break;
             default:
                 break;
         }
-        printf("\nappuyez sur entrer pour continuer\n");
-        getchar();
-        system("clear");
-    }while (sorti == false);
+        if (!sortir){
+            printf("\nappuyez sur entrer pour continuer\n");
+            getchar();
+            system("clear");
+        }
+    }while (sortir == false);
     LEAVE:
     system("clear");
     printf("Aurevoir %s, et a bientot sur Sharethings :p\n", *ndc);
@@ -348,28 +352,29 @@ void modif_user(int nbuser){
     bool sorti = false;
 
     /* affcihe le menu modification d'un utilisateur */
-    printf("pour ");
-    system("clear");
-    print_id(nbuser);
-    printf(" :\n");
-    printf("1 - modifier le mot de passe\n");
-    printf("2 - Supprimer le compte\n");
-    printf("3 - Annuler\n");
-    printf("Choix : ");
-    lire_entier(&choice, 1, 3);
+    do{
+        printf("pour ");
+        system("clear");
+        print_id(nbuser);
+        printf(" :\n\n");
+        printf("1 - modifier le mot de passe\n");
+        printf("2 - Supprimer le compte\n");
+        printf("3 - Annuler\n");
+        printf("\nChoix : ");
 
-    /* gestion du choix */
-        do{
+        /* gestion du choix */
+        lire_entier(&choice, 1, 3);
         switch (choice) {
             case 1:
                 //modif mdp
                 sorti = true;
             case 2:
-                printf("\n");
-                print_id(nbuser);
-                admin_del_someone(nbuser);
-                printf(" a été supprimer\n");
-                sorti = true;
+                if (verification()){
+                    print_id(nbuser);
+                    admin_del_someone(nbuser);
+                    printf(" a été supprimer\n");
+                    sorti = true;
+                }
                 break;
             case 3:
                 sorti = true;
