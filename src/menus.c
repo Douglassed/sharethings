@@ -237,13 +237,14 @@ int lire_fin_ligne (){
 
 
 /*-------------------------------------------------------------------------*/
+void menu_recherche_ress();
+
 
 void menu_user(char **ndc){
     /* déclaration */
     int choix;
     bool sortir = false;
     /* affichage du menu utilisateur et choix de l'action */
-    A:
     do {
         printf("menus : \n\n");
         printf("1 - Rechercher une ressource\n");
@@ -256,7 +257,8 @@ void menu_user(char **ndc){
         switch (choix) {
             case 1:
                 system("clear");
-                system("sh script/afficheRessources.sh");                                                 //enlever le system(script) et rajouter ici la fonction menu_recherche_ress()
+                menu_recherche_ress();
+                 //enlever le system(script) et rajouter ici la fonction menu_recherche_ress()
                 break;
             case 2:
                 // Gestion des ressources
@@ -283,15 +285,15 @@ void menu_user(char **ndc){
             default:
                 break;
         }
-        if (!sortir){
+        if (choix != 1 && choix != 5){
+            printf("ici ? %d\n", choix);
             printf("\nappuyez sur entrer pour continuer\n");
             getchar();
             system("clear");
         }
     }while (sortir == false);
     system("clear");
-    printf("Aurevoir %s, et a bientot sur Sharethings :p\n", *ndc);
-    getchar();
+    printf("\nAurevoir %s, et a bientot sur Sharethings :p\n\n", *ndc);
 }
 
 /*-------------------------------------------------------------------------*/
@@ -413,14 +415,17 @@ bool verification(void){
         system("clear");
         return false;
     }
+}
 /*-------------------------------------------------------------------------*/
 /*-------------------------------------------------------------------------*/
 /*-------------------------------------------------------------------------*/
 
 void menu_recherche_specifique(char *obj){
   int choix;
-  lire_entier(&choix,1,100);
-  system("clear");
+  printf("\nChoisissez : ");
+  if (!lire_entier(&choix,1,0)){
+      system("clear");
+  }
   afficher_detail_obj(obj, choix);
   printf("\nappuyez sur entrer pour continuer\n");
   getchar();
@@ -436,51 +441,45 @@ void menu_recherche_ress(){
 
   /* affichage du menu et choix de l'action */
   do {
+      system("clear");
       printf("Choisissez la catégorie d'objet que vous souhaitez rechercher : \n\n");
+      printf("0 - Retour\n\n");
       printf("1 - Livre\n");
       printf("2 - Electronique\n");
-      printf("3 - Outil\n");
-      printf("4 - Retour\n\n");
+      printf("3 - Outil\n\n");
+
+      printf("Choisissez : ");
       //printf("%s, Choisissez : ",*ndc);
-      lire_entier(&choix, 1, 4);
+      if (lire_entier(&choix, 0, 3)){
+          getchar();
+      }
+      system("clear");
+      printf("Choisissez un objet par son numéro pour plus de détails :\n\n");
       switch (choix) {
+          case 0:
+              sorti=true;
+              break;
           case 1:
               objet = "livre";
-              A:
-              system("clear");
-              printf("Choisissez un objet par son numéro pour plus de détails :\n\n");
+
               afficher_liste_obj(objet);
               menu_recherche_specifique(objet);
-              goto A;
               break;
           case 2:
               objet = "electronique";
-              B:
-              system("clear");
-              printf("Choisissez un objet par son numéro pour plus de détails :\n\n");
               afficher_liste_obj(objet);
               menu_recherche_specifique(objet);
-              goto B;
               break;
           case 3:
               objet = "outil";
-              C:
-              system("clear");
-              printf("Choisissez un objet par son numéro pour plus de détails :\n\n");
               afficher_liste_obj(objet);
               menu_recherche_specifique(objet);
-              goto C;
               break;
-          case 4:
-              sorti=true;
-              break;
+
           default:
-              break;
+            break;
       }
-      //printf("\nappuyez sur entrer pour continuer\n");
-      if(sorti==false)
-        getchar();
-      system("clear");
+
   }while (sorti == false);
-  }
+
 }

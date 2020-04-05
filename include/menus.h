@@ -4,6 +4,8 @@
 
 typedef struct _menus * Menus;
 
+void menu_recherche_ress();
+void menu_recherche_specifique(char *obj);
 int menu_signup(char * modif);
 int menu_signin(char **ndc);
 bool compare_char(char *password,char *passwordbis);
@@ -15,8 +17,5 @@ void menu_user(char **ndc);
 bool condition(char *ndc, char *format);
 void modif_user(int choix);
 bool verification(void);
-
-void menu_recherche_ress(void);
-void menu_recherche_specifique(char *obj);
 
 #endif
