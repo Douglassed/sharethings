@@ -14,5 +14,9 @@ bool check_n_id_existe(int choix);
 void print_id(int choix);
 void fprint_id(int choix);
 int num_id(char* iD);
+int ligne_bonne_categorie(int choix);
+int ligne_bon_obj(int num_cat, char *iD, char *Obj);
+void del_ressource(int num_ligne);
+void add_ressource(int num_ligne_cat, char *iD, char *Descr, char *ObjName);
 
 #endif

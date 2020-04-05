@@ -439,3 +439,291 @@ int num_id(char* iD){
 //char *nom = "Lou";
 //int a = num_id(nom);
 //printf("%d\n", a);
+
+/*-------------------------------------------------------------------------*/
+
+int ligne_bonne_categorie(int choix){
+    /* Open the file for reading and the other to write */
+    bool in_categorie;
+    char *line_buf = NULL;
+    size_t line_buf_size = 0;
+    int line_count = 0;
+    ssize_t line_size;
+    FILE *fp = fopen("./json/Json.json", "r");
+    char *line_buf_check;
+    int res;
+
+    switch (choix) {
+      case 1:
+        line_buf_check = "  \"livre\": [";
+        break;
+      case 2:
+        line_buf_check = "  \"electronique\": [";
+        break;
+      case 3:
+        line_buf_check = "  \"outil\": [";
+        break;
+      default:
+        break;
+    }
+
+    /* Get the first line of the file. */
+    line_size = getline(&line_buf, &line_buf_size, fp);
+
+    /* Loop through until we are done with the file. */
+    while (line_size >= 0)
+    {
+      line_count++;
+      /* Show the line details and printing them into the second file */
+      //printf("Contents: %s", line_buf);
+      in_categorie = true;
+      for(int a = 0; line_buf_check[a]!='\0'; a++){
+        if(line_buf[a]!=line_buf_check[a])
+          in_categorie = false;
+      }
+      if(in_categorie==true)
+        res = line_count;
+
+      /* Get the next line */
+      line_size = getline(&line_buf, &line_buf_size, fp);
+    }
+
+    /* Free the allocated line buffer */
+    free(line_buf);
+    line_buf = NULL;
+
+    /* Close files now that we are done with */
+    fclose(fp);
+    return res;
+  }
+//int a = ligne_bonne_categorie(2);
+//printf("%d\n",a); --> 16
+
+int ligne_bon_obj(int num_cat, char *iD, char *Obj){
+    /* Open the file for reading and the other to write */
+    bool in_categorie;
+    char *line_buf = NULL;
+    size_t line_buf_size = 0;
+    int line_count = 0;
+    ssize_t line_size;
+    FILE *fp = fopen("./json/Json.json", "r");
+    char *line_buf_check;
+    int bombe;
+    int res;
+
+    char mot_vide_obj[17] = "      \"Name\": \"";
+    char mot_vide_fin[3] = "\",";
+    char *line_buf_check_tmp_obj = strcat(mot_vide_obj, Obj);
+    char *line_buf_check_obj = strcat(line_buf_check_tmp_obj, mot_vide_fin);
+
+
+    char mot_vide[25] = "      \"Proprietaire\": \"";
+    char mot_vide_fin2[2] = "\"";
+    char *line_buf_check_tmp = strcat(mot_vide, iD);
+    //printf("%s\n\n", line_buf_check_tmp);
+    char *line_buf_check_iD = strcat(line_buf_check_tmp, mot_vide_fin2);
+    //printf("%s\n\n", line_buf_check_iD);
+
+
+    switch (num_cat) {
+      case 1:
+        line_buf_check = "  \"livre\": [";
+        break;
+      case 2:
+        line_buf_check = "  \"electronique\": [";
+        break;
+      case 3:
+        line_buf_check = "  \"outil\": [";
+        break;
+      default:
+        break;
+    }
+
+    /* Get the first line of the file. */
+    line_size = getline(&line_buf, &line_buf_size, fp);
+
+    /* Loop through until we are done with the file. */
+    while (line_size >= 0)
+    {
+      line_count++;
+      /* Show the line details and printing them into the second file */
+      //printf("Contents: %s", line_buf);
+      in_categorie = true;
+      for(int a = 0; line_buf_check[a]!='\0'; a++){
+        if(line_buf[a]!=line_buf_check[a])
+          in_categorie = false;
+      }
+      if(in_categorie==true)
+        goto N;
+
+      /* Get the next line */
+      line_size = getline(&line_buf, &line_buf_size, fp);
+    }
+/*----------*//*----------*//*----------*//*----------*//*----------*/
+    N:
+    line_size = getline(&line_buf, &line_buf_size, fp);
+
+    /* Loop through until we are done with the file. */
+    while (line_size >= 0)
+    {
+      line_count++;
+      /* Show the line details and printing them into the second file */
+      //printf("Contents: %s", line_buf);
+      in_categorie = true;
+      for(int a = 0; line_buf_check_obj[a]!='\0'; a++){
+        if(line_buf[a]!=line_buf_check_obj[a])
+          in_categorie = false;
+      }
+      if(in_categorie==true)
+        goto ID;
+
+      /* Get the next line */
+      line_size = getline(&line_buf, &line_buf_size, fp);
+    }
+/*----------*//*----------*//*----------*//*----------*//*----------*/
+    ID:
+    bombe = 0;
+    line_size = getline(&line_buf, &line_buf_size, fp);
+
+    /* Loop through until we are done with the file. */
+    while (line_size >= 0)
+    {
+      line_count++;
+      /* Show the line details and printing them into the second file */
+      //printf("Contents: %s", line_buf);
+      in_categorie = true;
+      for(int a = 0; line_buf_check_iD[a]!='\0'; a++){
+        if(line_buf[a]!=line_buf_check_iD[a])
+          in_categorie = false;
+      }
+      if(in_categorie==true){
+        //printf("  On est ici");
+        res = line_count;
+        //printf(" \n---%d---\n\n",line_count);
+      }
+      bombe++;
+      if(bombe == 3)
+        goto N;
+
+      /* Get the next line */
+      line_size = getline(&line_buf, &line_buf_size, fp);
+    }
+
+    /* Free the allocated line buffer */
+    free(line_buf);
+    line_buf = NULL;
+
+    /* Close files now that we are done with */
+    fclose(fp);
+    //printf("\n\n---%d---\n\n",line_count);
+    return res;
+  }
+//char *Name = "TourPC HP";
+//char *iD = "Monsieur Durand";
+//int a = ligne_bon_obj(2,iD,Name);
+//printf("\n%d\n",a);
+
+void del_ressource(int num_ligne){
+  /* Open the file for reading and the other to write */
+  char *line_buf = NULL;
+  size_t line_buf_size = 0;
+  int line_count = 0;
+  ssize_t line_size;
+  FILE *fp = fopen("./json/Json.json", "r");
+  FILE *fic2 = fopen("./json/Jsonbis.json", "w");
+
+  /* Get the first line of the file. */
+  line_size = getline(&line_buf, &line_buf_size, fp);
+
+  /* Loop through until we are done with the file. */
+  while (line_size >= 0)
+  {
+    /* Increment our line count */
+    line_count++;
+
+    /* Show the line details and printing them into the second file */
+    //printf("Contents: %s", line_buf);
+    if(line_count!=(num_ligne+1) && line_count!=(num_ligne) && line_count!=(num_ligne-1) && line_count!=(num_ligne-2) && line_count!=(num_ligne-3) && line_count!=(num_ligne-4))
+        fputs(line_buf, fic2);
+
+    /* Get the next line */
+    line_size = getline(&line_buf, &line_buf_size, fp);
+  }
+
+  /* Free the allocated line buffer */
+  free(line_buf);
+  line_buf = NULL;
+
+  /* Close files now that we are done with */
+  fclose(fp);
+  fclose(fic2);
+  remove("./json/Json.json");
+  rename("./json/Jsonbis.json", "./json/Json.json");
+  }
+//del_ressource(a);
+
+void add_ressource(int num_ligne_cat, char *iD, char *Descr, char *ObjName){
+  /* Open the file for reading and the other to write */
+  char *line_buf = NULL;
+  size_t line_buf_size = 0;
+  int line_count = 0;
+  ssize_t line_size;
+  FILE *fp = fopen("./json/Json.json", "r");
+  FILE *fic2 = fopen("./json/Jsonbis.json", "w");
+
+  /* Get the first line of the file. */
+  line_size = getline(&line_buf, &line_buf_size, fp);
+
+  /* Loop through until we are done with the file. */
+  while (line_size >= 0)
+  {
+    /* Increment our line count */
+    line_count++;
+
+    /* Show the line details and printing them into the second file */
+    if(line_count==num_ligne_cat-1){
+      fputs("    {\n", fic2);
+
+      char mot_vide_obj[17] = "      \"Name\": \"";
+      char mot_vide_fin[6] = "\",\n";
+      char *nom_stock_tmp = strcat(mot_vide_obj, ObjName);
+      char *nom_stock = strcat(nom_stock_tmp, mot_vide_fin);
+
+      fputs(nom_stock, fic2);
+
+      char mot_vide_obj2[24] = "      \"Description\": \"";
+      char *desc_stock_tmp = strcat(mot_vide_obj2, Descr);
+      char *desc_stock = strcat(desc_stock_tmp, mot_vide_fin);
+
+      fputs(desc_stock, fic2);
+      fputs("      \"En cours de pret\": \"oui\",\n", fic2);
+
+      char mot_vide_obj3[25] = "      \"Proprietaire\": \"";
+      char mot_vide_fin2[5] = "\"\n";
+      char *proprio_stock_tmp = strcat(mot_vide_obj3, iD);
+      char *proprio_stock = strcat(proprio_stock_tmp, mot_vide_fin2);
+
+      fputs(proprio_stock, fic2);
+      fputs("    },\n", fic2);
+    }
+    fputs(line_buf, fic2);
+
+    /* Get the next line */
+    line_size = getline(&line_buf, &line_buf_size, fp);
+  }
+
+  /* Free the allocated line buffer */
+  free(line_buf);
+  line_buf = NULL;
+
+  /* Close files now that we are done with */
+  fclose(fp);
+  fclose(fic2);
+  remove("./json/Json.json");
+  rename("./json/Jsonbis.json", "./json/Json.json");
+  }
+//int n = 16;
+//char *id = "John";
+//char *des = "Voici un super livre, je vous le recommande";
+//char *obj = "Le voyage de Tima";
+//add_ressource(n, id, des, obj);
