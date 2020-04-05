@@ -7,6 +7,8 @@
 #include <ctype.h>
 #include <stdbool.h>
 
+// debut
+
 int menu_signup(char * modif){
     /* déclaration des variables */
     bool compare;
