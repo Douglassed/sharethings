@@ -256,7 +256,7 @@ void menu_user(char **ndc){
         switch (choix) {
             case 1:
                 system("clear");
-                system("sh script/afficheRessources.sh");
+                system("sh script/afficheRessources.sh");                                                 //enlever le system(script) et rajouter ici la fonction menu_recherche_ress()
                 break;
             case 2:
                 // Gestion des ressources
@@ -413,5 +413,74 @@ bool verification(void){
         system("clear");
         return false;
     }
+/*-------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------*/
 
+void menu_recherche_specifique(char *obj){
+  int choix;
+  lire_entier(&choix,1,100);
+  system("clear");
+  afficher_detail_obj(obj, choix);
+  printf("\nappuyez sur entrer pour continuer\n");
+  getchar();
+}
+
+/*-------------------------------------------------------------------------*/
+
+void menu_recherche_ress(){
+  /* déclaration */
+  int choix;
+  bool sorti = false;
+  char *objet;
+
+  /* affichage du menu et choix de l'action */
+  do {
+      printf("Choisissez la catégorie d'objet que vous souhaitez rechercher : \n\n");
+      printf("1 - Livre\n");
+      printf("2 - Electronique\n");
+      printf("3 - Outil\n");
+      printf("4 - Retour\n\n");
+      //printf("%s, Choisissez : ",*ndc);
+      lire_entier(&choix, 1, 4);
+      switch (choix) {
+          case 1:
+              objet = "livre";
+              A:
+              system("clear");
+              printf("Choisissez un objet par son numéro pour plus de détails :\n\n");
+              afficher_liste_obj(objet);
+              menu_recherche_specifique(objet);
+              goto A;
+              break;
+          case 2:
+              objet = "electronique";
+              B:
+              system("clear");
+              printf("Choisissez un objet par son numéro pour plus de détails :\n\n");
+              afficher_liste_obj(objet);
+              menu_recherche_specifique(objet);
+              goto B;
+              break;
+          case 3:
+              objet = "outil";
+              C:
+              system("clear");
+              printf("Choisissez un objet par son numéro pour plus de détails :\n\n");
+              afficher_liste_obj(objet);
+              menu_recherche_specifique(objet);
+              goto C;
+              break;
+          case 4:
+              sorti=true;
+              break;
+          default:
+              break;
+      }
+      //printf("\nappuyez sur entrer pour continuer\n");
+      if(sorti==false)
+        getchar();
+      system("clear");
+  }while (sorti == false);
+  }
 }

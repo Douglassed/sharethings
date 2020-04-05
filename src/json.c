@@ -499,6 +499,8 @@ int ligne_bonne_categorie(int choix){
 //int a = ligne_bonne_categorie(2);
 //printf("%d\n",a); --> 16
 
+/*-------------------------------------------------------------------------*/
+
 int ligne_bon_obj(int num_cat, char *iD, char *Obj){
     /* Open the file for reading and the other to write */
     bool in_categorie;
@@ -623,6 +625,8 @@ int ligne_bon_obj(int num_cat, char *iD, char *Obj){
 //int a = ligne_bon_obj(2,iD,Name);
 //printf("\n%d\n",a);
 
+/*-------------------------------------------------------------------------*/
+
 void del_ressource(int num_ligne){
   /* Open the file for reading and the other to write */
   char *line_buf = NULL;
@@ -661,6 +665,8 @@ void del_ressource(int num_ligne){
   rename("./json/Jsonbis.json", "./json/Json.json");
   }
 //del_ressource(a);
+
+/*-------------------------------------------------------------------------*/
 
 void add_ressource(int num_ligne_cat, char *iD, char *Descr, char *ObjName){
   /* Open the file for reading and the other to write */
