@@ -23,7 +23,7 @@
       "Description": "L'auteur est Muriel Latoupalampa",
       "En cours de pret": "oui",
       "Proprietaire": "PolskaEditor"
-    }
+    },
   ],
   "electronique": [
     {
@@ -37,7 +37,7 @@
       "Description": "i9 GTX1650 16GoRAM 1ToSSD",
       "En cours de pret": "non",
       "Proprietaire": "JeSuisPasUnAlien"
-    }
+    },
   ],
   "outil": [
     {
@@ -51,6 +51,6 @@
       "Description": "Perceuse sans fil",
       "En cours de pret": "oui",
       "Proprietaire": "Bob"
-    }
+    },
   ]
 }

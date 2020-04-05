@@ -111,7 +111,7 @@ int menu_signin(char **ndc){
     NDC[i] = '\0';
 
     /* récuperation du mot de passe */
-    password = getpass("Enter votre mot de passe : "); // get a password
+    password = getpass("Entrez votre mot de passe : "); // get a password
 
     /* test de l'exactitude du mot de passe */
     chercher_mdp(NDC,&password_check);
@@ -235,6 +235,7 @@ int lire_fin_ligne (){
     return res;
 }
 
+
 /*-------------------------------------------------------------------------*/
 
 void menu_user(char **ndc){
@@ -242,12 +243,13 @@ void menu_user(char **ndc){
     int choix;
     bool sortir = false;
     /* affichage du menu utilisateur et choix de l'action */
+    A:
     do {
         printf("menus : \n\n");
         printf("1 - Rechercher une ressource\n");
         printf("2 - Gestion des ressources\n");
         printf("3 - Supprimer son compte\n");
-        printf("4 - modifier son mot de passe\n");
+        printf("4 - Modifier son mot de passe\n");
         printf("5 - Quittez le programme\n\n");
         printf("%s, Choisissez : ",*ndc);
         lire_entier(&choix, 1, 5);
@@ -291,7 +293,6 @@ void menu_user(char **ndc){
     printf("Aurevoir %s, et a bientot sur Sharethings :p\n", *ndc);
     getchar();
 }
-
 
 /*-------------------------------------------------------------------------*/
 
@@ -389,6 +390,8 @@ void modif_user(int nbuser){
         }
     } while (!sorti);
 }
+
+/*-------------------------------------------------------------------------*/
 
 bool verification(void){
     int verif;

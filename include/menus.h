@@ -17,5 +17,4 @@ void modif_user(int choix);
 bool verification(void);
 
 
-
 #endif
