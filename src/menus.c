@@ -287,7 +287,6 @@ void menu_user(char **ndc){
             system("clear");
         }
     }while (sortir == false);
-    LEAVE:
     system("clear");
     printf("Aurevoir %s, et a bientot sur Sharethings :p\n", *ndc);
     getchar();
