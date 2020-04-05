@@ -4,8 +4,8 @@
 
 typedef struct _menus * Menus;
 
-void menu_signup(char * modif);
-void menu_signin(char **ndc);
+int menu_signup(char * modif);
+int menu_signin(char **ndc);
 bool compare_char(char *password,char *passwordbis);
 void menu_admin(void);
 void menu_accueil(void);
