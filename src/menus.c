@@ -237,7 +237,6 @@ int lire_fin_ligne (){
 
 
 /*-------------------------------------------------------------------------*/
-void menu_recherche_ress();
 
 
 void menu_user(char **ndc){
@@ -258,10 +257,9 @@ void menu_user(char **ndc){
             case 1:
                 system("clear");
                 menu_recherche_ress();
-                 //enlever le system(script) et rajouter ici la fonction menu_recherche_ress()
                 break;
             case 2:
-                // Gestion des ressources
+                // Gestion de ses ressources
                 break;
             case 3:
                 if (verification()){
@@ -286,7 +284,6 @@ void menu_user(char **ndc){
                 break;
         }
         if (choix != 1 && choix != 5){
-            printf("ici ? %d\n", choix);
             printf("\nappuyez sur entrer pour continuer\n");
             getchar();
             system("clear");
@@ -416,19 +413,30 @@ bool verification(void){
         return false;
     }
 }
+
 /*-------------------------------------------------------------------------*/
 /*-------------------------------------------------------------------------*/
 /*-------------------------------------------------------------------------*/
 
 void menu_recherche_specifique(char *obj){
   int choix;
-  printf("\nChoisissez : ");
-  if (!lire_entier(&choix,1,0)){
-      system("clear");
-  }
-  afficher_detail_obj(obj, choix);
-  printf("\nappuyez sur entrer pour continuer\n");
-  getchar();
+  bool sorti = false;
+  do {
+      printf("0. Retour\n\n");
+      afficher_liste_obj(obj);
+      printf("\nChoisissez : ");
+      if (!lire_entier(&choix,1,0)){
+          system("clear");
+      }
+      if (choix != 0){
+          afficher_detail_obj(obj, choix);
+          printf("\nappuyez sur entrer pour continuer\n");
+          getchar();
+          system("clear");
+      }else{
+          sorti = true;
+      }
+  }while (!sorti);
 }
 
 /*-------------------------------------------------------------------------*/
@@ -461,23 +469,19 @@ void menu_recherche_ress(){
               break;
           case 1:
               objet = "livre";
-
-              afficher_liste_obj(objet);
-              menu_recherche_specifique(objet);
               break;
           case 2:
               objet = "electronique";
-              afficher_liste_obj(objet);
-              menu_recherche_specifique(objet);
               break;
           case 3:
               objet = "outil";
-              afficher_liste_obj(objet);
-              menu_recherche_specifique(objet);
               break;
 
           default:
             break;
+      }
+      if (!sorti){
+          menu_recherche_specifique(objet);
       }
 
   }while (sorti == false);
