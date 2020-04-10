@@ -235,9 +235,7 @@ int lire_fin_ligne (){
     return res;
 }
 
-
 /*-------------------------------------------------------------------------*/
-
 
 void menu_user(char **ndc){
     /* déclaration */
@@ -415,13 +413,12 @@ bool verification(void){
 }
 
 /*-------------------------------------------------------------------------*/
-/*-------------------------------------------------------------------------*/
-/*-------------------------------------------------------------------------*/
 
 void menu_recherche_specifique(char *obj){
   int choix;
   bool sorti = false;
   do {
+      printf("Choisissez un objet par son numéro pour plus de détails :\n\n");
       printf("0. Retour\n\n");
       afficher_liste_obj(obj);
       printf("\nChoisissez : ");
@@ -462,7 +459,6 @@ void menu_recherche_ress(){
           getchar();
       }
       system("clear");
-      printf("Choisissez un objet par son numéro pour plus de détails :\n\n");
       switch (choix) {
           case 0:
               sorti=true;
