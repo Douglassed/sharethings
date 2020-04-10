@@ -124,6 +124,15 @@ int menu_signin(char **ndc){
         system("clear");
         return 1;
     }
+
+    /* vérification de la taille du mot de passe */
+    if (condition(ndc,"Nom de compte") || condition(password,"Mot de passe")){
+        printf("appuyez sur entrer pour continuer\n");
+        getchar();
+        system("clear");
+        return 1;
+    }
+
     system("clear");
     *ndc = NDC;
     return 0;
@@ -337,7 +346,7 @@ void menu_admin(){
 bool condition(char *ndc, char *format){
     /* test de la taille de la chaîne de caractère */
     if (strlen(ndc) > 20 || strlen(ndc) < 2){
-        printf("Erreur : %s doit être compris entre 2 et 20 caractères\n", format);
+        printf("\nErreur : %s doit être compris entre 2 et 20 caractères\n", format);
         return true;
     }
     return false;
