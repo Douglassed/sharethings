@@ -371,7 +371,7 @@ void modif_user(int nbuser){
         switch (choice) {
             case 1:
                 //modif mdp
-                sorti = true;
+                break;
             case 2:
                 if (verification()){
                     print_id(nbuser);
