@@ -56,8 +56,10 @@ void afficher_detail_obj(char *obj, int choix){
       // get the i-th object in medi_array
       medi_array_obj = json_object_array_get_idx(medi_array, j);
       // get the name attribute in the i-th object
-      medi_array_obj_name = json_object_object_get(medi_array_obj, "Description");//changer "vert" en détail à choisir
+      medi_array_obj_name = json_object_object_get(medi_array_obj, "Name");//changer "vert" en détail à choisir
       // print out the name attribute
+      printf("Name : %s\n",json_object_get_string(medi_array_obj_name));
+      medi_array_obj_name = json_object_object_get(medi_array_obj, "Description");//changer "vert" en détail à choisir
       printf("Description : %s\n",json_object_get_string(medi_array_obj_name));
       medi_array_obj_name = json_object_object_get(medi_array_obj, "En cours de pret");//changer "vert" en détail à choisir
       printf("En cours de pret : %s\n",json_object_get_string(medi_array_obj_name));
@@ -733,3 +735,185 @@ void add_ressource(int num_ligne_cat, char *iD, char *Descr, char *ObjName){
 //char *des = "Voici un super livre, je vous le recommande";
 //char *obj = "Le voyage de Tima";
 //add_ressource(n, id, des, obj);
+
+/*-------------------------------------------------------------------------*/
+
+void sauvegarder_detail_obj(char *obj, int choix, int choix_modif, char **sauv){
+    struct json_object *med_obj, *medi_array, *medi_array_obj, *medi_array_obj_name;
+    int arraylen, j;
+    static const char filename[] = "./json/Json.json";
+    med_obj = json_object_from_file(filename);
+    medi_array = json_object_object_get(med_obj, obj);
+
+    // medi_array is an array of objects
+    arraylen = json_object_array_length(medi_array);
+
+    choix = choix-1;
+
+    for (j = 0; j < arraylen; j++) {
+      if(choix==j){
+        // get the i-th object in medi_array
+        medi_array_obj = json_object_array_get_idx(medi_array, j);
+        switch (choix_modif) {
+          case 1:
+            medi_array_obj_name = json_object_object_get(medi_array_obj, "Name");
+            *sauv = json_object_get_string(medi_array_obj_name);
+            break;
+          case 2:
+            medi_array_obj_name = json_object_object_get(medi_array_obj, "Description");
+            *sauv = json_object_get_string(medi_array_obj_name);
+            break;
+          default:
+            break;
+        }
+      }
+    }
+  }
+//char *objet = "livre";
+//int choix_livre = 2;
+//char *sauvegarde_detail;
+//sauvegarder_detail_obj(objet, choix_livre,1,&sauvegarde_detail);
+//printf("%s\n", sauvegarde_detail);
+
+/*-------------------------------------------------------------------------*/
+
+int quel_n_eme_obj(int l,int l_c){
+    l=l-5;
+    int i = 1;
+    if(l==l_c)
+      return 1;
+    else{
+      while(l!=l_c){
+        l=l-6;
+        i++;
+      }
+      return i;
+    }
+  }
+//int i = quel_n_eme_obj(19, 2);
+//printf("%d", i);
+
+/*-------------------------------------------------------------------------*/
+
+void modif_ressource_sauf_pret(int num_cat, char *iD, char *ObjName, int choix_modif){
+    FILE *fp = fopen("./json/Json.json", "r+");
+    int l = ligne_bon_obj(num_cat,iD,ObjName);
+    int l_c = ligne_bonne_categorie(num_cat+1);
+    int l_c_toknow_n_eme_obj = ligne_bonne_categorie(num_cat);
+    //printf("%d %d\n",l,l_c_toknow_n_eme_obj);
+    char *Nom;//malloc
+    char *Desc;//malloc
+    char *categorie;
+    switch (num_cat) {
+      case 1:
+        categorie = "livre";
+        break;
+      case 2:
+        categorie = "electronique";
+        break;
+      case 3:
+        categorie = "outil";
+        break;
+      default:
+        break;
+    }
+    int n_eme_obj = quel_n_eme_obj(l, l_c_toknow_n_eme_obj);
+    sauvegarder_detail_obj(categorie,n_eme_obj,1,&Nom);
+    sauvegarder_detail_obj(categorie,n_eme_obj,2,&Desc);
+    if(choix_modif==1){
+      printf("Actuel nom : %s\n", Nom);
+      printf("Nouveau nom: ");
+      scanf("%s\n", Nom);
+      printf("N: %s\n", Nom);
+    }
+    else{
+      printf("Actuelle description : %s\n", Desc);
+      printf("Nouvelle description: ");
+      scanf("%s\n", Desc);
+      printf("N: %s\n", Desc);
+    }
+    add_ressource(l_c, iD, Desc, Nom);
+    del_ressource(l);
+    fclose(fp);
+  }
+//char *Name = "RussiaIsAHeaven";
+//char *iD = "KGB";
+//int choix_modif = 2;  //choisir un ou deux suivant modif nom ou description
+//modif_ressource_sauf_pret(1,iD,Name,choix_modif);
+
+/*-------------------------------------------------------------------------*/
+void afficher_liste_obj_du_proprio(char *obj,char *proprio){
+  struct json_object *med_obj, *medi_array, *medi_array_obj, *medi_array_obj_name;
+  int arraylen, j;
+  int count = 0;
+  bool appartient = true;
+  static const char filename[] = "./json/Json.json";
+  med_obj = json_object_from_file(filename);
+  medi_array = json_object_object_get(med_obj, obj);
+
+  // medi_array is an array of objects
+  arraylen = json_object_array_length(medi_array);
+
+  for (j = 0; j < arraylen; j++) {
+    // get the i-th object in medi_array
+    medi_array_obj = json_object_array_get_idx(medi_array, j);
+    // get the name attribute in the i-th object
+    medi_array_obj_name = json_object_object_get(medi_array_obj, "Proprietaire");
+    char *id_a_check = json_object_get_string(medi_array_obj_name);
+    appartient = true;
+    for(int a = 0; proprio[a]!='\0'; a++){
+      if(id_a_check[a]!=proprio[a])
+        appartient = false;
+    }
+    if(appartient==true){
+      medi_array_obj_name = json_object_object_get(medi_array_obj, "Name");
+      printf("%d. %s\n",count+1,json_object_get_string(medi_array_obj_name));
+      count++;
+    }
+  }
+}
+//char *objet = "electronique";
+//char *proprio ="Monsieur Durand";
+//afficher_liste_obj_du_proprio(objet, proprio);
+
+/*-------------------------------------------------------------------------*/
+
+void afficher_choix_obj_du_proprio(char *obj,char *proprio, int choix, char **sauv){
+  struct json_object *med_obj, *medi_array, *medi_array_obj, *medi_array_obj_name;
+  int arraylen, j;
+  int count = 0;
+  bool appartient = true;
+  static const char filename[] = "./json/Json.json";
+  med_obj = json_object_from_file(filename);
+  medi_array = json_object_object_get(med_obj, obj);
+
+  // medi_array is an array of objects
+  arraylen = json_object_array_length(medi_array);
+
+  for (j = 0; j < arraylen; j++) {
+    // get the i-th object in medi_array
+    medi_array_obj = json_object_array_get_idx(medi_array, j);
+    // get the name attribute in the i-th object
+    medi_array_obj_name = json_object_object_get(medi_array_obj, "Proprietaire");
+    char *id_a_check = json_object_get_string(medi_array_obj_name);
+    appartient = true;
+    for(int a = 0; proprio[a]!='\0'; a++){
+      if(id_a_check[a]!=proprio[a])
+        appartient = false;
+    }
+    if(appartient==true){
+      if(count==choix-1){
+        medi_array_obj_name = json_object_object_get(medi_array_obj, "Name");
+        //printf("%s\n",json_object_get_string(medi_array_obj_name));
+        *sauv = json_object_get_string(medi_array_obj_name);
+      }
+      count++;
+    }
+  }
+}
+//char *objet = "electronique";
+//char *proprio ="Monsieur Durand";
+//int choix = 2;
+//char *sauvegarde_detail;
+//afficher_choix_obj_du_proprio(objet, proprio, choix, &sauvegarde_detail);
+//printf("%s\n", sauvegarde_detail);
