@@ -124,6 +124,15 @@ int menu_signin(char **ndc){
         system("clear");
         return 1;
     }
+
+    /* vérification de la taille du mot de passe */
+    if (condition(ndc,"Nom de compte") || condition(password,"Mot de passe")){
+        printf("appuyez sur entrer pour continuer\n");
+        getchar();
+        system("clear");
+        return 1;
+    }
+
     system("clear");
     *ndc = NDC;
     return 0;
@@ -235,10 +244,7 @@ int lire_fin_ligne (){
     return res;
 }
 
-
 /*-------------------------------------------------------------------------*/
-void menu_recherche_ress();
-
 
 void menu_user(char **ndc){
     /* déclaration */
@@ -258,10 +264,9 @@ void menu_user(char **ndc){
             case 1:
                 system("clear");
                 menu_recherche_ress();
-                 //enlever le system(script) et rajouter ici la fonction menu_recherche_ress()
                 break;
             case 2:
-                // Gestion des ressources
+                // Gestion de ses ressources
                 break;
             case 3:
                 if (verification()){
@@ -286,7 +291,6 @@ void menu_user(char **ndc){
                 break;
         }
         if (choix != 1 && choix != 5){
-            printf("ici ? %d\n", choix);
             printf("\nappuyez sur entrer pour continuer\n");
             getchar();
             system("clear");
@@ -342,7 +346,7 @@ void menu_admin(){
 bool condition(char *ndc, char *format){
     /* test de la taille de la chaîne de caractère */
     if (strlen(ndc) > 20 || strlen(ndc) < 2){
-        printf("Erreur : %s doit être compris entre 2 et 20 caractères\n", format);
+        printf("\nErreur : %s doit être compris entre 2 et 20 caractères\n", format);
         return true;
     }
     return false;
@@ -371,7 +375,7 @@ void modif_user(int nbuser){
         switch (choice) {
             case 1:
                 //modif mdp
-                sorti = true;
+                break;
             case 2:
                 if (verification()){
                     print_id(nbuser);
@@ -416,19 +420,29 @@ bool verification(void){
         return false;
     }
 }
-/*-------------------------------------------------------------------------*/
-/*-------------------------------------------------------------------------*/
+
 /*-------------------------------------------------------------------------*/
 
 void menu_recherche_specifique(char *obj){
   int choix;
-  printf("\nChoisissez : ");
-  if (!lire_entier(&choix,1,0)){
-      system("clear");
-  }
-  afficher_detail_obj(obj, choix);
-  printf("\nappuyez sur entrer pour continuer\n");
-  getchar();
+  bool sorti = false;
+  do {
+      printf("Choisissez un objet par son numéro pour plus de détails :\n\n");
+      printf("0. Retour\n\n");
+      afficher_liste_obj(obj);
+      printf("\nChoisissez : ");
+      if (!lire_entier(&choix,1,0)){
+          system("clear");
+      }
+      if (choix != 0){
+          afficher_detail_obj(obj, choix);
+          printf("\nappuyez sur entrer pour continuer\n");
+          getchar();
+          system("clear");
+      }else{
+          sorti = true;
+      }
+  }while (!sorti);
 }
 
 /*-------------------------------------------------------------------------*/
@@ -454,30 +468,25 @@ void menu_recherche_ress(){
           getchar();
       }
       system("clear");
-      printf("Choisissez un objet par son numéro pour plus de détails :\n\n");
       switch (choix) {
           case 0:
               sorti=true;
               break;
           case 1:
               objet = "livre";
-
-              afficher_liste_obj(objet);
-              menu_recherche_specifique(objet);
               break;
           case 2:
               objet = "electronique";
-              afficher_liste_obj(objet);
-              menu_recherche_specifique(objet);
               break;
           case 3:
               objet = "outil";
-              afficher_liste_obj(objet);
-              menu_recherche_specifique(objet);
               break;
 
           default:
             break;
+      }
+      if (!sorti){
+          menu_recherche_specifique(objet);
       }
 
   }while (sorti == false);
