@@ -804,6 +804,8 @@ void modif_ressource_sauf_pret(int num_cat, char *iD, char *ObjName, int choix_m
     char *Nom;//malloc
     char *Desc;//malloc
     char *categorie;
+    int i;
+    char ch;
     switch (num_cat) {
       case 1:
         categorie = "livre";
@@ -823,14 +825,33 @@ void modif_ressource_sauf_pret(int num_cat, char *iD, char *ObjName, int choix_m
     if(choix_modif==1){
       printf("Actuel nom : %s\n", Nom);
       printf("Nouveau nom: ");
-      scanf("%s\n", Nom);
+
+      //remplace scanf :
+      i=0;
+      ch = getchar();
+      while ( ch != 10 ){
+          Nom[i] = ch;
+          ch = getchar();
+          i++;
+          Nom[i] = '\0';
+      }
+      //scanf("%s\n", Nom);
       printf("N: %s\n", Nom);
     }
     else{
       printf("Actuelle description : %s\n", Desc);
       printf("Nouvelle description: ");
-      scanf("%s\n", Desc);
-      printf("N: %s\n", Desc);
+      //scanf("%s\n", Desc);
+      //remplace scanf :
+      i=0;
+      ch = getchar();
+      while ( ch != 10 ){
+          Desc[i] = ch;
+          ch = getchar();
+          i++;
+          Desc[i] = '\0';
+      }
+      //printf("N: %s\n", Desc);
     }
     add_ressource(l_c, iD, Desc, Nom);
     del_ressource(l);

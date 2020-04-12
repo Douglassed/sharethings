@@ -236,9 +236,7 @@ int lire_fin_ligne (){
     c=getchar();
     while ((c!= EOF) && (c!= '\n')){
         c=getchar();
-        if (!isspace(c)){
-            res=res+1;
-        }
+        res=res+1;
 
     }
     return res;
@@ -263,10 +261,11 @@ void menu_user(char **ndc){
         switch (choix) {
             case 1:
                 system("clear");
-                menu_recherche_ress();
+                menu_affiche_ress(1);
                 break;
             case 2:
-                // Gestion de ses ressources
+                menu_gestion_ress(ndc);
+                //add_ressource(menu_affiche_ress(2), *ndc, char *Descr, char *ObjName);
                 break;
             case 3:
                 if (verification()){
@@ -320,24 +319,22 @@ void menu_admin(){
                 system("clear");
                 printf("Liste des inscrits :\n\n");
                 printf("0:  Annuler\n\n");
-                system("grep ':' json/Client.json | cut -f1 -d ':' | grep -n '\"' ");
+                system("grep ':' json/Client.json | cut -f1 -d ':' | tail +2 | grep -n '\"' ");
                 printf("\nchoisir l'inscrit à modifier : ");
                 lire_entier(&choix_user, 0, 0);
-                if (check_n_id_existe(choix_user)){
-                    modif_user(choix_user);
+                if (check_n_id_existe(choix_user + 1) && choix_user != 0){
+                    modif_user(choix_user + 1);
                 }
-                goto texte;
+                break;
             case 2:
                 sorti = true;
                 break;
             default:
-                printf("Erreur : Entrez un entier entre 1 et 2 !\n");
-                texte:
-                printf("\nappuyez sur entrer pour continuer\n");
-                getchar();
-                system("clear");
                 break;
         }
+        printf("\nappuyez sur entrer pour continuer\n");
+        getchar();
+        system("clear");
     }while (!sorti);
 }
 
@@ -365,18 +362,14 @@ void modif_user(int nbuser){
         system("clear");
         print_id(nbuser);
         printf(" :\n\n");
-        printf("1 - modifier le mot de passe\n");
-        printf("2 - Supprimer le compte\n");
-        printf("3 - Annuler\n");
+        printf("1 - Supprimer le compte\n");
+        printf("2 - Annuler\n");
         printf("\nChoix : ");
 
         /* gestion du choix */
-        lire_entier(&choice, 1, 3);
+        lire_entier(&choice, 1, 2);
         switch (choice) {
             case 1:
-                //modif mdp
-                break;
-            case 2:
                 if (verification()){
                     print_id(nbuser);
                     admin_del_someone(nbuser);
@@ -384,11 +377,10 @@ void modif_user(int nbuser){
                     sorti = true;
                 }
                 break;
-            case 3:
+            case 2:
                 sorti = true;
                 break;
             default:
-                printf("Erreur : Entrez un entier entre 1 et 3 !\n");
                 printf("\nappuyez sur entrer pour continuer\n");
                 getchar();
                 system("clear");
@@ -447,16 +439,16 @@ void menu_recherche_specifique(char *obj){
 
 /*-------------------------------------------------------------------------*/
 
-void menu_recherche_ress(){
+int menu_affiche_ress(int fonction){
   /* déclaration */
   int choix;
   bool sorti = false;
   char *objet;
-
+  int ligne = 0;
   /* affichage du menu et choix de l'action */
   do {
       system("clear");
-      printf("Choisissez la catégorie d'objet que vous souhaitez rechercher : \n\n");
+      printf("Choisissez la catégorie de l'objet : \n\n");
       printf("0 - Retour\n\n");
       printf("1 - Livre\n");
       printf("2 - Electronique\n");
@@ -485,10 +477,104 @@ void menu_recherche_ress(){
           default:
             break;
       }
-      if (!sorti){
+      if (!sorti && fonction ==  1){
           menu_recherche_specifique(objet);
+      }
+      if (!sorti && fonction == 2){
+          ligne = ligne_bonne_categorie(choix);
+          printf("%d\n", ligne);
+          sorti = true;
       }
 
   }while (sorti == false);
+  return ligne;
+}
 
+
+void menu_gestion_ress(char** id){
+  /* déclaration */
+  int choix;
+  bool sorti = false;
+
+  /* affichage du menu et choix de l'action */
+  do {
+      system("clear");
+      printf("Gestion de mes ressources : \n\n");
+      printf("0 - Retour\n\n");
+      printf("1 - Ajouter une ressource\n");
+      printf("2 - Modifier une ressource\n");
+      printf("3 - Supprimer mes ressources\n");
+      printf("4 - Liste de mes ressources\n");
+      printf("5 - Mon historique\n");
+
+      printf("\nChoisissez, %s : ",*id);
+      //printf("%s, Choisissez : ",*ndc);
+      if (lire_entier(&choix, 0, 5)){
+          getchar();
+      }
+      system("clear");
+      switch (choix) {
+          case 0:
+              sorti = true;
+              break;
+          case 1:
+              ajout_ress(id);
+
+              break;
+          case 2:
+              break;
+          case 3:
+              break;
+
+          default:
+            break;
+      }
+
+
+  }while (sorti == false);
+}
+
+int ajout_ress(char** id){
+    char description[250];
+    char name[60];
+    // argu 1
+    int lignecat = menu_affiche_ress(2) + 2;
+    if (lignecat == 0){
+        return 1;
+    }
+    //argu 4
+    system("clear");
+    printf("Entrez le nom de l'objet : \n(Entrer pour valider, 50 caractères maximum, 2 mini)\n");
+    printf("\nNom de l'objet : ");
+    char cha = getchar();
+    int j = 0;
+    while ( cha != 10 && j < 10 ){
+        name[j] = cha;
+        cha = getchar();
+        j++;
+        name[j] = '\0';
+    }
+    lire_fin_ligne();
+    if (j)
+    printf("TROU DU CUL\n");
+    getchar();
+    system("clear");
+
+    //argu 3
+    printf("Entrez la description de l'objet : \n(Entrer pour valider, 200 caractères maximum, 2 mini)\n");
+    printf("\nDescription : ");
+    char ch = getchar();
+    int i = 0;
+    while ( ch != 10 && i < 201 ){
+        description[i] = ch;
+        ch = getchar();
+        i++;
+        description[i] = '\0';
+    }
+
+    if (strlen(description) > 2 && strlen(name) > 2){
+        add_ressource(lignecat, *id, description, name);
+        return 0;
+    }
+    return 1;
 }
