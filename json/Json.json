@@ -24,8 +24,26 @@
       "En cours de pret": ".",
       "Proprietaire": "PolskaEditor"
     },
+    {
+      "Name": "tarte a la framboise",
+      "Description": "srgdfs",
+      "En cours de pret": ".",
+      "Proprietaire": "aze"
+    },
+    {
+      "Name": "tourterelle",
+      "Description": "aze",
+      "En cours de pret": ".",
+      "Proprietaire": "aze"
+    },
   ],
   "electronique": [
+    {
+      "Name": "electricite",
+      "Description": "tavu wola",
+      "En cours de pret": "qedqd.",
+      "Proprietaire": "aze"
+    },
     {
       "Name": "TourPC HP",
       "Description": "i7 GTX1050 8GoRAM 512GoSSD",
@@ -38,8 +56,26 @@
       "En cours de pret": ".",
       "Proprietaire": "JeSuisPasUnAlien"
     },
+    {
+      "Name": "test elec",
+      "Description": "ceci est la description",
+      "En cours de pret": ".",
+      "Proprietaire": "aze"
+    },
   ],
   "outil": [
+    {
+      "Name": "ca marche le .",
+      "Description": "jcp ...",
+      "En cours de pret": ".",
+      "Proprietaire": "aze"
+    },
+    {
+      "Name": "tronco",
+      "Description": "sefsdfsdfc",
+      "En cours de pret": "",
+      "Proprietaire": "aze"
+    },
     {
       "Name": "Tronconneuse",
       "Description": "Tronconneuse electrique filaire",

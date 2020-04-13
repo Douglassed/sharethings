@@ -26,6 +26,8 @@ void afficher_choix_obj_du_proprio(char *obj,char *proprio, int choix, char **sa
 void savoir_nom_pret(char *obj, int choix, char **sauv);
 int savoir_si_en_pret(char *obj, int choix);
 void mettre_en_pret_ou_finir_le_pret(int num_cat, char *iD, char *ObjName, char *iD2);
+void savoir_nom_proprio(char *obj, int choix, char **sauv);
+
 
 
 #endif

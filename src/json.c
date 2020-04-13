@@ -811,6 +811,8 @@ void modif_ressource_sauf_pret(int num_cat, char *iD, char *ObjName, int choix_m
     char *Nom;//malloc
     char *Desc;//malloc
     char *categorie;
+    int i;
+    char ch;
     switch (num_cat) {
       case 1:
         categorie = "livre";
@@ -977,6 +979,29 @@ void savoir_nom_pret(char *obj, int choix, char **sauv){
 
 /*-------------------------------------------------------------------------*/
 
+void savoir_nom_proprio(char *obj, int choix, char **sauv){
+    struct json_object *med_obj, *medi_array, *medi_array_obj, *medi_array_obj_name;
+    int arraylen, j;
+    static const char filename[] = "./json/Json.json";
+    med_obj = json_object_from_file(filename);
+    medi_array = json_object_object_get(med_obj, obj);
+
+    // medi_array is an array of objects
+    arraylen = json_object_array_length(medi_array);
+
+    choix = choix-1;
+
+    for (j = 0; j < arraylen; j++) {
+      if(choix==j){
+        // get the i-th object in medi_array
+        medi_array_obj = json_object_array_get_idx(medi_array, j);
+        medi_array_obj_name = json_object_object_get(medi_array_obj, "Proprietaire");
+        *sauv = json_object_get_string(medi_array_obj_name);
+      }
+    }
+  }
+
+
 int savoir_si_en_pret(char *obj, int choix){ // ne te sert pas
     struct json_object *med_obj, *medi_array, *medi_array_obj, *medi_array_obj_name;
     int arraylen, j;
@@ -1046,6 +1071,6 @@ void mettre_en_pret_ou_finir_le_pret(int num_cat, char *iD, char *ObjName, char 
     fclose(fp);
   }
 //char *Name = "RussiaIsAHeaven";
-//char *iD = "KGB";
-//char *ID = "FSB";
+//char *iD = "KGB"; -> proprietaire
+//char *ID2 = "FSB"; -> veux la ressource
 //mettre_en_pret_ou_finir_le_pret(1,iD,Name,ID);
