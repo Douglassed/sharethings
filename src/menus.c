@@ -482,7 +482,6 @@ int menu_affiche_ress(int fonction){
       }
       if (!sorti && fonction == 2){
           ligne = ligne_bonne_categorie(choix);
-          printf("%d\n", ligne);
           sorti = true;
       }
 
@@ -519,7 +518,6 @@ void menu_gestion_ress(char** id){
               break;
           case 1:
               ajout_ress(id);
-
               break;
           case 2:
               break;
@@ -548,17 +546,19 @@ int ajout_ress(char** id){
     printf("\nNom de l'objet : ");
     char cha = getchar();
     int j = 0;
-    while ( cha != 10 && j < 10 ){
+    while ( cha != 10 && j < 50 ){
         name[j] = cha;
         cha = getchar();
         j++;
         name[j] = '\0';
     }
-    lire_fin_ligne();
-    if (j)
-    printf("TROU DU CUL\n");
-    getchar();
-    system("clear");
+    if (j >= 50){
+        lire_fin_ligne();
+        system("clear");
+        printf("Taille maximale dépassé\n");
+        getchar();
+        return 1;
+    }
 
     //argu 3
     printf("Entrez la description de l'objet : \n(Entrer pour valider, 200 caractères maximum, 2 mini)\n");
@@ -570,6 +570,13 @@ int ajout_ress(char** id){
         ch = getchar();
         i++;
         description[i] = '\0';
+    }
+    lire_fin_ligne();
+    if (i == 201){
+        system("clear");
+        printf("Taille maximale dépassé\n");
+        getchar();
+        return 1;
     }
 
     if (strlen(description) > 2 && strlen(name) > 2){

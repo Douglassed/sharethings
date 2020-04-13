@@ -1,36 +1,6 @@
 {
   "livre": [
     {
-      "Name": "touhours u",
-      "Description": "ê™”Î¸",
-      "En cours de pret": "oui",
-      "Proprietaire": "aze"
-    },
-    {
-      "Name": "tarentule ",
-      "Description": " animalecrossing",
-      "En cours de pret": "oui",
-      "Proprietaire": "aze"
-    },
-    {
-      "Name": "voutirette",
-      "Description": "obile efectinvemet",
-      "En cours de pret": "oui",
-      "Proprietaire": "aze"
-    },
-    {
-      "Name": "envie de v",
-      "Description": "yager",
-      "En cours de pret": "oui",
-      "Proprietaire": "aze"
-    },
-    {
-      "Name": "aze",
-      "Description": "aze",
-      "En cours de pret": "oui",
-      "Proprietaire": "aze"
-    },
-    {
       "Name": "MyLittlePoney",
       "Description": "L'auteur est Francois Hollande",
       "En cours de pret": "non",
@@ -57,12 +27,6 @@
   ],
   "electronique": [
     {
-      "Name": "belle ordinateur de poche equip√© de saucisson",
-      "Description": "computer",
-      "En cours de pret": "oui",
-      "Proprietaire": "aze"
-    },
-    {
       "Name": "TourPC HP",
       "Description": "i7 GTX1050 8GoRAM 512GoSSD",
       "En cours de pret": "oui",
@@ -76,12 +40,6 @@
     },
   ],
   "outil": [
-    {
-      "Name": "suicide ou je ne serait quelle autre mauvaise envie",
-      "Description": "bonne qualit√© wallah jdis vrai jsuis pas un menteur tu va voir il faut que j'ecrivel ien de ligne pour voir si la limite marche meme quand elle est depasse ou brise dselon vos envie notamment envie de",
-      "En cours de pret": "oui",
-      "Proprietaire": "aze"
-    },
     {
       "Name": "Tronconneuse",
       "Description": "Tronconneuse electrique filaire",
