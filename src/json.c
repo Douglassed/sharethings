@@ -670,7 +670,7 @@ void del_ressource(int num_ligne){
 
 /*-------------------------------------------------------------------------*/
 
-void add_ressource(int num_ligne_cat, char *iD, char *Descr, char *ObjName){
+void add_ressource(int num_ligne_cat, char *iD, char *Descr, char *ObjName, char *nom_pret){
   /* Open the file for reading and the other to write */
   char *line_buf = NULL;
   size_t line_buf_size = 0;
@@ -704,7 +704,13 @@ void add_ressource(int num_ligne_cat, char *iD, char *Descr, char *ObjName){
       char *desc_stock = strcat(desc_stock_tmp, mot_vide_fin);
 
       fputs(desc_stock, fic2);
-      fputs("      \"En cours de pret\": \"oui\",\n", fic2);
+
+
+      char mot_vide_obj4[29] = "      \"En cours de pret\": \"";
+      char *pret_stock_tmp = strcat(mot_vide_obj4, nom_pret);
+      char *pret_stock = strcat(pret_stock_tmp, mot_vide_fin);
+
+      fputs(pret_stock, fic2);
 
       char mot_vide_obj3[25] = "      \"Proprietaire\": \"";
       char mot_vide_fin2[5] = "\"\n";
@@ -730,11 +736,12 @@ void add_ressource(int num_ligne_cat, char *iD, char *Descr, char *ObjName){
   remove("./json/Json.json");
   rename("./json/Jsonbis.json", "./json/Json.json");
   }
-//int n = 16;
+//int n = 22;
 //char *id = "John";
-//char *des = "Voici un super livre, je vous le recommande";
-//char *obj = "Le voyage de Tima";
-//add_ressource(n, id, des, obj);
+//char *pret = "KGB";
+//char *des = "Voici une super BD";
+//char *obj = "Asterix";
+//add_ressource(n, id, des, obj, pret);
 
 /*-------------------------------------------------------------------------*/
 
@@ -804,8 +811,6 @@ void modif_ressource_sauf_pret(int num_cat, char *iD, char *ObjName, int choix_m
     char *Nom;//malloc
     char *Desc;//malloc
     char *categorie;
-    int i;
-    char ch;
     switch (num_cat) {
       case 1:
         categorie = "livre";
@@ -853,13 +858,15 @@ void modif_ressource_sauf_pret(int num_cat, char *iD, char *ObjName, int choix_m
       }
       //printf("N: %s\n", Desc);
     }
-    add_ressource(l_c, iD, Desc, Nom);
+    char *id_pret;
+    savoir_nom_pret(categorie, n_eme_obj, &id_pret);
+    add_ressource(l_c, iD, Desc, Nom, id_pret);
     del_ressource(l);
     fclose(fp);
   }
 //char *Name = "RussiaIsAHeaven";
 //char *iD = "KGB";
-//int choix_modif = 2;  //choisir un ou deux suivant modif nom ou description
+//int choix_modif = 2;
 //modif_ressource_sauf_pret(1,iD,Name,choix_modif);
 
 /*-------------------------------------------------------------------------*/
@@ -938,3 +945,107 @@ void afficher_choix_obj_du_proprio(char *obj,char *proprio, int choix, char **sa
 //char *sauvegarde_detail;
 //afficher_choix_obj_du_proprio(objet, proprio, choix, &sauvegarde_detail);
 //printf("%s\n", sauvegarde_detail);
+
+/*-------------------------------------------------------------------------*/
+
+void savoir_nom_pret(char *obj, int choix, char **sauv){
+    struct json_object *med_obj, *medi_array, *medi_array_obj, *medi_array_obj_name;
+    int arraylen, j;
+    static const char filename[] = "./json/Json.json";
+    med_obj = json_object_from_file(filename);
+    medi_array = json_object_object_get(med_obj, obj);
+
+    // medi_array is an array of objects
+    arraylen = json_object_array_length(medi_array);
+
+    choix = choix-1;
+
+    for (j = 0; j < arraylen; j++) {
+      if(choix==j){
+        // get the i-th object in medi_array
+        medi_array_obj = json_object_array_get_idx(medi_array, j);
+        medi_array_obj_name = json_object_object_get(medi_array_obj, "En cours de pret");
+        *sauv = json_object_get_string(medi_array_obj_name);
+      }
+    }
+  }
+//char *objet = "livre";
+//int choix_livre = 1;
+//char *ID;
+//savoir_nom_pret(objet, choix_livre, &ID);
+//printf("%s\n", ID);
+
+/*-------------------------------------------------------------------------*/
+
+int savoir_si_en_pret(char *obj, int choix){ // ne te sert pas
+    struct json_object *med_obj, *medi_array, *medi_array_obj, *medi_array_obj_name;
+    int arraylen, j;
+    static const char filename[] = "./json/Json.json";
+    med_obj = json_object_from_file(filename);
+    medi_array = json_object_object_get(med_obj, obj);
+
+    // medi_array is an array of objects
+    arraylen = json_object_array_length(medi_array);
+
+    choix = choix-1;
+    int rep;
+
+    for (j = 0; j < arraylen; j++) {
+      if(choix==j){
+        // get the i-th object in medi_array
+        medi_array_obj = json_object_array_get_idx(medi_array, j);
+        medi_array_obj_name = json_object_object_get(medi_array_obj, "En cours de pret");
+        int test = strcmp(json_object_get_string(medi_array_obj_name), ".");
+      	if(test == 0)
+          rep = 2;
+        else
+          rep = 1;
+      }
+    }
+    return rep;
+  }
+//char *objet = "livre";
+//int choix_livre = 2;
+//int a = savoir_si_en_pret(objet, choix_livre);
+//printf("%d\n", a); //1 si en pret sinon 2 si libre
+
+/*-------------------------------------------------------------------------*/
+
+void mettre_en_pret_ou_finir_le_pret(int num_cat, char *iD, char *ObjName, char *iD2){
+    FILE *fp = fopen("./json/Json.json", "r+");
+    int l = ligne_bon_obj(num_cat,iD,ObjName);
+    int l_c = ligne_bonne_categorie(num_cat+1);
+    int l_c_toknow_n_eme_obj = ligne_bonne_categorie(num_cat);
+    //printf("%d %d\n",l,l_c_toknow_n_eme_obj);
+    char *Nom;//malloc
+    char *Desc;//malloc
+    char *categorie;
+    switch (num_cat) {
+      case 1:
+        categorie = "livre";
+        break;
+      case 2:
+        categorie = "electronique";
+        break;
+      case 3:
+        categorie = "outil";
+        break;
+      default:
+        break;
+    }
+    int n_eme_obj = quel_n_eme_obj(l, l_c_toknow_n_eme_obj);
+    sauvegarder_detail_obj(categorie,n_eme_obj,1,&Nom);
+    sauvegarder_detail_obj(categorie,n_eme_obj,2,&Desc);
+    char *point;
+    savoir_nom_pret(categorie, n_eme_obj, &point);
+    if(strcmp(point, ".") == 0)
+      add_ressource(l_c, iD, Desc, Nom, iD2);
+    else
+      add_ressource(l_c, iD, Desc, Nom, ".");
+    del_ressource(l);
+    fclose(fp);
+  }
+//char *Name = "RussiaIsAHeaven";
+//char *iD = "KGB";
+//char *ID = "FSB";
+//mettre_en_pret_ou_finir_le_pret(1,iD,Name,ID);

@@ -3,25 +3,25 @@
     {
       "Name": "MyLittlePoney",
       "Description": "L'auteur est Francois Hollande",
-      "En cours de pret": "non",
-      "Proprietaire": "Francois lui-meme"
+      "En cours de pret": ".",
+      "Proprietaire": "Francois luimeme"
     },
     {
       "Name": "MausOfTheReich",
       "Description": "L'auteur est Grosinki",
-      "En cours de pret": "non",
+      "En cours de pret": "KGB",
       "Proprietaire": "Kevin"
     },
     {
       "Name": "RussiaIsAHeaven",
       "Description": "L'auteur est Vladidi Putin The Best",
-      "En cours de pret": "oui",
+      "En cours de pret": "Monsieur Durand",
       "Proprietaire": "KGB"
     },
     {
       "Name": "LesOiseauxDePologne",
       "Description": "L'auteur est Muriel Latoupalampa",
-      "En cours de pret": "oui",
+      "En cours de pret": ".",
       "Proprietaire": "PolskaEditor"
     },
   ],
@@ -29,13 +29,13 @@
     {
       "Name": "TourPC HP",
       "Description": "i7 GTX1050 8GoRAM 512GoSSD",
-      "En cours de pret": "oui",
+      "En cours de pret": ".",
       "Proprietaire": "Monsieur Durand"
     },
     {
       "Name": "TourPC AlienWare",
       "Description": "i9 GTX1650 16GoRAM 1ToSSD",
-      "En cours de pret": "non",
+      "En cours de pret": ".",
       "Proprietaire": "JeSuisPasUnAlien"
     },
   ],
@@ -43,13 +43,13 @@
     {
       "Name": "Tronconneuse",
       "Description": "Tronconneuse electrique filaire",
-      "En cours de pret": "non",
+      "En cours de pret": "Bob",
       "Proprietaire": "Monsieur Durand"
     },
     {
       "Name": "Perceuse",
       "Description": "Perceuse sans fil",
-      "En cours de pret": "oui",
+      "En cours de pret": "KGB",
       "Proprietaire": "Bob"
     },
   ]
