@@ -21,12 +21,14 @@ void add_ressource(int num_ligne_cat, char *iD, char *Descr, char *ObjName, char
 void sauvegarder_detail_obj(char *obj, int choix, int choix_modif, char **sauv);
 int quel_n_eme_obj(int l,int l_c);
 void modif_ressource_sauf_pret(int num_cat, char *iD, char *ObjName, int choix_modif);
-void afficher_liste_obj_du_proprio(char *obj,char *proprio);
+int afficher_liste_obj_du_proprio(char *obj,char *proprio);
 void afficher_choix_obj_du_proprio(char *obj,char *proprio, int choix, char **sauv);
 void savoir_nom_pret(char *obj, int choix, char **sauv);
 int savoir_si_en_pret(char *obj, int choix);
 void mettre_en_pret_ou_finir_le_pret(int num_cat, char *iD, char *ObjName, char *iD2);
 void savoir_nom_proprio(char *obj, int choix, char **sauv);
+void afficher_choix_desc_du_proprio(char *obj,char *proprio, int choix, char **sauv);
+
 
 
 

@@ -31,19 +31,13 @@
       "Proprietaire": "aze"
     },
     {
-      "Name": "tourterelle",
-      "Description": "aze",
+      "Name": "ca aussi ",
+      "Description": "change moi ca",
       "En cours de pret": ".",
       "Proprietaire": "aze"
     },
   ],
   "electronique": [
-    {
-      "Name": "electricite",
-      "Description": "tavu wola",
-      "En cours de pret": "qedqd.",
-      "Proprietaire": "aze"
-    },
     {
       "Name": "TourPC HP",
       "Description": "i7 GTX1050 8GoRAM 512GoSSD",
@@ -55,12 +49,6 @@
       "Description": "i9 GTX1650 16GoRAM 1ToSSD",
       "En cours de pret": ".",
       "Proprietaire": "JeSuisPasUnAlien"
-    },
-    {
-      "Name": "test elec",
-      "Description": "ceci est la description",
-      "En cours de pret": ".",
-      "Proprietaire": "aze"
     },
   ],
   "outil": [

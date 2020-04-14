@@ -434,7 +434,7 @@ void menu_recherche_specifique(char *obj){
       printf("0. Retour\n\n");
       afficher_liste_obj(obj);
       printf("\nChoisissez : ");
-      if (!lire_entier(&choix,1,0)){
+      if (!lire_entier(&choix,0,0)){
           system("clear");
       }
       if (choix != 0){
@@ -562,16 +562,17 @@ int ajout_ress(char** id){
         j++;
         name[j] = '\0';
     }
-    if (j >= 50){
+    if (j >= 50 || j < 3){
         lire_fin_ligne();
         system("clear");
-        printf("Taille maximale dépassé\n");
+        printf("Format non respécté\n");
+        printf("\nAppuyez sur entrer pour continuer\n");
         getchar();
         return 1;
     }
 
     //argu 3
-    printf("Entrez la description de l'objet : \n(Entrer pour valider, 200 caractères maximum, 2 mini)\n");
+    printf("\nEntrez la description de l'objet : \n(Entrer pour valider, 200 caractères maximum, 2 mini)\n");
     printf("\nDescription : ");
     char ch = getchar();
     int i = 0;
@@ -581,10 +582,10 @@ int ajout_ress(char** id){
         i++;
         description[i] = '\0';
     }
-    if (i >= 201){
+    if (i >= 201 || i < 3){
         lire_fin_ligne();
         system("clear");
-        printf("Taille maximale dépassé\n");
+        printf("Format non respécté\n");
         getchar();
         return 1;
     }
@@ -602,21 +603,34 @@ int modif_ress(char **id){
     char* sauvdes;
     int choixobj;
     int choixnd;
+    int nb_obj;
     int choix = menu_affiche_ress(2,&cat);
     printf("Vos objets :\n\n");
-    afficher_liste_obj_du_proprio(cat,*id);
-    printf("\nChoisissez : ");
-    if(lire_entier(&choixobj,1,0)){
+    printf("0. Retour\n\n");
+    nb_obj = afficher_liste_obj_du_proprio(cat,*id);
+    if (nb_obj == 0){
+        system("clear");
+        printf("Vous n'avez aucun objet dans la categorie %s\n", cat);
+        printf("\nAppuyez sur entrer pour continuer");
         getchar();
         return 0;
     }
+    printf("\nChoisissez : ");
+    if(lire_entier(&choixobj,0,nb_obj) || choixobj == 0){
+        if (choixobj != 0){
+            getchar();
+        }
+        return 0;
+    }
     afficher_choix_obj_du_proprio(cat, *id, choixobj, &sauvobj);
+    afficher_choix_desc_du_proprio(cat,*id, choixobj, &sauvdes);
+
     //sauvegarder_detail_obj(cat, choixobj, 2, &sauvdes);
     system("clear");
     printf("Modifier :\n\n");
     printf("0. Annuler\n\n");
     printf("1. Nom : %s\n\n",sauvobj );
-    printf("2. Description\n\n");
+    printf("2. Description : %s\n\n",sauvdes);
     printf("3. Supprimer\n");
     printf("\nChoisissez : ");
     if(lire_entier(&choixnd,0,3)){getchar();}

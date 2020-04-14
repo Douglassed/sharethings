@@ -872,7 +872,7 @@ void modif_ressource_sauf_pret(int num_cat, char *iD, char *ObjName, int choix_m
 //modif_ressource_sauf_pret(1,iD,Name,choix_modif);
 
 /*-------------------------------------------------------------------------*/
-void afficher_liste_obj_du_proprio(char *obj,char *proprio){
+int afficher_liste_obj_du_proprio(char *obj,char *proprio){
   struct json_object *med_obj, *medi_array, *medi_array_obj, *medi_array_obj_name;
   int arraylen, j;
   int count = 0;
@@ -901,6 +901,7 @@ void afficher_liste_obj_du_proprio(char *obj,char *proprio){
       count++;
     }
   }
+  return count;
 }
 //char *objet = "electronique";
 //char *proprio ="Monsieur Durand";
@@ -934,6 +935,48 @@ void afficher_choix_obj_du_proprio(char *obj,char *proprio, int choix, char **sa
     if(appartient==true){
       if(count==choix-1){
         medi_array_obj_name = json_object_object_get(medi_array_obj, "Name");
+        //printf("%s\n",json_object_get_string(medi_array_obj_name));
+        *sauv = json_object_get_string(medi_array_obj_name);
+      }
+      count++;
+    }
+  }
+}
+//char *objet = "electronique";
+//char *proprio ="Monsieur Durand";
+//int choix = 2;
+//char *sauvegarde_detail;
+//afficher_choix_obj_du_proprio(objet, proprio, choix, &sauvegarde_detail);
+//printf("%s\n", sauvegarde_detail);
+
+/*-------------------------------------------------------------------------*/
+
+void afficher_choix_desc_du_proprio(char *obj,char *proprio, int choix, char **sauv){
+  struct json_object *med_obj, *medi_array, *medi_array_obj, *medi_array_obj_name;
+  int arraylen, j;
+  int count = 0;
+  bool appartient = true;
+  static const char filename[] = "./json/Json.json";
+  med_obj = json_object_from_file(filename);
+  medi_array = json_object_object_get(med_obj, obj);
+
+  // medi_array is an array of objects
+  arraylen = json_object_array_length(medi_array);
+
+  for (j = 0; j < arraylen; j++) {
+    // get the i-th object in medi_array
+    medi_array_obj = json_object_array_get_idx(medi_array, j);
+    // get the name attribute in the i-th object
+    medi_array_obj_name = json_object_object_get(medi_array_obj, "Proprietaire");
+    char *id_a_check = json_object_get_string(medi_array_obj_name);
+    appartient = true;
+    for(int a = 0; proprio[a]!='\0'; a++){
+      if(id_a_check[a]!=proprio[a])
+        appartient = false;
+    }
+    if(appartient==true){
+      if(count==choix-1){
+        medi_array_obj_name = json_object_object_get(medi_array_obj, "Description");
         //printf("%s\n",json_object_get_string(medi_array_obj_name));
         *sauv = json_object_get_string(medi_array_obj_name);
       }
