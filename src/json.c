@@ -692,32 +692,50 @@ void add_ressource(int num_ligne_cat, char *iD, char *Descr, char *ObjName, char
     if(line_count==num_ligne_cat-1){
       fputs("    {\n", fic2);
 
-      char mot_vide_obj[17] = "      \"Name\": \"";
-      char mot_vide_fin[6] = "\",\n";
-      char *nom_stock_tmp = strcat(mot_vide_obj, ObjName);
-      char *nom_stock = strcat(nom_stock_tmp, mot_vide_fin);
+      char *Concat = NULL;
+      char mot_deb[] = "      \"Name\": \"";
+      char mot_fin[] = "\",\n";
+      Concat = malloc(sizeof(char) * (strlen(mot_deb)+strlen(mot_fin)+strlen(ObjName)));
+      strcat(Concat, mot_deb);
+      strcat(Concat, ObjName);
+      strcat(Concat, mot_fin);
+      //printf("1.C'est ça la taille de Concat: %ld.\n", strlen(Concat));
+      //printf("%s\n",Concat);
+      fputs(Concat, fic2);
 
-      fputs(nom_stock, fic2);
+      char *Concat2 = NULL;
+      char mot_deb2[] = "      \"Description\": \"";
+      char mot_fin2[] = "\",\n";
+      Concat2 = malloc(sizeof(char) * (strlen(mot_deb2)+strlen(mot_fin2)+strlen(Descr)));
+      strcat(Concat2, mot_deb2);
+      strcat(Concat2, Descr);
+      strcat(Concat2, mot_fin2);
+      //printf("2.C'est ça la taille de Concat2: %ld.\n", strlen(Concat2));
+      //printf("%s\n",Concat2);
+      fputs(Concat2, fic2);
 
-      char mot_vide_obj2[24] = "      \"Description\": \"";
-      char *desc_stock_tmp = strcat(mot_vide_obj2, Descr);
-      char *desc_stock = strcat(desc_stock_tmp, mot_vide_fin);
+      char *Concat3 = NULL;
+      char mot_deb3[] = "      \"En cours de pret\": \"";
+      char mot_fin3[] = "\",\n";
+      Concat3 = malloc(sizeof(char) * (strlen(mot_deb3)+strlen(mot_fin3)+strlen(nom_pret)));
+      strcat(Concat3, mot_deb3);
+      strcat(Concat3, nom_pret);
+      strcat(Concat3, mot_fin3);
+      //printf("3.C'est ça la taille de Concat3: %ld.\n", strlen(Concat3));
+      //printf("%s\n",Concat3);
+      fputs(Concat3, fic2);
 
-      fputs(desc_stock, fic2);
+      char *Concat4 = NULL;
+      char mot_deb4[] = "      \"Proprietaire\": \"";
+      char mot_fin4[] = "\"\n";
+      Concat4 = malloc(sizeof(char) * (strlen(mot_deb4)+strlen(mot_fin4)+strlen(iD)));
+      strcat(Concat4, mot_deb4);
+      strcat(Concat4, iD);
+      strcat(Concat4, mot_fin4);
+      //printf("4.C'est ça la taille de Concat4: %ld.\n", strlen(Concat4));
+      //printf("%s\n",Concat4);
+      fputs(Concat4, fic2);
 
-
-      char mot_vide_obj4[29] = "      \"En cours de pret\": \"";
-      char *pret_stock_tmp = strcat(mot_vide_obj4, nom_pret);
-      char *pret_stock = strcat(pret_stock_tmp, mot_vide_fin);
-
-      fputs(pret_stock, fic2);
-
-      char mot_vide_obj3[25] = "      \"Proprietaire\": \"";
-      char mot_vide_fin2[5] = "\"\n";
-      char *proprio_stock_tmp = strcat(mot_vide_obj3, iD);
-      char *proprio_stock = strcat(proprio_stock_tmp, mot_vide_fin2);
-
-      fputs(proprio_stock, fic2);
       fputs("    },\n", fic2);
     }
     fputs(line_buf, fic2);
@@ -728,7 +746,10 @@ void add_ressource(int num_ligne_cat, char *iD, char *Descr, char *ObjName, char
 
   /* Free the allocated line buffer */
   free(line_buf);
-  line_buf = NULL;
+  free(Concat);
+  free(Concat2);
+  free(Concat3);
+  free(Concat4);
 
   /* Close files now that we are done with */
   fclose(fp);
