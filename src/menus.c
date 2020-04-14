@@ -163,9 +163,10 @@ bool compare_char(char *password,char *passwordbis){
 
 void menu_accueil(){
     /* déclaration */
-    int restart;
+    int restart = 1;
     int choix;
     char *NDC;
+    bool leave = false;
 
     /* affichage du menu d'accueil */
     do{
@@ -173,26 +174,29 @@ void menu_accueil(){
         printf(" ----------------------------\n");
         printf("|Bienvenue dans Sharethings !|\n");
         printf(" ----------------------------\n\n");
-        printf("| 1 | - Se connecter\n| 2 | - S'inscrire\n\n");
+        printf("| 1 | - Se connecter\n| 2 | - S'inscrire\n| 3 | - Quittez\n\n");
         printf("choisissez : ");
-        restart = lire_entier(&choix, 1, 2);
-      if (choix == 1){
-          restart = menu_signin(&NDC);
-      }else if (choix == 2){
-          menu_signup(" ");
-          restart = 1;
-      }else{
-          printf("Erreur : tapez 1 ou 2 \n\n");
-          printf("appuyez sur entrer pour continuer\n");
-          getchar();
-          system("clear");
-      }
-  } while ((choix != 1 && choix != 2) || restart == 1);
+        restart = lire_entier(&choix, 1, 3);
+        switch (choix) {
+            case 1:
+                restart = menu_signin(&NDC);
+                break;
+            case 2:
+                menu_signup(" ");
+                restart = 1;
+                break;
+            case 3:
+                leave = true;
+                break;
+            default:
+                break;
+        }
+  } while (restart == 1);
 
   /* accès menu admin ou utilisateur*/
   if (compare_char(NDC,"admin")){
       menu_admin();
-  } else {
+  } else if (restart){
       menu_user(&NDC);
   }
 
@@ -227,8 +231,9 @@ int lire_entier(int *a,int min, int max){
         erreur = 1;
         *a = -1;
     }
-
-
+    if (erreur == 1){
+        getchar();
+    }
     return erreur;
 }
 
@@ -257,6 +262,7 @@ void menu_user(char **ndc){
     bool sortir = false;
     /* affichage du menu utilisateur et choix de l'action */
     do {
+        system("clear");
         printf("menus : \n\n");
         printf("1 - Rechercher une ressource\n");
         printf("2 - Gestion des ressources\n");
@@ -411,9 +417,6 @@ bool verification(void){
     printf("2 - Non \n");
     printf("\nChoix : ");
     if (lire_entier(&verif, 1, 2)){
-        printf("\nappuyez sur entrer pour continuer\n");
-        getchar();
-        system("clear");
         goto verif;
     }else if (verif == 1){
         system("clear");
@@ -465,9 +468,7 @@ int menu_affiche_ress(int fonction, char** cat){
       printf("3 - Outil\n\n");
       printf("Choisissez : ");
       //printf("%s, Choisissez : ",*ndc);
-      if (lire_entier(&choix, 0, 3)){
-          getchar();
-      }
+      lire_entier(&choix, 0, 3);
       system("clear");
       switch (choix) {
           case 0:
@@ -515,9 +516,7 @@ void menu_gestion_ress(char** id){
 
       printf("\nChoisissez, %s : ",*id);
       //printf("%s, Choisissez : ",*ndc);
-      if (lire_entier(&choix, 0, 5)){
-          getchar();
-      }
+      lire_entier(&choix, 0, 5);
       system("clear");
       switch (choix) {
           case 0:
@@ -605,6 +604,9 @@ int modif_ress(char **id){
     int choixnd;
     int nb_obj;
     int choix = menu_affiche_ress(2,&cat);
+    if (choix == 0){
+        return 0;
+    }
     printf("Vos objets :\n\n");
     printf("0. Retour\n\n");
     nb_obj = afficher_liste_obj_du_proprio(cat,*id);
@@ -617,9 +619,6 @@ int modif_ress(char **id){
     }
     printf("\nChoisissez : ");
     if(lire_entier(&choixobj,0,nb_obj) || choixobj == 0){
-        if (choixobj != 0){
-            getchar();
-        }
         return 0;
     }
     afficher_choix_obj_du_proprio(cat, *id, choixobj, &sauvobj);
@@ -633,10 +632,11 @@ int modif_ress(char **id){
     printf("2. Description : %s\n\n",sauvdes);
     printf("3. Supprimer\n");
     printf("\nChoisissez : ");
-    if(lire_entier(&choixnd,0,3)){getchar();}
+    lire_entier(&choixnd,0,3);
     system("clear");
     if (choixnd == 1 || choixnd == 2){
         modif_ressource_sauf_pret(choix, *id, sauvobj, choixnd);
+
     }
     if (choixnd == 3 && verification()){
         del_ressource(ligne_bon_obj(choix, *id, sauvobj));
