@@ -187,6 +187,7 @@ void menu_accueil(){
                 break;
             case 3:
                 leave = true;
+
                 break;
             default:
                 break;
@@ -196,7 +197,7 @@ void menu_accueil(){
   /* accès menu admin ou utilisateur*/
   if (compare_char(NDC,"admin")){
       menu_admin();
-  } else if (restart){
+  } else if (!leave){
       menu_user(&NDC);
   }
 
