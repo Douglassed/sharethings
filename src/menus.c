@@ -275,7 +275,7 @@ void menu_user(char **ndc){
         switch (choix) {
             case 1:
                 system("clear");
-                menu_affiche_ress(1,&cat);
+                menu_affiche_ress(1,&cat,*ndc);
                 break;
             case 2:
                 menu_gestion_ress(ndc);
@@ -430,7 +430,7 @@ bool verification(void){
 
 /*-------------------------------------------------------------------------*/
 
-void menu_recherche_specifique(char *obj){
+void menu_recherche_specifique(char *obj, char* id){
   int choix;
   bool sorti = false;
   do {
@@ -454,7 +454,7 @@ void menu_recherche_specifique(char *obj){
 
 /*-------------------------------------------------------------------------*/
 
-int menu_affiche_ress(int fonction, char** cat){
+int menu_affiche_ress(int fonction, char** cat, char* id){
   /* déclaration */
   int choix;
   bool sorti = false;
@@ -489,7 +489,7 @@ int menu_affiche_ress(int fonction, char** cat){
             break;
       }
       if (!sorti && fonction == 1){
-          menu_recherche_specifique(*cat);
+          menu_recherche_specifique(*cat,id);
       }
       if (!sorti && fonction == 2){
           sorti = true;
@@ -512,12 +512,12 @@ void menu_gestion_ress(char** id){
       printf("0 - Retour\n\n");
       printf("1 - Ajouter une ressource\n");
       printf("2 - Modifier/Supprimer mes ressource\n");
-      printf("4 - Ressources empruntées\n");
-      printf("5 - Mon historique\n");
+      printf("3 - Ressources empruntées\n");
+      printf("4 - Mon historique\n");
 
       printf("\nChoisissez, %s : ",*id);
       //printf("%s, Choisissez : ",*ndc);
-      lire_entier(&choix, 0, 5);
+      lire_entier(&choix, 0, 4);
       system("clear");
       switch (choix) {
           case 0:
@@ -530,8 +530,11 @@ void menu_gestion_ress(char** id){
               modif_ress(id);
               break;
           case 3:
+              //ressource
               break;
-
+          case 4 :
+              //history
+              break;
           default:
             break;
       }
@@ -545,7 +548,7 @@ int ajout_ress(char** id){
     char name[60];
     char* cat;
     // argu 1
-    int lignecat = ligne_bonne_categorie(menu_affiche_ress(2,&cat)) + 2;
+    int lignecat = ligne_bonne_categorie(menu_affiche_ress(2,&cat,*id)) + 2;
     system("clear");
     if (lignecat == 0){
         return 1;
@@ -604,7 +607,7 @@ int modif_ress(char **id){
     int choixobj;
     int choixnd;
     int nb_obj;
-    int choix = menu_affiche_ress(2,&cat);
+    int choix = menu_affiche_ress(2,&cat,*id);
     if (choix == 0){
         return 0;
     }
