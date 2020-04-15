@@ -437,7 +437,7 @@ void menu_recherche_specifique(char *cat,int choix_cat, char* id){
   do {
       printf("Choisissez un objet par son numéro pour plus de détails :\n\n");
       printf("0. Retour\n\n");
-      afficher_liste_obj(obj);
+      afficher_liste_obj(cat);
       printf("\nChoisissez : ");
       lire_entier(&choix,0,0);
       if (choix != 0){

@@ -743,7 +743,7 @@ void add_ressource(int num_ligne_cat, char *iD, char *Descr, char *ObjName, char
 //char *obj = "Asterix";
 //add_ressource(n, id, des, obj, pret);
 
-/*-------------------------------------------------------------------------*/
+/*------------------------------------------------------*/
 
 void sauvegarder_detail_obj(char *obj, int choix, int choix_modif, char **sauv){
     struct json_object *med_obj, *medi_array, *medi_array_obj, *medi_array_obj_name;
@@ -1117,3 +1117,175 @@ void mettre_en_pret_ou_finir_le_pret(int num_cat, char *iD, char *ObjName, char 
 //char *iD = "KGB"; -> proprietaire
 //char *ID2 = "FSB"; -> veux la ressource
 //mettre_en_pret_ou_finir_le_pret(1,iD,Name,ID);
+
+/*-------------------------------------------------------------------------*/
+
+void add_hist(int num_ligne_cat, char *iD, int ope){
+  /* Open the file for reading and the other to write */
+  /*-----*//*-----*//*-----*/
+  system("sh ./script/Date.sh");
+  FILE *ftmp = fopen("Tempo.txt", "r");
+  signed char date[64];
+  fgets(date, 63, ftmp);
+  fclose(ftmp);
+  //printf("%d",strlen(date));
+  char *Datetmp = NULL;
+  Datetmp = (char *) malloc(sizeof(char)*strlen(date));
+  strcat(Datetmp, date);
+  Datetmp[strlen(Datetmp)-1]='\0';
+  //printf("%s",date);
+  //printf("%s",Datetmp);
+  //printf("%d",strlen(Datetmp));
+  /*char *Date = NULL;
+  Date = (char *) malloc(sizeof(char)*strlen(Datetmp));
+  strcat(Date, Datetmp);
+  //printf("%d",strlen(Date));
+  /*-----*//*-----*//*-----*/
+  char *line_buf = NULL;
+  size_t line_buf_size = 0;
+  int line_count = 0;
+  ssize_t line_size;
+  FILE *fp = fopen("./json/Historique.json", "r");
+  FILE *fic2 = fopen("./json/Historiquebis.json", "w");
+  char *Operation;
+  char *Concat = NULL;
+  char *Concat2 = NULL;
+  char *Concat3 = NULL;
+  switch (ope) {
+    case 1:
+      Operation = "Ajout";
+      break;
+    case 2:
+      Operation = "Supprimer";
+      break;
+    case 3:
+      Operation = "Modifier";
+      break;
+    case 4:
+      Operation = "Emprunt";
+      break;
+    case 5:
+      Operation = "Fin de pret";
+      break;
+    default:
+      break;
+  }
+
+  /* Get the first line of the file. */
+  line_size = getline(&line_buf, &line_buf_size, fp);
+
+  /* Loop through until we are done with the file. */
+  while (line_size >= 0)
+  {
+    /* Increment our line count */
+    line_count++;
+
+    /* Show the line details and printing them into the second file */
+    if(line_count==num_ligne_cat-1){
+      fputs("    {\n", fic2);
+
+
+      char mot_deb[] = "      \"Operation\": \"";
+      char mot_fin[] = "\",\n";
+      Concat = (char *) malloc(sizeof(char) * (strlen(mot_deb)+strlen(mot_fin)+strlen(Operation)));
+      strcat(Concat, mot_deb);
+      strcat(Concat, Operation);
+      strcat(Concat, mot_fin);
+      //printf("1.C'est ça la taille de Concat: %ld.\n", strlen(Concat));
+      //printf("%s\n",Concat);
+      fputs(Concat, fic2);
+      free(Concat);
+
+
+      char mot_deb2[] = "      \"Date\": \"";
+      char mot_fin2[] = "\",\n";
+      Concat2 = (char *) malloc(sizeof(char) * (strlen(mot_deb2)+strlen(mot_fin2)+strlen(Datetmp)));
+      strcat(Concat2, mot_deb2);
+      strcat(Concat2, Datetmp);
+      strcat(Concat2, mot_fin2);
+      //printf("2.C'est ça la taille de Concat2: %ld.\n", strlen(Concat2));
+      //printf("%s\n",Concat2);
+      fputs(Concat2, fic2);
+      free(Concat2);
+
+
+      char mot_deb3[] = "      \"Objet\": \"";
+      char mot_fin3[] = "\"\n";
+      Concat3 = (char *) malloc(sizeof(char) * (strlen(mot_deb3)+strlen(mot_fin3)+strlen(iD)));
+      strcat(Concat3, mot_deb3);
+      strcat(Concat3, iD);
+      strcat(Concat3, mot_fin3);
+      //printf("3.C'est ça la taille de Concat3: %ld.\n", strlen(Concat3));
+      //printf("%s\n",Concat3);
+      fputs(Concat3, fic2);
+      free(Concat3);
+
+      fputs("    },\n", fic2);
+
+    }
+    fputs(line_buf, fic2);
+
+    /* Get the next line */
+    line_size = getline(&line_buf, &line_buf_size, fp);
+  }
+
+  /* Free the allocated line buffer */
+  free(line_buf);
+  free(Datetmp);
+
+
+  /* Close files now that we are done with */
+  fclose(fp);
+  fclose(fic2);
+  remove("./json/Historique.json");
+  rename("./json/Historiquebis.json", "./json/Historique.json");
+  }
+//int n = 24;
+//char *obj = "Marteau";
+//int ope = 1;
+//add_hist(n, obj, ope);
+
+/*-------------------------------------------------------------------------*/
+
+void afficher_liste_historique(char *iD){
+    struct json_object *med_obj, *medi_array, *medi_array_obj, *medi_array_obj_name;
+    int arraylen, j;
+    static const char filename[] = "./json/Historique.json";
+    med_obj = json_object_from_file(filename);
+    medi_array = json_object_object_get(med_obj, iD);
+
+    // medi_array is an array of objects
+    arraylen = json_object_array_length(medi_array);
+
+    for (j = 0; j < arraylen; j++) {
+      // get the i-th object in medi_array
+      medi_array_obj = json_object_array_get_idx(medi_array, j);
+      // get the name attribute in the i-th object
+      medi_array_obj_name = json_object_object_get(medi_array_obj, "Operation");
+      // print out the name attribute
+      printf("%d. %s: ",j+1,json_object_get_string(medi_array_obj_name));
+      medi_array_obj_name = json_object_object_get(medi_array_obj, "Date");
+      printf(" %s,",json_object_get_string(medi_array_obj_name));
+      medi_array_obj_name = json_object_object_get(medi_array_obj, "Objet");
+      printf(" %s\n",json_object_get_string(medi_array_obj_name));
+    }
+  }
+//char *iD = "John";
+//afficher_liste_historique(iD);
+
+/*-------------------------------------------------------------------------*/
+
+void stocker_id_hist_inscription(char *iD){
+    FILE *fic = fopen("./json/Historique.json", "r+");
+
+    fseek(fic, -3, SEEK_END);
+
+    fputs(",\n  \"", fic);
+    fputs(iD, fic);
+    fputs("\": [\n  ]\n}", fic);
+
+    fclose(fic);
+  }
+//Exemple d'utilisation:
+//char *i = "New";
+//stocker_id_hist_inscription(i);

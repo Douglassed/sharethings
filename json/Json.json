@@ -65,6 +65,12 @@
   ],
   "outil": [
     {
+      "Name": "on ajouteun outils",
+      "Description": "avec une description",
+      "En cours de pret": ".",
+      "Proprietaire": "aze"
+    },
+    {
       "Name": "ca marche le .",
       "Description": "jcp ...",
       "En cours de pret": ".",
