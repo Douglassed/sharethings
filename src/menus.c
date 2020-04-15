@@ -215,7 +215,7 @@ int lire_entier(int *a,int min, int max){
     nb_lu=scanf("%d",a);
     nb_jete=lire_fin_ligne();
     if (nb_lu != 1){
-        printf("\nErreur : veuillez entrez un entier\n\n");
+        printf("\nErreur : veuillez entrez un entier\n");
         erreur = 1;
         *a = -1;
     }else if (max != 0 && (*a < min || *a > max)){
@@ -228,11 +228,12 @@ int lire_entier(int *a,int min, int max){
         *a = -1;
     }
     if (nb_jete!=0){
-        printf("\nErreur : veuillez ne pas séparer votre chaine de caractère\n\n");
+        printf("\nErreur : veuillez ne pas séparer votre chaine de caractère\n");
         erreur = 1;
         *a = -1;
     }
     if (erreur == 1){
+        printf("\nAppuyez sur entrer pour continuez\n");
         getchar();
     }
     return erreur;
@@ -430,7 +431,7 @@ bool verification(void){
 
 /*-------------------------------------------------------------------------*/
 
-void menu_recherche_specifique(char *obj, char* id){
+void menu_recherche_specifique(char *cat,int choix_cat, char* id){
   int choix;
   bool sorti = false;
   do {
@@ -438,14 +439,11 @@ void menu_recherche_specifique(char *obj, char* id){
       printf("0. Retour\n\n");
       afficher_liste_obj(obj);
       printf("\nChoisissez : ");
-      if (!lire_entier(&choix,0,0)){
-          system("clear");
-      }
+      lire_entier(&choix,0,0);
       if (choix != 0){
-          afficher_detail_obj(obj, choix);
-          printf("\nappuyez sur entrer pour continuer\n");
-          getchar();
           system("clear");
+          afficher_detail_obj(cat, choix);
+          getchar();
       }else{
           sorti = true;
       }
@@ -489,7 +487,7 @@ int menu_affiche_ress(int fonction, char** cat, char* id){
             break;
       }
       if (!sorti && fonction == 1){
-          menu_recherche_specifique(*cat,id);
+          menu_recherche_specifique(*cat,choix,id);
       }
       if (!sorti && fonction == 2){
           sorti = true;
