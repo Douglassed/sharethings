@@ -27,6 +27,12 @@
   ],
   "electronique": [
     {
+      "Name": "lampe",
+      "Description": "verte",
+      "En cours de pret": ".",
+      "Proprietaire": "aze"
+    },
+    {
       "Name": "TourPC HP",
       "Description": "i7 GTX1050 8GoRAM 512GoSSD",
       "En cours de pret": ".",
@@ -40,12 +46,6 @@
     },
   ],
   "outil": [
-    {
-      "Name": "on ajouteun outils",
-      "Description": "avec une description",
-      "En cours de pret": ".",
-      "Proprietaire": "aze"
-    },
     {
       "Name": "Tronconneuse",
       "Description": "Tronconneuse electrique filaire",
