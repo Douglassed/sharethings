@@ -1,6 +1,12 @@
 {
   "livre": [
     {
+      "Name": "Nouveaaau",
+      "Description": "super",
+      "En cours de pret": ".",
+      "Proprietaire": "aze"
+    },
+    {
       "Name": "MyLittlePoney",
       "Description": "L'auteur est Francois Hollande",
       "En cours de pret": ".",
