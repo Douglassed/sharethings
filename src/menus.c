@@ -637,7 +637,7 @@ int modif_ress(char **id){
     lire_entier(&choixnd,0,3);
     system("clear");
     if (choixnd == 1 || choixnd == 2){
-        modif_ressource_sauf_pret(choix, *id, sauvobj, choixnd);
+        modif_ressource_sauf_pret(choix, *id, sauvobj, choixnd,sauvdes);
 
     }
     if (choixnd == 3 && verification()){

@@ -503,30 +503,77 @@ int ligne_bonne_categorie(int choix){
 
 /*-------------------------------------------------------------------------*/
 
-int ligne_bon_obj(int num_cat, char *iD, char *Obj){
+
+    int ligne_bon_obj(int num_cat, char *iD, char *Obj){
     /* Open the file for reading and the other to write */
     bool in_categorie;
     char *line_buf = NULL;
     size_t line_buf_size = 0;
     int line_count = 0;
     ssize_t line_size;
-    FILE *fp = fopen("./json/Json.json", "r");
+    FILE *fp = fopen("J3bis.json", "r");
     char *line_buf_check;
     int bombe;
     int res;
 
-    char mot_vide_obj[17] = "      \"Name\": \"";
+    /*---*//*---*//*---*/
+    /*printf("C'est ça la taille de Obj: %ld.\n", strlen(Obj));
+    char *mot_vide_obj = NULL;
+    mot_vide_obj = malloc(sizeof(char) * 100);
+    *mot_vide_obj = "      \"Name\": \"";//17
     char mot_vide_fin[3] = "\",";
     char *line_buf_check_tmp_obj = strcat(mot_vide_obj, Obj);
     char *line_buf_check_obj = strcat(line_buf_check_tmp_obj, mot_vide_fin);
+    printf("%s\n",line_buf_check_obj);*/
+    //printf("C'est ça la taille de Obj: %ld.\n", strlen(Obj));
+    char *line_buf_check_obj = NULL;
+    char mot_deb[] = "      \"Name\": \"";//17
+    char mot_fin[] = "\",";
+    line_buf_check_obj = malloc(sizeof(char) * (strlen(mot_deb)+strlen(mot_fin)+strlen(Obj)));
+    strcat(line_buf_check_obj, mot_deb);
+    strcat(line_buf_check_obj, Obj);
+    strcat(line_buf_check_obj, mot_fin);
+    /*printf("1.C'est ça la taille de mot_deb: %ld.\n", strlen(mot_deb));
+    printf("1.C'est ça la taille de mot_fin: %ld.\n", strlen(mot_fin));
+    printf("1.C'est ça la taille de Obj: %ld.\n", strlen(Obj));
+    printf("1.C'est ça la taille de line_buf_check_iD: %ld.\n", strlen(line_buf_check_obj));
+    //printf("%s\n",line_buf_check_obj);*/
 
 
-    char mot_vide[25] = "      \"Proprietaire\": \"";
+    char mot_vide[100] = "      \"Proprietaire\": \"";//25
+    //printf("%s\n",line_buf_check_obj);
     char mot_vide_fin2[2] = "\"";
     char *line_buf_check_tmp = strcat(mot_vide, iD);
     //printf("%s\n\n", line_buf_check_tmp);
+    //printf("%s\n\n", mot_vide);
     char *line_buf_check_iD = strcat(line_buf_check_tmp, mot_vide_fin2);
     //printf("%s\n\n", line_buf_check_iD);
+
+    /*char *line_buf_check_iD = NULL;
+    char mot_deb2[] = "      \"Proprietaire\": \"";//25
+    char mot_fin2[] = "\"";
+    line_buf_check_iD = malloc(sizeof(char) * (strlen(mot_deb2)+strlen(mot_fin2)+strlen(iD)));
+    printf("2.C'est ça la taille de mot_deb2: %ld.\n", strlen(mot_deb2));
+    printf("2.C'est ça la taille de mot_fin2: %ld.\n", strlen(mot_fin2));
+    printf("2.C'est ça la taille de iD: %ld.\n", strlen(iD));
+    printf("2.C'est ça la taille de line_buf_check_iD: %ld.\n\n", strlen(line_buf_check_iD));
+    strcat(line_buf_check_iD, mot_deb2);
+    strcat(line_buf_check_iD, iD);
+    strcat(line_buf_check_iD, mot_fin2);*/
+    //printf("%s\n",line_buf_check_obj);
+    //printf("%s\n\n", line_buf_check_iD);
+
+    /*char *line_buf_check_iD = NULL;
+    char mot_deb2[] = "      \"Proprietaire\": \"";//25
+    printf("%s\n",line_buf_check_obj);
+    char mot_fin2[] = "\"";
+    line_buf_check_iD = malloc(sizeof(char) * (strlen(mot_deb2)+strlen(mot_fin2)+strlen(iD)));
+    strcat(line_buf_check_iD, mot_deb2);
+    strcat(line_buf_check_iD, iD);
+    //printf("%s\n\n", line_buf_check_tmp);
+    //printf("%s\n\n", mot_fin2);
+    strcat(line_buf_check_iD, mot_fin2);
+    printf("%s\n\n", line_buf_check_iD);*/
 
 
     switch (num_cat) {
@@ -583,6 +630,7 @@ int ligne_bon_obj(int num_cat, char *iD, char *Obj){
 
       /* Get the next line */
       line_size = getline(&line_buf, &line_buf_size, fp);
+      //printf("Check-%d ",line_count);
     }
 /*----------*//*----------*//*----------*//*----------*//*----------*/
     ID:
@@ -616,6 +664,8 @@ int ligne_bon_obj(int num_cat, char *iD, char *Obj){
     /* Free the allocated line buffer */
     free(line_buf);
     line_buf = NULL;
+    free(line_buf_check_obj);
+    //free(line_buf_check_iD);
 
     /* Close files now that we are done with */
     fclose(fp);
@@ -802,14 +852,15 @@ int quel_n_eme_obj(int l,int l_c){
 
 /*-------------------------------------------------------------------------*/
 
-void modif_ressource_sauf_pret(int num_cat, char *iD, char *ObjName, int choix_modif){
+void modif_ressource_sauf_pret(int num_cat, char *iD, char *ObjName, int choix_modif, char* desc){
     FILE *fp = fopen("./json/Json.json", "r+");
     int l = ligne_bon_obj(num_cat,iD,ObjName);
+    printf("%d %s %s %d\n",num_cat, iD, ObjName, l );
+
     int l_c = ligne_bonne_categorie(num_cat+1);
     int l_c_toknow_n_eme_obj = ligne_bonne_categorie(num_cat);
     //printf("%d %d\n",l,l_c_toknow_n_eme_obj);
-    char *Nom;//malloc
-    char *Desc;//malloc
+
     char *categorie;
     int i;
     char ch;
@@ -827,42 +878,40 @@ void modif_ressource_sauf_pret(int num_cat, char *iD, char *ObjName, int choix_m
         break;
     }
     int n_eme_obj = quel_n_eme_obj(l, l_c_toknow_n_eme_obj);
-    sauvegarder_detail_obj(categorie,n_eme_obj,1,&Nom);
-    sauvegarder_detail_obj(categorie,n_eme_obj,2,&Desc);
     if(choix_modif==1){
-      printf("Actuel nom : %s\n", Nom);
+      printf("Actuel nom : %s\n", ObjName);
       printf("Nouveau nom: ");
 
       //remplace scanf :
       i=0;
       ch = getchar();
       while ( ch != 10 ){
-          Nom[i] = ch;
+          ObjName[i] = ch;
           ch = getchar();
           i++;
-          Nom[i] = '\0';
+          ObjName[i] = '\0';
       }
       //scanf("%s\n", Nom);
-      printf("N: %s\n", Nom);
+      printf("N: %s\n", ObjName);
     }
     else{
-      printf("Actuelle description : %s\n", Desc);
+      printf("Actuelle description : %s\n", desc);
       printf("Nouvelle description: ");
       //scanf("%s\n", Desc);
       //remplace scanf :
       i=0;
       ch = getchar();
       while ( ch != 10 ){
-          Desc[i] = ch;
+          desc[i] = ch;
           ch = getchar();
           i++;
-          Desc[i] = '\0';
+          desc[i] = '\0';
       }
       //printf("N: %s\n", Desc);
     }
     char *id_pret;
     savoir_nom_pret(categorie, n_eme_obj, &id_pret);
-    add_ressource(l_c, iD, Desc, Nom, id_pret);
+    add_ressource(l_c, iD, desc, ObjName, id_pret);
     del_ressource(l);
     fclose(fp);
   }
