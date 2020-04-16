@@ -1420,7 +1420,7 @@ void stocker_id_hist_inscription(char *iD){
 
     fputs(",\n  \"", fic);
     fputs(iD, fic);
-    fputs("\": [\n  ]\n}", fic);
+    fputs("\": [\n  ]\n}\n", fic);
 
     fclose(fic);
   }
