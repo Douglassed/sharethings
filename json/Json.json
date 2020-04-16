@@ -24,6 +24,8 @@
       "En cours de pret": ".",
       "Proprietaire": "PolskaEditor"
     },
+  ],
+  "electronique": [
     {
       "Name": "LivreCool",
       "Description": "CoolCoolCool",
@@ -39,12 +41,6 @@
       "Proprietaire": "aze"
     },
     {
-      "Name": "des fois leiver",
-      "Description": "oui tout en bas Clement",
-      "En cours de pret": ".",
-      "Proprietaire": "aze"
-    },
-    {
       "Name": "TourPC HP",
       "Description": "i7 GTX1050 8GoRAM 512GoSSD",
       "En cours de pret": ".",
@@ -55,6 +51,12 @@
       "Description": "i9 GTX1650 16GoRAM 1ToSSD",
       "En cours de pret": ".",
       "Proprietaire": "JeSuisPasUnAlien"
+    },
+    {
+      "Name": "des fois lever",
+      "Description": "oui tout en bas Clement",
+      "En cours de pret": ".",
+      "Proprietaire": "aze"
     },
   ],
   "outil": [
