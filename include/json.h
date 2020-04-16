@@ -28,9 +28,10 @@ int savoir_si_en_pret(char *obj, int choix);
 void mettre_en_pret_ou_finir_le_pret(int num_cat, char *iD, char *ObjName, char *iD2);
 void savoir_nom_proprio(char *obj, int choix, char **sauv);
 void afficher_choix_desc_du_proprio(char *obj,char *proprio, int choix, char **sauv);
-void add_hist(int num_ligne_cat, char *iD, int ope);
+void add_hist(int num_ligne_pers, char *iD, int ope);
 void afficher_liste_historique(char *iD);
 void stocker_id_hist_inscription(char *iD);
+int ligne_bonne_personne(char *iD);
 
 
 

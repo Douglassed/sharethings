@@ -1250,7 +1250,7 @@ void mettre_en_pret_ou_finir_le_pret(int num_cat, char *iD, char *ObjName, char 
 
 /*-------------------------------------------------------------------------*/
 
-void add_hist(int num_ligne_cat, char *iD, int ope){
+void add_hist(int num_ligne_pers, char *iD, int ope){
   /* Open the file for reading and the other to write */
   /*-----*//*-----*//*-----*/
   system("sh ./script/Date.sh");
@@ -1260,7 +1260,8 @@ void add_hist(int num_ligne_cat, char *iD, int ope){
   fclose(ftmp);
   //printf("%d",strlen(date));
   char *Datetmp = NULL;
-  Datetmp = (char *) malloc(sizeof(char)*strlen(date));
+  int LARG = strlen(date);
+  Datetmp = calloc(LARG, sizeof(char));
   strcat(Datetmp, date);
   Datetmp[strlen(Datetmp)-1]='\0';
   //printf("%s",date);
@@ -1311,13 +1312,14 @@ void add_hist(int num_ligne_cat, char *iD, int ope){
     line_count++;
 
     /* Show the line details and printing them into the second file */
-    if(line_count==num_ligne_cat-1){
+    if(line_count==num_ligne_pers+1){
       fputs("    {\n", fic2);
 
 
-      char mot_deb[] = "      \"Operation\": \"";
-      char mot_fin[] = "\",\n";
-      Concat = (char *) malloc(sizeof(char) * (strlen(mot_deb)+strlen(mot_fin)+strlen(Operation)));
+      char *mot_deb = "      \"Operation\": \"";
+      char *mot_fin = "\",\n";
+      int LONG = (strlen(mot_deb)+strlen(mot_fin)+strlen(Operation));
+      Concat = calloc(LONG, sizeof(char));
       strcat(Concat, mot_deb);
       strcat(Concat, Operation);
       strcat(Concat, mot_fin);
@@ -1327,9 +1329,10 @@ void add_hist(int num_ligne_cat, char *iD, int ope){
       free(Concat);
 
 
-      char mot_deb2[] = "      \"Date\": \"";
-      char mot_fin2[] = "\",\n";
-      Concat2 = (char *) malloc(sizeof(char) * (strlen(mot_deb2)+strlen(mot_fin2)+strlen(Datetmp)));
+      char *mot_deb2 = "      \"Date\": \"";
+      char *mot_fin2 = "\",\n";
+      int LONG2 = (strlen(mot_deb2)+strlen(mot_fin2)+strlen(Datetmp));
+      Concat2 = calloc(LONG2, sizeof(char));
       strcat(Concat2, mot_deb2);
       strcat(Concat2, Datetmp);
       strcat(Concat2, mot_fin2);
@@ -1339,9 +1342,10 @@ void add_hist(int num_ligne_cat, char *iD, int ope){
       free(Concat2);
 
 
-      char mot_deb3[] = "      \"Objet\": \"";
-      char mot_fin3[] = "\"\n";
-      Concat3 = (char *) malloc(sizeof(char) * (strlen(mot_deb3)+strlen(mot_fin3)+strlen(iD)));
+      char *mot_deb3 = "      \"Objet\": \"";
+      char *mot_fin3 = "\"\n";
+      int LONG3 = (strlen(mot_deb3)+strlen(mot_fin3)+strlen(iD));
+      Concat3 = calloc(LONG3, sizeof(char));
       strcat(Concat3, mot_deb3);
       strcat(Concat3, iD);
       strcat(Concat3, mot_fin3);
@@ -1367,6 +1371,7 @@ void add_hist(int num_ligne_cat, char *iD, int ope){
   /* Close files now that we are done with */
   fclose(fp);
   fclose(fic2);
+  remove("./Tempo.txt");
   remove("./json/Historique.json");
   rename("./json/Historiquebis.json", "./json/Historique.json");
   }
@@ -1419,3 +1424,64 @@ void stocker_id_hist_inscription(char *iD){
 //Exemple d'utilisation:
 //char *i = "New";
 //stocker_id_hist_inscription(i);
+
+
+int ligne_bonne_personne(char *iD){
+    /* Open the file for reading and the other to write */
+    bool in_categorie;
+    char *line_buf = NULL;
+    size_t line_buf_size = 0;
+    int line_count = 0;
+    ssize_t line_size;
+    FILE *fp = fopen("./json/Historique.json", "r");
+    char *line_buf_check = NULL;
+    int res;
+
+    char *mot_deb = "  \"";
+    char *mot_fin = "\": [\n";
+    int LONG = (strlen(mot_deb)+strlen(mot_fin)+strlen(iD));
+    line_buf_check = calloc(LONG, sizeof(char));
+    strcat(line_buf_check, mot_deb);
+    strcat(line_buf_check, iD);
+    strcat(line_buf_check, mot_fin);
+    //printf("%s",line_buf_check);
+
+    /* Get the first line of the file. */
+    line_size = getline(&line_buf, &line_buf_size, fp);
+
+    /* Loop through until we are done with the file. */
+    while (line_size >= 0)
+    {
+      line_count++;
+      /* Show the line details and printing them into the second file */
+      //printf("Contents: %s", line_buf);
+      in_categorie = true;
+      for(int a = 0; line_buf_check[a]!='\0'; a++){
+        //printf("%s\n%s",line_buf_check,line_buf);
+        //printf("%d %c et %c\n",line_count,line_buf[a],line_buf_check[a]);
+        if(line_buf[a]!=line_buf_check[a]){
+          in_categorie = false;
+          //printf("Ici\n");
+        }
+      }
+      //printf("%d",line_count);
+      if(in_categorie==true)
+        res = line_count;
+
+      /* Get the next line */
+      line_size = getline(&line_buf, &line_buf_size, fp);
+    }
+
+    /* Free the allocated line buffer */
+    free(line_buf);
+    free(line_buf_check);
+
+    /* Close files now that we are done with */
+    fclose(fp);
+    return res;
+  }
+//char *ID = "KGB";
+//int n = ligne_bonne_personne(ID);
+//char *obj = "Marteau";
+//int ope = 1;
+//add_hist(n, obj, ope);
