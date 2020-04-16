@@ -998,6 +998,21 @@ void modif_ressource_sauf_pret(int num_cat, char *iD, char *ObjName, int choix_m
       add_ressource(l_c, iD, Desc, ObjName, id_pret);
     del_ressource(l);
     fclose(fp);
+
+
+    char *NewName = NULL;
+    char *mott = "-->";
+    int LONGE = (strlen(ObjName)+strlen(mott)+strlen(Nom));
+    NewName = calloc(LONGE, sizeof(char));
+    strcat(NewName, ObjName);
+    strcat(NewName, mott);
+    strcat(NewName, Nom);
+    int Ligne = ligne_bonne_personne(iD);
+    if(choix_modif==1)
+      add_hist(Ligne, NewName, 3);
+    else
+      add_hist(Ligne, ObjName, 3);
+    free(NewName);
   }
 //char *Name = "RussiaIsAHeaven";
 //char *iD = "KGB";
