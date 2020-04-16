@@ -463,12 +463,13 @@ void menu_recherche_specifique(char *cat,int choix_cat, char* id){
                   savoir_nom_proprio(cat, choix, &proprio);
                   printf("%d %s %s %s\n",choix_cat,id,obj,proprio);
                   mettre_en_pret_ou_finir_le_pret(choix_cat,  proprio, obj,id);
-                  add_hist(ligne_bonne_categorie(choix_cat), id, 4);
+                  add_hist(ligne_bonne_personne(id), obj, 4);
               }
           }else{
-              printf("L'objet est indisponible\n");
-              getchar();
+              printf("\nL'objet est indisponible\n");
               printf("\nAppuyez sur entrer pour continuer\n");
+              getchar();
+
           }
       }else{
           sorti = true;
@@ -527,6 +528,8 @@ int menu_affiche_ress(int fonction, char** cat, char* id){
 void menu_gestion_ress(char** id){
   /* déclaration */
   int choix;
+  int choix_cat;
+  char* cat;
   bool sorti = false;
 
   /* affichage du menu et choix de l'action */
@@ -535,10 +538,9 @@ void menu_gestion_ress(char** id){
       printf("Gestion de mes ressources : \n\n");
       printf("0 - Retour\n\n");
       printf("1 - Ajouter une ressource\n");
-      printf("2 - Modifier/Supprimer mes ressource\n");
+      printf("2 - Modifier/Supprimer mes ressources\n");
       printf("3 - Ressources empruntées\n");
       printf("4 - Mon historique\n");
-
       printf("\nChoisissez, %s : ",*id);
       //printf("%s, Choisissez : ",*ndc);
       lire_entier(&choix, 0, 4);
@@ -554,6 +556,7 @@ void menu_gestion_ress(char** id){
               modif_ress(id);
               break;
           case 3:
+              choix_cat = menu_affiche_ress(2, &cat, *id);
               break;
           case 4 :
               afficher_liste_historique(*id);
@@ -620,7 +623,7 @@ int ajout_ress(char** id){
 
     if (strlen(description) > 2 && strlen(name) > 2){
         add_ressource(lignecat, *id, description, name, ".");
-        add_hist(lignecat - 2 , *id, 1);
+        add_hist(ligne_bonne_personne(*id) , name, 1);
         return 0;
     }
     return 1;
@@ -666,13 +669,10 @@ int modif_ress(char **id){
     system("clear");
     if (choixnd == 1 || choixnd == 2){
         modif_ressource_sauf_pret(choix, *id, sauvobj, choixnd,sauvdes);
-        add_hist(ligne_bonne_categorie(choix), *id, 3);
-
-
     }
     if (choixnd == 3 && verification()){
         del_ressource(ligne_bon_obj(choix, *id, sauvobj));
-        add_hist(ligne_bonne_categorie(choix), *id, 2);
+        add_hist(ligne_bonne_personne(*id), sauvobj, 2);
 
     }
 }
