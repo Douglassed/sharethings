@@ -1,6 +1,12 @@
 {
   "livre": [
     {
+      "Name": "Ca marche",
+      "Description": "ca marche pas",
+      "En cours de pret": ".",
+      "Proprietaire": "aze"
+    },
+    {
       "Name": "MyLittlePoney",
       "Description": "L'auteur est Francois Hollande",
       "En cours de pret": ".",
@@ -27,14 +33,6 @@
   ],
   "electronique": [
     {
-      "Name": "LivreCool",
-      "Description": "CoolCoolCool",
-      "En cours de pret": ".",
-      "Proprietaire": "aze"
-    },
-  ],
-  "electronique": [
-    {
       "Name": "tarte a la framboise",
       "Description": "srgdfs",
       "En cours de pret": ".",
@@ -53,8 +51,14 @@
       "Proprietaire": "JeSuisPasUnAlien"
     },
     {
-      "Name": "des fois lever",
+      "Name": "des fois lever du lit ahah",
       "Description": "oui tout en bas Clement",
+      "En cours de pret": ".",
+      "Proprietaire": "aze"
+    },
+    {
+      "Name": "aze",
+      "Description": "abcde",
       "En cours de pret": ".",
       "Proprietaire": "aze"
     },
