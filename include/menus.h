@@ -21,6 +21,7 @@ void menu_gestion_ress(char** id);
 int ajout_ress(char** id);
 int modif_ress(char **id);
 int menu_affiche_ress(int fonction, char** cat, char* id);
+int chiffrement (char* mdp);
 
 
 #endif

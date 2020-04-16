@@ -78,6 +78,8 @@ int menu_signup(char * modif){
     }
 
     /* message de finalisation */
+    int chiffr = chiffrement(stock_password);
+    printf("%d\n", chiffr);
     stocker_id_mdp_inscription(ndc, stock_password);
     stocker_id_hist_inscription(ndc);
     system("clear");
@@ -463,6 +465,8 @@ void menu_recherche_specifique(char *cat,int choix_cat, char* id){
               }
           }else{
               printf("L'objet est indisponible\n");
+              getchar();
+              printf("\nAppuyez sur entrer pour continuer\n");
           }
       }else{
           sorti = true;
@@ -669,4 +673,24 @@ int modif_ress(char **id){
         add_hist(ligne_bonne_categorie(choix), *id, 2);
 
     }
+}
+
+int chiffrement (char* mdp){
+    int len = strlen(mdp);
+    int i = 0;
+    unsigned long long m;
+    unsigned long long res = 0;
+    unsigned long long bis;
+    while ( i < len ) {
+        m = mdp[i] + mdp[i + 1 % len] * 1000 + mdp[i + 2 % len] *1000000;
+        bis = m;
+        while( m < 146256328109 ){
+            m = m * bis;
+        }
+        m = m % 159737309;
+        res = res + m;
+        i = i + 3;
+    }
+    return (int)res;
+
 }
