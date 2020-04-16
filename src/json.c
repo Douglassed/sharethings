@@ -62,7 +62,8 @@ void afficher_detail_obj(char *obj, int choix){
       medi_array_obj_name = json_object_object_get(medi_array_obj, "Description");//changer "vert" en détail à choisir
       printf("Description : %s\n",json_object_get_string(medi_array_obj_name));
       medi_array_obj_name = json_object_object_get(medi_array_obj, "En cours de pret");//changer "vert" en détail à choisir
-      printf("En cours de pret : %s\n",json_object_get_string(medi_array_obj_name));
+      if(strcmp(json_object_get_string(medi_array_obj_name),".")!=0)
+        printf("En cours de pret : %s\n",json_object_get_string(medi_array_obj_name));
       medi_array_obj_name = json_object_object_get(medi_array_obj, "Proprietaire");//changer "vert" en détail à choisir
       printf("Proprietaire : %s\n",json_object_get_string(medi_array_obj_name));
     }
@@ -166,7 +167,7 @@ bool existe_id(char *iD){
 
 /*-------------------------------------------------------------------------*/
 
-void stocker_id_mdp_inscription(char *iD, char* mdp){
+void stocker_id_mdp_inscription(char *iD, int mdp){
     FILE *fic = fopen("./json/Client.json", "r+");
 
     fseek(fic, -3, SEEK_END);
@@ -174,14 +175,16 @@ void stocker_id_mdp_inscription(char *iD, char* mdp){
     fputs(",\n  \"", fic);
     fputs(iD, fic);
     fputs("\": \"", fic);
-    fputs(mdp, fic);
+    char b[12];
+    sprintf(b, "%d", mdp);
+    fputs(b, fic);
     fputs("\"\n}\n", fic);
 
     fclose(fic);
   }
 //Exemple d'utilisation:
 //char *i = "New";
-//char *m = "koikoi";
+//int = 156458;
 //stocker_id_mdp_inscription(i, m);
 
 /*-------------------------------------------------------------------------*/
