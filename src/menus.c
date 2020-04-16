@@ -79,8 +79,7 @@ int menu_signup(char * modif){
 
     /* message de finalisation */
     int chiffr = chiffrement(stock_password);
-    printf("%d\n", chiffr);
-    stocker_id_mdp_inscription(ndc, stock_password);
+    stocker_id_mdp_inscription(ndc, chiffr);
     stocker_id_hist_inscription(ndc);
     system("clear");
         if (modif == " "){
@@ -118,6 +117,9 @@ int menu_signin(char **ndc){
 
     /* test de l'exactitude du mot de passe */
     chercher_mdp(NDC,&password_check);
+    int comp = chiffrement(password);
+    sprintf(password, "%d", comp);
+
     verif = compare_char(password_check,password);
 
     if (!verif){
