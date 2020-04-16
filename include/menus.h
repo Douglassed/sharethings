@@ -5,7 +5,7 @@
 typedef struct _menus * Menus;
 
 int menu_affiche_ress();
-void menu_recherche_specifique(char *obj, char* id);
+void menu_recherche_specifique(char *obj,int choix, char* id);
 int menu_signup(char * modif);
 int menu_signin(char **ndc);
 bool compare_char(char *password,char *passwordbis);

@@ -79,6 +79,7 @@ int menu_signup(char * modif){
 
     /* message de finalisation */
     stocker_id_mdp_inscription(ndc, stock_password);
+    stocker_id_hist_inscription(ndc);
     system("clear");
         if (modif == " "){
         printf("Vous vous êtes inscrit !\nSous le pseudo : %s\n", ndc);
@@ -215,7 +216,7 @@ int lire_entier(int *a,int min, int max){
     nb_lu=scanf("%d",a);
     nb_jete=lire_fin_ligne();
     if (nb_lu != 1){
-        printf("\nErreur : veuillez entrez un entier\n\n");
+        printf("\nErreur : veuillez entrez un entier\n");
         erreur = 1;
         *a = -1;
     }else if (max != 0 && (*a < min || *a > max)){
@@ -228,11 +229,12 @@ int lire_entier(int *a,int min, int max){
         *a = -1;
     }
     if (nb_jete!=0){
-        printf("\nErreur : veuillez ne pas séparer votre chaine de caractère\n\n");
+        printf("\nErreur : veuillez ne pas séparer votre chaine de caractère\n");
         erreur = 1;
         *a = -1;
     }
     if (erreur == 1){
+        printf("\nAppuyez sur entrer pour continuez\n");
         getchar();
     }
     return erreur;
@@ -271,7 +273,7 @@ void menu_user(char **ndc){
         printf("4 - Modifier son mot de passe\n");
         printf("5 - Quittez le programme\n\n");
         printf("%s, Choisissez : ",*ndc);
-        lire_entier(&choix, 1, 5);
+        lire_entier(&choix, 0, 5);
         switch (choix) {
             case 1:
                 system("clear");
@@ -306,11 +308,11 @@ void menu_user(char **ndc){
             case 5:
                 sortir = true;
                 break;
+            case 0:
+                sortir = true;
+                break;
             default:
                 break;
-        }
-        if (choix != 1 && choix != 5){
-
         }
     }while (sortir == false);
     system("clear");
@@ -430,22 +432,38 @@ bool verification(void){
 
 /*-------------------------------------------------------------------------*/
 
-void menu_recherche_specifique(char *obj, char* id){
+void menu_recherche_specifique(char *cat,int choix_cat, char* id){
   int choix;
+  int ch_empr;
   bool sorti = false;
+  char* proprio;
+  char* obj;
   do {
+      system("clear");
       printf("Choisissez un objet par son numéro pour plus de détails :\n\n");
       printf("0. Retour\n\n");
-      afficher_liste_obj(obj);
+      afficher_liste_obj(cat);
       printf("\nChoisissez : ");
-      if (!lire_entier(&choix,0,0)){
-          system("clear");
-      }
+      lire_entier(&choix,0,0);
       if (choix != 0){
-          afficher_detail_obj(obj, choix);
-          printf("\nappuyez sur entrer pour continuer\n");
-          getchar();
           system("clear");
+          afficher_detail_obj(cat, choix);
+              if (savoir_si_en_pret(cat, choix) == 2){
+              printf("\nEmprunté ?\n\n");
+              printf("1. Oui \n");
+              printf("2. Non \n");
+              printf("\nChoisissez : ");
+              lire_entier(&ch_empr,1,2);
+              if (ch_empr == 1){
+                  sauvegarder_detail_obj(cat, choix, 1, &obj);
+                  savoir_nom_proprio(cat, choix, &proprio);
+                  printf("%d %s %s %s\n",choix_cat,id,obj,proprio);
+                  mettre_en_pret_ou_finir_le_pret(choix_cat,  proprio, obj,id);
+                  add_hist(ligne_bonne_categorie(choix_cat), id, 4);
+              }
+          }else{
+              printf("L'objet est indisponible\n");
+          }
       }else{
           sorti = true;
       }
@@ -489,7 +507,7 @@ int menu_affiche_ress(int fonction, char** cat, char* id){
             break;
       }
       if (!sorti && fonction == 1){
-          menu_recherche_specifique(*cat,id);
+          menu_recherche_specifique(*cat,choix,id);
       }
       if (!sorti && fonction == 2){
           sorti = true;
@@ -530,10 +548,11 @@ void menu_gestion_ress(char** id){
               modif_ress(id);
               break;
           case 3:
-              //ressource
               break;
           case 4 :
-              //history
+              afficher_liste_historique(*id);
+              printf("\nAppuyez sur entrer pour continuer\n");
+              getchar();
               break;
           default:
             break;
@@ -595,6 +614,7 @@ int ajout_ress(char** id){
 
     if (strlen(description) > 2 && strlen(name) > 2){
         add_ressource(lignecat, *id, description, name, ".");
+        add_hist(lignecat - 2 , *id, 1);
         return 0;
     }
     return 1;
@@ -639,10 +659,14 @@ int modif_ress(char **id){
     lire_entier(&choixnd,0,3);
     system("clear");
     if (choixnd == 1 || choixnd == 2){
-        modif_ressource_sauf_pret(choix, *id, sauvobj, choixnd);
+        modif_ressource_sauf_pret(choix, *id, sauvobj, choixnd,sauvdes);
+        add_hist(ligne_bonne_categorie(choix), *id, 3);
+
 
     }
     if (choixnd == 3 && verification()){
         del_ressource(ligne_bon_obj(choix, *id, sauvobj));
+        add_hist(ligne_bonne_categorie(choix), *id, 2);
+
     }
 }

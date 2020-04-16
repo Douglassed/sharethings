@@ -1,12 +1,6 @@
 {
   "livre": [
     {
-      "Name": "obj live",
-      "Description": "oui",
-      "En cours de pret": ".",
-      "Proprietaire": "aze"
-    },
-    {
       "Name": "MyLittlePoney",
       "Description": "L'auteur est Francois Hollande",
       "En cours de pret": ".",
@@ -31,14 +25,16 @@
       "Proprietaire": "PolskaEditor"
     },
     {
-      "Name": "tarte a la framboise",
-      "Description": "srgdfs",
+      "Name": "LivreCool",
+      "Description": "CoolCoolCool",
       "En cours de pret": ".",
       "Proprietaire": "aze"
     },
+  ],
+  "electronique": [
     {
-      "Name": "C'est le nouveau nom",
-      "Description": "jte change alors",
+      "Name": "tarte a la framboise",
+      "Description": "srgdfs",
       "En cours de pret": ".",
       "Proprietaire": "aze"
     },
@@ -48,8 +44,6 @@
       "En cours de pret": ".",
       "Proprietaire": "aze"
     },
-  ],
-  "electronique": [
     {
       "Name": "TourPC HP",
       "Description": "i7 GTX1050 8GoRAM 512GoSSD",
@@ -64,18 +58,6 @@
     },
   ],
   "outil": [
-    {
-      "Name": "ca marche le .",
-      "Description": "jcp ...",
-      "En cours de pret": ".",
-      "Proprietaire": "aze"
-    },
-    {
-      "Name": "tronco",
-      "Description": "sefsdfsdfc",
-      "En cours de pret": "",
-      "Proprietaire": "aze"
-    },
     {
       "Name": "Tronconneuse",
       "Description": "Tronconneuse electrique filaire",
