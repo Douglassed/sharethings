@@ -2,7 +2,7 @@ GCC=gcc
 LDFLAGS=-ljson-c
 LIB=./lib
 INCLUDE=./include
-CFLAGS= -Wall -g
+CFLAGS=
 SRC=./src
 OBJ=$(SRC:.c=.o)
 EXEC=Sharethings

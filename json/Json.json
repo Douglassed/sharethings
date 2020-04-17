@@ -89,7 +89,7 @@
     {
       "Name": "TourPC HP",
       "Description": "i7 GTX1050 8GoRAM 512GoSSD",
-      "En cours de pret": "aze",
+      "En cours de pret": ".",
       "Proprietaire": "Monsieur Durand"
     },
   ],
@@ -110,6 +110,12 @@
   "Sport": [
   ],
   "Jouet": [
+    {
+      "Name": "Barbie",
+      "Description": "Ce son celle de ma fille elle ne les utilisent plus",
+      "En cours de pret": ".",
+      "Proprietaire": "M.Truillet"
+    },
   ],
   "Cuisine": [
   ],
