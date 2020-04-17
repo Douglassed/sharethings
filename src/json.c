@@ -371,7 +371,7 @@ void print_id(int choix){
   /* Printing the lane we want */
     if(line_count==(choix+1)){
       for(int i = 3; (line_buf[i])!= '"'; i++){
-        printf("%c", line_buf[i]);
+        //printf("%c", line_buf[i]);
       }
     }
     /* Get the next line */

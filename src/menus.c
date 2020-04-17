@@ -382,11 +382,11 @@ void modif_user(int nbuser){
     int choice;
     bool sorti = false;
     char* id;
-    sauv_id(nbuser, &id);
+
     /* affcihe le menu modification d'un utilisateur */
     do{
         system("clear");
-        print_id(nbuser);
+        sauv_id(nbuser, &id);
         printf(" :\n\n");
         printf("1 - Supprimer le compte\n");
         printf("2 - Annuler\n");
@@ -397,6 +397,7 @@ void modif_user(int nbuser){
             case 1:
                 if (verification()){
                     suppr_acc(id);
+                    del_historique(ligne_bonne_pers_hist(id));
                     print_id(nbuser);
                     admin_del_someone(nbuser);
                     printf(" a été supprimer\n");
@@ -861,9 +862,11 @@ void suppr_acc(char* id){
                 break;
         }
         count =  afficher_liste_obj_du_proprio(cat, id);
-        for (j = 1; j <= count; j++) {
+        for (j = count; j > 0; j--) {
             savoir_choix_obj_du_proprio(cat, id, j, &sauvobj);
             del_ressource(ligne_bon_obj(i, id, sauvobj));
+
         }
     }
+    system("clear");
 }

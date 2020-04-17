@@ -1,36 +1,4 @@
 {
-  "aze": [
-    {
-      "Operation": "Fin de pret",
-      "Date": "Vendredi 17 Avril 2020 16:55:30",
-      "Objet": "aze"
-    },
-    {
-      "Operation": "Emprunt",
-      "Date": "Vendredi 17 Avril 2020 16:55:18",
-      "Objet": "LesOiseauxDePologne"
-    },
-    {
-      "Operation": "Modifier",
-      "Date": "Vendredi 17 Avril 2020 15:07:40",
-      "Objet": "ajout livre-->LIVRE AJOUT COOL"
-    },
-    {
-      "Operation": "Emprunt",
-      "Date": "Vendredi 17 Avril 2020 14:23:37",
-      "Objet": "livre de test"
-    },
-    {
-      "Operation": "Modifier",
-      "Date": "Vendredi 17 Avril 2020 13:48:35",
-      "Objet": "livre trop bien-->livre moyen"
-    },
-    {
-      "Operation": "Fin de pret",
-      "Date": "Vendredi 17 Avril 2020 11:20:20",
-      "Objet": "aze"
-    },
-  ],
   "test": [
     {
       "Operation": "Ajout",
