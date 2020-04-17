@@ -1,16 +1,16 @@
 {
   "livre": [
     {
-      "Name": "Ca marche",
-      "Description": "ca marche pas",
+      "Name": "autre livre",
+      "Description": "livreazeaz",
       "En cours de pret": ".",
       "Proprietaire": "aze"
     },
     {
-      "Name": "MyLittlePoney",
-      "Description": "L'auteur est Francois Hollande",
+      "Name": "livre trop bien",
+      "Description": "en vrai pas si mal",
       "En cours de pret": ".",
-      "Proprietaire": "Francois luimeme"
+      "Proprietaire": "aze"
     },
     {
       "Name": "MausOfTheReich",
@@ -29,6 +29,18 @@
       "Description": "L'auteur est Muriel Latoupalampa",
       "En cours de pret": ".",
       "Proprietaire": "PolskaEditor"
+    },
+    {
+      "Name": "MyLittlePoney",
+      "Description": "L'auteur est Francois Hollande",
+      "En cours de pret": "aze",
+      "Proprietaire": "Francois luimeme"
+    },
+    {
+      "Name": "ca marche vraiment en plus",
+      "Description": "ca marche pas",
+      "En cours de pret": "aze",
+      "Proprietaire": "aze"
     },
   ],
   "electronique": [
@@ -59,7 +71,7 @@
     {
       "Name": "des fois lever du lit ahah",
       "Description": "qefdsqdfsdfsdfsdf",
-      "En cours de pret": ".",
+      "En cours de pret": "aze",
       "Proprietaire": "aze"
     },
   ],

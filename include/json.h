@@ -32,6 +32,7 @@ void add_hist(int num_ligne_pers, char *iD, int ope);
 void afficher_liste_historique(char *iD);
 void stocker_id_hist_inscription(char *iD);
 int ligne_bonne_personne(char *iD);
+void afficher_liste_historique_choix(char *iD, int J);
 
 
 

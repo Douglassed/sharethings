@@ -1503,3 +1503,117 @@ int ligne_bonne_personne(char *iD){
 //char *obj = "Marteau";
 //int ope = 1;
 //add_hist(n, obj, ope);
+
+
+void afficher_liste_historique_choix(char *iD, int J){
+    struct json_object *med_obj, *medi_array, *medi_array_obj, *medi_array_obj_name;
+    int arraylen, j;
+    static const char filename[] = "./json/Historique.json";
+    med_obj = json_object_from_file(filename);
+    medi_array = json_object_object_get(med_obj, iD);
+
+    // medi_array is an array of objects
+    arraylen = json_object_array_length(medi_array);
+
+    for (j = 0; j < arraylen; j++) {
+      if(j<=J){
+        // get the i-th object in medi_array
+        medi_array_obj = json_object_array_get_idx(medi_array, j);
+        // get the name attribute in the i-th object
+        medi_array_obj_name = json_object_object_get(medi_array_obj, "Operation");
+        // print out the name attribute
+        printf("%d. %s: ",j+1,json_object_get_string(medi_array_obj_name));
+        medi_array_obj_name = json_object_object_get(medi_array_obj, "Date");
+        printf(" %s,",json_object_get_string(medi_array_obj_name));
+        medi_array_obj_name = json_object_object_get(medi_array_obj, "Objet");
+        printf(" %s\n",json_object_get_string(medi_array_obj_name));
+      }
+    }
+  }
+//int k = 10;
+//char *iD = "John";
+//afficher_liste_historique_choix(iD, k);
+
+
+
+void afficher_liste_obj_emprunte(char *obj,char *emprunteur){
+  struct json_object *med_obj, *medi_array, *medi_array_obj, *medi_array_obj_name;
+  int arraylen, j;
+  int count = 0;
+  bool appartient = true;
+  static const char filename[] = "./json/Json.json";
+  med_obj = json_object_from_file(filename);
+  medi_array = json_object_object_get(med_obj, obj);
+
+  // medi_array is an array of objects
+  arraylen = json_object_array_length(medi_array);
+
+  for (j = 0; j < arraylen; j++) {
+    // get the i-th object in medi_array
+    medi_array_obj = json_object_array_get_idx(medi_array, j);
+    // get the name attribute in the i-th object
+    medi_array_obj_name = json_object_object_get(medi_array_obj, "En cours de pret");
+    char *id_a_check = json_object_get_string(medi_array_obj_name);
+    appartient = true;
+    for(int a = 0; emprunteur[a]!='\0'; a++){
+      if(id_a_check[a]!=emprunteur[a])
+        appartient = false;
+    }
+    if(appartient==true){
+      medi_array_obj_name = json_object_object_get(medi_array_obj, "Name");
+      printf("%d. %s\n",count+1,json_object_get_string(medi_array_obj_name));
+      count++;
+    }
+  }
+}
+//char *objet = "electronique";
+//char *emprunteur ="Monsieur Durand";
+//afficher_liste_obj_emprunte(objet, emprunteur);
+
+
+
+
+
+
+void avoir_choix_obj_du_emprunteur(char *cat,char *emprunteur, int choix, char **sauv, char **sauv2){
+  struct json_object *med_obj, *medi_array, *medi_array_obj, *medi_array_obj_name;
+  int arraylen, j;
+  int count = 0;
+  bool appartient = true;
+  static const char filename[] = "./json/Json.json";
+  med_obj = json_object_from_file(filename);
+  medi_array = json_object_object_get(med_obj, cat);
+
+  // medi_array is an array of objects
+  arraylen = json_object_array_length(medi_array);
+
+  for (j = 0; j < arraylen; j++) {
+    // get the i-th object in medi_array
+    medi_array_obj = json_object_array_get_idx(medi_array, j);
+    // get the name attribute in the i-th object
+    medi_array_obj_name = json_object_object_get(medi_array_obj, "En cours de pret");
+    char *id_a_check = json_object_get_string(medi_array_obj_name);
+    appartient = true;
+    for(int a = 0; emprunteur[a]!='\0'; a++){
+      if(id_a_check[a]!=emprunteur[a])
+        appartient = false;
+    }
+    if(appartient==true){
+      if(count==choix-1){
+        medi_array_obj_name = json_object_object_get(medi_array_obj, "Name");
+        //printf("%s\n",json_object_get_string(medi_array_obj_name));
+        *sauv = json_object_get_string(medi_array_obj_name);
+        medi_array_obj_name = json_object_object_get(medi_array_obj, "Proprietaire");
+        //printf("%s\n",json_object_get_string(medi_array_obj_name));
+        *sauv2 = json_object_get_string(medi_array_obj_name);
+      }
+      count++;
+    }
+  }
+}
+//char *objet = "electronique";
+//char *proprio ="Monsieur Durand";
+//int choix = 2;
+//char *sauvegarde_detail;
+//afficher_choix_obj_du_proprio(objet, proprio, choix, &sauvegarde_detail);
+//printf("%s\n", sauvegarde_detail);
