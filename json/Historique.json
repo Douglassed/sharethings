@@ -24,5 +24,27 @@
     },
   ],
   "toto": [
+  ],
+  "M.Truillet": [
+    {
+      "Operation": "Ajout",
+      "Date": "Vendredi 17 Avril 2020 16:06:55",
+      "Objet": "Barbie"
+    },
+    {
+      "Operation": "Fin de pret",
+      "Date": "Vendredi 17 Avril 2020 16:05:25",
+      "Objet": "M.Truillet"
+    },
+    {
+      "Operation": "Emprunt",
+      "Date": "Vendredi 17 Avril 2020 16:03:50",
+      "Objet": "TourPC HP"
+    },
+    {
+      "Operation": "Emprunt",
+      "Date": "Vendredi 17 Avril 2020 16:03:13",
+      "Objet": "TourPC HP"
+    },
   ]
 }

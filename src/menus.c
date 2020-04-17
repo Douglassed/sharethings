@@ -22,7 +22,7 @@ int menu_signup(char * modif){
     /* stockage du nom de compte */
     i = 0;
     if (modif == " "){
-        printf("Entrez votre nom de compte : ");
+        printf("\nEntrez votre nom de compte : ");
         ch = getchar();
         while ( ch != 10 ){
             ndc[i] = ch;
@@ -102,7 +102,7 @@ int menu_signin(char **ndc){
     int i;
 
     /* récuperation du nom de compte */
-    printf("Entrez votre nom de compte : ");
+    printf("\nEntrez votre nom de compte : ");
     ch = getchar();
     i=0;
     while ( ch != 10 ){
@@ -384,7 +384,6 @@ void modif_user(int nbuser){
 
     /* affcihe le menu modification d'un utilisateur */
     do{
-        printf("pour ");
         system("clear");
         print_id(nbuser);
         printf(" :\n\n");
@@ -470,14 +469,9 @@ int menu_recherche_specifique(char *cat,int choix_cat, char* id){
               printf("\nChoisissez : ");
               lire_entier(&ch_empr,1,2);
               if (ch_empr == 1){
-                  printf("?\n");
                   sauvegarder_detail_obj(cat, choix, 1, &obj);
-                  printf("?\n");
                   savoir_nom_proprio(cat, choix, &proprio);
-                  printf("?\n");
-                  printf("%d %s %s %s\n",choix_cat,id,obj,proprio);
                   mettre_en_pret_ou_finir_le_pret(choix_cat,  proprio, obj,id);
-                  printf("?\n");
                   add_hist(ligne_bonne_personne(id), obj, 4);
               }
           }else{
@@ -512,7 +506,6 @@ int menu_affiche_ress(int fonction, char** cat, char* id){
       printf("6 - Cuisine\n");
       printf("7 - Autre\n\n");
       printf("Choisissez : ");
-      //printf("%s, Choisissez : ",*ndc);
       lire_entier(&choix, 0, 7);
       system("clear");
       switch (choix) {
@@ -612,7 +605,7 @@ void menu_gestion_ress(char** id){
               }
               break;
           case 4 :
-              printf("Combien de vos transaction voulez vous voir : ");
+              printf("Combien de vos transactions voulez vous voir : ");
               lire_entier(&choix_his,1,0);
               printf("\n");
               afficher_liste_historique_choix(*id, choix_his - 1);
@@ -730,15 +723,15 @@ int modif_ress(char **id){
     printf("\nChoisissez : ");
     lire_entier(&choixnd,0,3);
     system("clear");
-    if (choixnd == 1 || choixnd == 2){
+    if (1 == savoir_si_en_pret(cat, quel_n_eme_obj(ligne_bon_obj(choix, *id, sauvobj),ligne_bonne_categorie(choix)))){
+        printf("L'objet est actuellement en prêt, il ne peux pas être modifié ou supprimé\n");
+        printf("\nAppuyez sur entrer pour continuer\n");
+        getchar();
+    }else {
+        if (choixnd == 1 || choixnd == 2){
         modif_ressource_sauf_pret(choix, *id, sauvobj, choixnd,sauvdes);
-    }
-    if (choixnd == 3 && verification()){
-        if (1 == savoir_si_en_pret(cat, quel_n_eme_obj(ligne_bon_obj(choix, *id, sauvobj),ligne_bonne_categorie(choix)))){
-            printf("L'objet est actuellement en prêt, il ne peux pas être supprimé\n");
-            printf("\nAppuyez sur entrer pour continuer\n");
-            getchar();
-        }else{
+        }
+        if (choixnd == 3 && verification()){
             del_ressource(ligne_bon_obj(choix, *id, sauvobj));
             add_hist(ligne_bonne_personne(*id), sauvobj, 2);
         }
