@@ -18,13 +18,34 @@ Concernant le json, il y a de très nombreuses fonctions mais qui en général o
 - modifier les informations voulus situés dans un fichier .json comme la suppression de données ou l'ajout,
 Le tout a été de construire une véritable passerelle entre le json et le C !
 
-2.2 L
+2.2 Les menus et autres fonctions
 
+Les fonctions de menus qui permettent de naviguer entre les différents menus,
+elles ont en arguments l'ID du compte actuellement connecté,
+ce qui permet d'utiliser les fonctions du fichier json.c et d'apporter les informations nécessaires à la modification des fichiers .json
+
+Les fonctions de "gestion" qui permettent de gérer les différentes erreurs qu'il pourrait se passer,
+comme rectifier les erreurs de saisie de l'utilisateur, des confirmations de saisie ou des vérifications d'objets disponible.
 
 3. Explication du programme:
 
 
+Le programme permet de se connecter ou de créer son compte avec un identifiant et un mot de passe(chiffré),
+il peut ensuite stocker des ressources qui seront mise à disposition avec un système de gestion des ressources.
+Les utilisateurs pourront modifier ou supprimer leurs ressources et,
+afficher la liste des ressources triées par catégorie mise à disposition par d'autres utilisateurs ,
+pour les emprunter en fonctions de leurs disponibilités.
+Les objets empruntés peuvent être consultés et rendus quand vous le souhaitez.
+Une fonctionnalité permet aussi d'afficher les dernières opérations que l'on a réalisé grâce a un historique dédier a chaque personne.
+Il existe aussi des fonctionnalités de gestion de compte pour modifier son mot de passe ou supprimer son compte.
+Le programme sharethings possède aussi un mode administrateur,
+qui va permettre de supprimer les comptes ainsi que toutes leurs ressources.
+
+
 4. Mode d'emploi:
+
+Après exécution de la commande "./Sharethings",
+il faut entrer les chiffres correspondants aux différents menus affichés et valider en appuyant sur la touche entrer
 
 
 5. Bilan:
