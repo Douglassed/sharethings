@@ -555,7 +555,7 @@ void menu_gestion_ress(char** id){
   int choix_emp;
   char* obj_emp;
   char* prop_emp;
-  int max_emp;
+  int max_emp = 0;
   int choix_his;
   /* affichage du menu et choix de l'action */
   do {
@@ -584,15 +584,16 @@ void menu_gestion_ress(char** id){
               choix_cat = menu_affiche_ress(2, &cat, *id);
               printf("Les objets que vous voulez rendre : \n\n");
               printf("0. Annuler\n\n");
-              max_emp = afficher_liste_obj_emprunte(cat,*id);
-              if (max_emp == 0){
+              if (choix_cat != 0)
+                max_emp = afficher_liste_obj_emprunte(cat,*id);
+              if (max_emp == 0 && choix_cat != 0){
                   system("clear");
                   printf("Vous n'avez aucun objet dans la categorie %s\n", cat);
                   printf("\nAppuyez sur entrer pour continuer");
                   getchar();
               }
               printf("\nChoisissez : ",max_emp);
-              if (max_emp != 0 && lire_entier(&choix_emp,0,max_emp) == 0 && choix_emp != 0){
+              if (choix_cat != 0 && max_emp != 0 && lire_entier(&choix_emp,0,max_emp) == 0 && choix_emp != 0){
                   avoir_choix_obj_du_emprunteur(cat,*id, choix_emp, &obj_emp, &prop_emp);
                   if (verification()){
                       mettre_en_pret_ou_finir_le_pret(choix_cat, prop_emp, obj_emp, *id);
@@ -638,8 +639,9 @@ int ajout_ress(char** id){
     int j = 0;
     while ( cha != 10 && j < 50 ){
         cha = getchar();
-        printf("|%c %d|\n", cha, cha);
-        name[j] = cha;
+        if (cha != 10){
+            name[j] = cha;
+        }
         j++;
         name[j] = '\0';
     }

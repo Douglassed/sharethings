@@ -1,6 +1,11 @@
 {
   "aze": [
     {
+      "Operation": "Modifier",
+      "Date": "Vendredi 17 Avril 2020 13:48:35",
+      "Objet": "livre trop bien-->livre moyen"
+    },
+    {
       "Operation": "Fin de pret",
       "Date": "Vendredi 17 Avril 2020 11:20:20",
       "Objet": "aze"
