@@ -287,7 +287,7 @@ void menu_user(char **ndc){
                 menu_gestion_ress(ndc);
                 break;
             case 3:
-                if (verification()){
+                if (verification() && (verif_suppr(*ndc) == 2)){
                     admin_del_someone(num_id(*ndc));
                     printf("Le compte %s a été supprimer avec succès\n", *ndc);
                     printf("\nVous allez quitter le programme\n");
@@ -463,6 +463,7 @@ void menu_recherche_specifique(char *cat,int choix_cat, char* id){
                   savoir_nom_proprio(cat, choix, &proprio);
                   printf("%d %s %s %s\n",choix_cat,id,obj,proprio);
                   mettre_en_pret_ou_finir_le_pret(choix_cat,  proprio, obj,id);
+                  printf("?\n");
                   add_hist(ligne_bonne_personne(id), obj, 4);
               }
           }else{
@@ -531,7 +532,11 @@ void menu_gestion_ress(char** id){
   int choix_cat;
   char* cat;
   bool sorti = false;
-
+  int choix_emp;
+  char* obj_emp;
+  char* prop_emp;
+  int max_emp;
+  int choix_his;
   /* affichage du menu et choix de l'action */
   do {
       system("clear");
@@ -557,9 +562,28 @@ void menu_gestion_ress(char** id){
               break;
           case 3:
               choix_cat = menu_affiche_ress(2, &cat, *id);
+              printf("Les objets que vous voulez rendre : \n\n");
+              printf("0. Annuler\n\n");
+              max_emp = afficher_liste_obj_emprunte(cat,*id);
+              if (max_emp == 0){
+                  system("clear");
+                  printf("Vous n'avez aucun objet dans la categorie %s\n", cat);
+                  printf("\nAppuyez sur entrer pour continuer");
+                  getchar();
+              }
+              printf("\nChoisissez : ",max_emp);
+              if (max_emp != 0 && lire_entier(&choix_emp,0,max_emp) == 0 && choix_emp != 0){
+                  avoir_choix_obj_du_emprunteur(cat,*id, choix_emp, &obj_emp, &prop_emp);
+                  if (verification()){
+                      mettre_en_pret_ou_finir_le_pret(choix_cat, *id, obj_emp, prop_emp);
+                  }
+              }
               break;
           case 4 :
-              afficher_liste_historique(*id);
+              printf("Combien de vos transaction voulez vous voir : ");
+              lire_entier(&choix_his,1,0);
+              printf("\n");
+              afficher_liste_historique_choix(*id, choix_his - 1);
               printf("\nAppuyez sur entrer pour continuer\n");
               getchar();
               break;
@@ -671,9 +695,14 @@ int modif_ress(char **id){
         modif_ressource_sauf_pret(choix, *id, sauvobj, choixnd,sauvdes);
     }
     if (choixnd == 3 && verification()){
-        del_ressource(ligne_bon_obj(choix, *id, sauvobj));
-        add_hist(ligne_bonne_personne(*id), sauvobj, 2);
-
+        if (1 == savoir_si_en_pret(cat, quel_n_eme_obj(ligne_bon_obj(choix, *id, sauvobj),ligne_bonne_categorie(choix)))){
+            printf("L'objet est actuellement en prêt, il ne peux pas être supprimé\n");
+            printf("\nAppuyez sur entrer pour continuer\n");
+            getchar();
+        }else{
+            del_ressource(ligne_bon_obj(choix, *id, sauvobj));
+            add_hist(ligne_bonne_personne(*id), sauvobj, 2);
+        }
     }
 }
 
@@ -683,8 +712,8 @@ int chiffrement (char* mdp){
     unsigned long long m;
     unsigned long long res = 0;
     unsigned long long bis;
-    while ( i < len ) {
-        m = mdp[i] + mdp[i + 1 % len] * 1000 + mdp[i + 2 % len] *1000000;
+    while ( i < len - 2) {
+        m = mdp[i] + mdp[i + 1] * 1000 + mdp[i + 2] *1000000;
         bis = m;
         while( m < 146256328109 ){
             m = m * bis;
@@ -693,6 +722,100 @@ int chiffrement (char* mdp){
         res = res + m;
         i = i + 3;
     }
+    if ((i - len) == 1 ){
+        m = mdp[i - 3] - mdp[i - 2] * 1000 + 102 *1000000;
+        bis = m;
+        while( m < 146256328109 ){
+            m = m * bis;
+        }
+        m = m % 159737309;
+        res = res + m;
+    }
+    if ((i - len) == 2 ){
+        m = mdp[i - 3] - 15 * 1000 + 62 *1000000;
+        bis = m;
+        while( m < 146256328109 ){
+            m = m * bis;
+        }
+        m = m % 159737309;
+        res = res + m;
+    }
+
     return (int)res;
 
+}
+int verif_suppr(char *id){
+
+    int trouve = 2;
+    char* cat;
+    char* sauvobj;
+    int max_obj;
+    printf("%s %s\n",id,id);
+
+    while (trouve == 2) {
+        printf("%s %s\n",id,id);
+
+        for (int i = 0; i < 3; i++){
+            printf("%s %s\n",id,id);
+
+            switch (i) {
+                case 0:
+                    cat = "livre";
+                    break;
+                case 1:
+                    cat = "electronique";
+                    break;
+                case 2:
+                    cat = "outil";
+                    break;
+                default:
+                    break;
+            }
+            printf("%s %s\n",id,id);
+
+
+            max_obj = afficher_liste_obj_du_proprio(cat, id);
+            printf("%s %s\n",id,id);
+
+            for(int j = 1; j <= max_obj; j++){
+                printf("%s %s\n",cat,id);
+
+                afficher_choix_obj_du_proprio(cat,id, j, &sauvobj);
+                printf("%d %s %s %d %s\n",max_obj,id,cat,i,sauvobj);
+                printf("%d %d\n", ligne_bon_obj(i, id, sauvobj),ligne_bonne_categorie(i));
+                trouve = savoir_si_en_pret(cat, quel_n_eme_obj(ligne_bon_obj(i, id, sauvobj),ligne_bonne_categorie(i)));
+                printf("%d %s\n",trouve,id);
+
+            }
+        }
+    }
+    //system("clear");
+    return trouve;
+}
+
+void suppr_acc(char* id){
+    char* cat;
+    int count;
+    char* sauvobj;
+    for (size_t i = 0; i < 3; i++) {
+        switch (i) {
+            case 0:
+                cat = "livre";
+                break;
+            case 1:
+                cat = "electronique";
+                break;
+            case 2:
+                cat = "outil";
+                break;
+            default:
+                break;
+        }
+
+        count =  afficher_liste_obj_du_proprio(cat, id);
+        for (int j = 1; j <= count; j++) {
+            afficher_choix_obj_du_proprio(cat, id, j, &sauvobj);
+            del_ressource(ligne_bon_obj(i, id, sauvobj));
+        }
+    }
 }

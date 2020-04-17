@@ -33,6 +33,10 @@ void afficher_liste_historique(char *iD);
 void stocker_id_hist_inscription(char *iD);
 int ligne_bonne_personne(char *iD);
 void afficher_liste_historique_choix(char *iD, int J);
+int afficher_liste_obj_emprunte(char *obj,char *emprunteur);
+void avoir_choix_obj_du_emprunteur(char *cat,char *emprunteur, int choix, char **sauv, char **sauv2);
+
+
 
 
 

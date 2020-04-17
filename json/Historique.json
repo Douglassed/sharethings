@@ -1,6 +1,21 @@
 {
   "aze": [
     {
+      "Operation": "Supprimer",
+      "Date": "Jeudi 16 Avril 2020 17:15:28",
+      "Objet": "autre livre"
+    },
+    {
+      "Operation": "Emprunt",
+      "Date": "Jeudi 16 Avril 2020 17:14:14",
+      "Objet": "tarte a la framboise"
+    },
+    {
+      "Operation": "Modifier",
+      "Date": "Jeudi 16 Avril 2020 16:55:00",
+      "Objet": "ca marche vraiment en plus-->wtf"
+    },
+    {
       "Operation": "Modifier",
       "Date": "Jeudi 16 Avril 2020 16:52:16",
       "Objet": "Ca marche-->ca marche vraiment en plus"
@@ -70,5 +85,137 @@
   "admin": [
   ],
   "Clement": [
+<<<<<<< HEAD
+=======
+  ],
+  "aze": [
+    {
+      "Operation": "Emprunt",
+      "Date": "Vendredi 17 Avril 2020 11:00:47",
+      "Objet": "livre de test"
+    },
+    {
+      "Operation": "Emprunt",
+      "Date": "Vendredi 17 Avril 2020 10:59:47",
+      "Objet": "livre de test"
+    },
+    {
+      "Operation": "Emprunt",
+      "Date": "Vendredi 17 Avril 2020 10:58:55",
+      "Objet": "TourPC HP"
+    },
+    {
+      "Operation": "Emprunt",
+      "Date": "Vendredi 17 Avril 2020 10:45:12",
+      "Objet": "livre de test"
+    },
+    {
+      "Operation": "Emprunt",
+      "Date": "Vendredi 17 Avril 2020 10:44:53",
+      "Objet": "livreee"
+    },
+    {
+      "Operation": "Emprunt",
+      "Date": "Vendredi 17 Avril 2020 10:38:08",
+      "Objet": "livre trop bien"
+    },
+    {
+      "Operation": "Supprimer",
+      "Date": "Jeudi 16 Avril 2020 19:54:00",
+      "Objet": "wtf"
+    },
+    {
+      "Operation": "Ajout",
+      "Date": "Jeudi 16 Avril 2020 19:38:23",
+      "Objet": "ajout livre"
+    },
+    {
+      "Operation": "Emprunt",
+      "Date": "Jeudi 16 Avril 2020 19:30:45",
+      "Objet": "TourPC AlienWare"
+    },
+    {
+      "Operation": "Emprunt",
+      "Date": "Jeudi 16 Avril 2020 19:30:39",
+      "Objet": "LesOiseauxDePologne"
+    },
+    {
+      "Operation": "Emprunt",
+      "Date": "Jeudi 16 Avril 2020 19:28:46",
+      "Objet": "wtf"
+    },
+    {
+      "Operation": "Emprunt",
+      "Date": "Jeudi 16 Avril 2020 19:28:34",
+      "Objet": "aze"
+    },
+    {
+      "Operation": "Emprunt",
+      "Date": "Jeudi 16 Avril 2020 19:25:40",
+      "Objet": "livre trop bien"
+    },
+  ],
+  "Clement": [
+  ],
+  "Clement": [
+  ],
+  "clement": [
+  ],
+  "azer": [
+  ],
+  "tt": [
+  ],
+  "test": [
+    {
+      "Operation": "Modifier",
+      "Date": "Vendredi 17 Avril 2020 10:40:44",
+      "Objet": "livre de test"
+    },
+    {
+      "Operation": "Ajout",
+      "Date": "Vendredi 17 Avril 2020 10:40:22",
+      "Objet": "okjiojojo"
+    },
+    {
+      "Operation": "Ajout",
+      "Date": "Vendredi 17 Avril 2020 10:40:02",
+      "Objet": "livreee"
+    },
+    {
+      "Operation": "Modifier",
+      "Date": "Vendredi 17 Avril 2020 10:36:07",
+      "Objet": "PCM"
+    },
+    {
+      "Operation": "Ajout",
+      "Date": "Vendredi 17 Avril 2020 10:35:43",
+      "Objet": "PCM"
+    },
+    {
+      "Operation": "Emprunt",
+      "Date": "Vendredi 17 Avril 2020 10:34:49",
+      "Objet": "MyLittlePoney"
+    },
+    {
+      "Operation": "Supprimer",
+      "Date": "Vendredi 17 Avril 2020 10:24:52",
+      "Objet": "livre de test"
+    },
+    {
+      "Operation": "Modifier",
+      "Date": "Vendredi 17 Avril 2020 10:24:16",
+      "Objet": "livre de test"
+    },
+    {
+      "Operation": "Emprunt",
+      "Date": "Vendredi 17 Avril 2020 10:16:52",
+      "Objet": "ajout livre"
+    },
+    {
+      "Operation": "Ajout",
+      "Date": "Jeudi 16 Avril 2020 19:24:19",
+      "Objet": "livre de test"
+    },
+>>>>>>> 78ec7da0ee40baa02093f8914e74880f5b60b1ca
   ]
 }
