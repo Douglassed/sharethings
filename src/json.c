@@ -77,7 +77,7 @@ void afficher_detail_obj(char *obj, int choix){
 
 /*-------------------------------------------------------------------------*/
 
-void afficher_liste_obj(char *obj){
+int afficher_liste_obj(char *obj){
   struct json_object *med_obj, *medi_array, *medi_array_obj, *medi_array_obj_name;
   int arraylen, j;
   static const char filename[] = "./json/Json.json";
@@ -102,6 +102,7 @@ void afficher_liste_obj(char *obj){
     else
       printf("\n");
   }
+  return arraylen;
 }
 //Exemple d'utilisation:
 //char *objet = "livre";

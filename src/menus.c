@@ -645,7 +645,6 @@ int ajout_ress(char** id){
         j++;
         name[j] = '\0';
     }
-    printf("??\n");
     if (j >= 50 || j < 3){
         if (j >= 50)
             lire_fin_ligne();
@@ -775,61 +774,43 @@ int chiffrement (char* mdp){
 
 }
 int verif_suppr(char *id){
-
+    int j;
+    int i;
     int trouve = 2;
     char* cat;
     char* sauvobj;
     int max_obj;
-    printf("%s %s\n",id,id);
-
-    while (trouve == 2) {
-        printf("%s %s\n",id,id);
-
-        for (int i = 1; i < 8; i++){
-            printf("%s %s\n",id,id);
+    while (trouve == 2 && i != 8) {
+        for (i = 1; i < 8; i++){
             switch (i) {
-                case 0:
-                    *cat = ".";
-                    //sorti=true;
-                    break;
                 case 1:
-                    *cat = "Livre";
+                    cat = "Livre";
                     break;
                 case 2:
-                    *cat = "Informatique";
+                    cat = "Informatique";
                     break;
                 case 3:
-                    *cat = "Bricolage";
+                    cat = "Bricolage";
                     break;
                 case 4:
-                    *cat = "Sport";
+                    cat = "Sport";
                     break;
                 case 5:
-                    *cat = "Jouet";
+                    cat = "Jouet";
                     break;
                 case 6:
-                    *cat = "Cuisine";
+                    cat = "Cuisine";
                     break;
                 case 7:
-                    *cat = "Autre";
+                    cat = "Autre";
                     break;
                 default:
                     break;
             }
-            printf("%s %s\n",id,id);
-
-
             max_obj = afficher_liste_obj_du_proprio(cat, id);
-            printf("%s %s\n",id,id);
-
-            for(int j = 1; j <= max_obj; j++){
-                printf("%s %s\n",cat,id);
-
+            for(j = 1; j <= max_obj; j++){
                 afficher_choix_obj_du_proprio(cat,id, j, &sauvobj);
-                printf("%d %s %s %d %s\n",max_obj,id,cat,i,sauvobj);
-                printf("%d %d\n", ligne_bon_obj(i, id, sauvobj),ligne_bonne_categorie(i));
                 trouve = savoir_si_en_pret(cat, quel_n_eme_obj(ligne_bon_obj(i, id, sauvobj),ligne_bonne_categorie(i)));
-                printf("%d %s\n",trouve,id);
 
             }
         }
@@ -840,41 +821,37 @@ int verif_suppr(char *id){
 
 void suppr_acc(char* id){
     char* cat;
+    int j;
     int count;
     char* sauvobj;
-    for (size_t i = 1; i < 8; i++) {
+    for (int i = 1; i < 8; i++) {
         switch (i) {
-            case 0:
-                *cat = ".";
-                //sorti=true;
-                break;
             case 1:
-                *cat = "Livre";
+                cat = "Livre";
                 break;
             case 2:
-                *cat = "Informatique";
+                cat = "Informatique";
                 break;
             case 3:
-                *cat = "Bricolage";
+                cat = "Bricolage";
                 break;
             case 4:
-                *cat = "Sport";
+                cat = "Sport";
                 break;
             case 5:
-                *cat = "Jouet";
+                cat = "Jouet";
                 break;
             case 6:
-                *cat = "Cuisine";
+                cat = "Cuisine";
                 break;
             case 7:
-                *cat = "Autre";
+                cat = "Autre";
                 break;
             default:
                 break;
         }
-
         count =  afficher_liste_obj_du_proprio(cat, id);
-        for (int j = 1; j <= count; j++) {
+        for (j = 1; j <= count; j++) {
             afficher_choix_obj_du_proprio(cat, id, j, &sauvobj);
             del_ressource(ligne_bon_obj(i, id, sauvobj));
         }
