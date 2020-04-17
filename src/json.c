@@ -422,6 +422,7 @@ int num_id(char* iD){
     }
     //printf("PC:%d J:%d final\n", position_curseur,j);
     //printf("%d\n", (i-1));
+    //remove("temp.txt");
     return(i-1);
   }
 //char *nom = "Lou";
