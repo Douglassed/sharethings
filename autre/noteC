@@ -11,15 +11,16 @@ question :
 
 cpt rendu :
 -rythme de vie (pb)
+-
 
 
 RAPPORT :
 Les fonctions de menus qui permettent de naviguer entre les différents menus,
 elles ont en arguments l'ID du compte actuellement connecté,
-ce qui permet d'utiliser les fonctions du fichier json.c
+ce qui permet d'utiliser les fonctions du fichier json.c et d'apporter les informations necessaires a la modification
 
-Les fonctions de "gestion" qui permettent de gérer les différentes erreurs qu'il pourrait se présenter
-comme des erreurs de saisi de l'utilisateur ou bien supprimer un compte qui possède des ressources en cours de prêt.
+Les fonctions de "gestion" qui permettent de gérer les différentes erreurs qu'il pourrait se passer,
+comme rectifier les erreurs de saisie de l'utilisateur, des confirmations de saisie ou des vérifications d'objets disponible.
 
 
 Le programme permet de se connecter ou de créer son compte avec un identifiant et un mot de passe(chiffré),
@@ -30,3 +31,9 @@ pour les emprunter en fonctions de leurs disponibilités.
 Les objets empruntés peuvent être consultés et rendus quand vous le souhaitez.
 Une fonctionnalité permet aussi d'afficher les dernières opérations que l'on a réalisé grâce a un historique dédier a chaque personne.
 Il existe aussi des fonctionnalités de gestion de compte pour modifier son mot de passe ou supprimer son compte.
+Le programme sharethings possède aussi un mode administrateur,
+qui va permettre de supprimer les comptes ainsi que toutes leurs ressources.
+
+
+Après exécution de la commande "./Sharethings",
+il faut entrer les chiffres correspondants aux différents menus affichés et valider en appuyant sur la touche entrer
