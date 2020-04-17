@@ -22,6 +22,8 @@ int ajout_ress(char** id);
 int modif_ress(char **id);
 int menu_affiche_ress(int fonction, char** cat, char* id);
 int chiffrement (char* mdp);
+void suppr_acc(char* id);
+
 
 
 #endif
