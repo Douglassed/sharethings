@@ -37,18 +37,6 @@
       "Proprietaire": "aze"
     },
     {
-      "Name": "livreee",
-      "Description": "descrrdtrd",
-      "En cours de pret": "aze",
-      "Proprietaire": "Test"
-    },
-    {
-      "Name": "MyLittlePoney",
-      "Description": "L'auteur est Francois Hollande",
-      "En cours de pret": "aze",
-      "Proprietaire": "Francois luimeme"
-    },
-    {
       "Name": "livre trop bien",
       "Description": "en vrai pas si mal",
       "En cours de pret": ".",
@@ -57,8 +45,20 @@
     {
       "Name": "livre de test",
       "Description": "recrit par test",
+      "En cours de pret": "essai",
+      "Proprietaire": "essai"
+    },
+    {
+      "Name": "livreee",
+      "Description": "descrrdtrd",
       "En cours de pret": ".",
       "Proprietaire": "Test"
+    },
+    {
+      "Name": "MyLittlePoney",
+      "Description": "L'auteur est Francois Hollande",
+      "En cours de pret": ".",
+      "Proprietaire": "Francois luimeme"
     },
   ],
   "electronique": [
