@@ -1,0 +1,15 @@
+1. Prérequis installation:
+
+- télécharger une bibliothèque de json-C : rentrer la commande "sudo apt install libjson-c-dev"
+- rentrer la commande "make"
+- et c'est tout !
+
+2. Organisation du programme:
+
+Notre programme repose avant tout sur l'utilisation du json afin de bénéficier de sa structure, ainsi notre programme s'organise autour de deux points majeurs : l'utilisation de la bibliothèque json-c, et la mise en oeuvre de ces fonctions.
+
+2.1 Le Json-c
+
+Concernant le json,
+
+2.2 L
