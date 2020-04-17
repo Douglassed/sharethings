@@ -290,6 +290,7 @@ void menu_user(char **ndc){
                 if (verification() && (verif_suppr(*ndc) == 2)){
                     suppr_acc(*ndc);
                     admin_del_someone(num_id(*ndc));
+                    del_historique(ligne_bonne_pers_hist(*ndc));
                     printf("Le compte %s a été supprimer avec succès\n", *ndc);
                     printf("\nVous allez quitter le programme\n");
                     printf("\nappuyez sur entrer pour continuer\n");
