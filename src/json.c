@@ -443,15 +443,27 @@ int ligne_bonne_categorie(int choix){
 
     switch (choix) {
       case 1:
-        line_buf_check = "  \"livre\": [";
+        line_buf_check = "  \"Livre\": [";
         break;
       case 2:
-        line_buf_check = "  \"electronique\": [";
+        line_buf_check = "  \"Informatique\": [";
         break;
       case 3:
-        line_buf_check = "  \"outil\": [";
+        line_buf_check = "  \"Bricolage\": [";
         break;
       case 4:
+        line_buf_check = "  \"Sport\": [";
+        break;
+      case 5:
+        line_buf_check = "  \"Jouet\": [";
+        break;
+      case 6:
+        line_buf_check = "  \"Cuisine\": [";
+        break;
+      case 7:
+        line_buf_check = "  \"Autre\": [";
+        break;
+      case 8:
         line_buf_check ="  \"NULL\": [";
         break;
       default:
@@ -586,16 +598,27 @@ int ligne_bon_obj(int num_cat, char *iD, char *Obj){
     printf("%s\n\n", line_buf_check_iD);*/
     //printf("%s", line_buf_check_iD);
 
-
     switch (num_cat) {
       case 1:
-        line_buf_check = "  \"livre\": [";
+        line_buf_check = "  \"Livre\": [";
         break;
       case 2:
-        line_buf_check = "  \"electronique\": [";
+        line_buf_check = "  \"Informatique\": [";
         break;
       case 3:
-        line_buf_check = "  \"outil\": [";
+        line_buf_check = "  \"Bricolage\": [";
+        break;
+      case 4:
+        line_buf_check = "  \"Sport\": [";
+        break;
+      case 5:
+        line_buf_check = "  \"Jouet\": [";
+        break;
+      case 6:
+        line_buf_check = "  \"Cuisine\": [";
+        break;
+      case 7:
+        line_buf_check = "  \"Autre\": [";
         break;
       default:
         break;
@@ -918,13 +941,25 @@ void modif_ressource_sauf_pret(int num_cat, char *iD, char *ObjName, int choix_m
     char Desc[250];
     switch (num_cat) {
       case 1:
-        categorie = "livre";
+        categorie = "Livre";
         break;
       case 2:
-        categorie = "electronique";
+        categorie = "Informatique";
         break;
       case 3:
-        categorie = "outil";
+        categorie = "Bricolage";
+        break;
+      case 4:
+        categorie = "Sport";
+        break;
+      case 5:
+        categorie = "Jouet";
+        break;
+      case 6:
+        categorie = "Cuisine";
+        break;
+      case 7:
+        categorie = "Autre";
         break;
       default:
         break;
@@ -1216,13 +1251,25 @@ void mettre_en_pret_ou_finir_le_pret(int num_cat, char *iD, char *ObjName, char 
     //printf("1check\n");
     switch (num_cat) {
       case 1:
-        categorie = "livre";
+        categorie = "Livre";
         break;
       case 2:
-        categorie = "electronique";
+        categorie = "Informatique";
         break;
       case 3:
-        categorie = "outil";
+        categorie = "Bricolage";
+        break;
+      case 4:
+        categorie = "Sport";
+        break;
+      case 5:
+        categorie = "Jouet";
+        break;
+      case 6:
+        categorie = "Cuisine";
+        break;
+      case 7:
+        categorie = "Autre";
         break;
       default:
         break;

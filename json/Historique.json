@@ -45,48 +45,10 @@
       "Date": "Jeudi 16 Avril 2020 16:20:58",
       "Objet": "aze"
     },
-    {
-      "Operation": "Emprunt",
-      "Date": "Tue Apr 14 13:56:05 2020",
-      "Objet": "TourPC HP"
-    },
-    {
-      "Operation": "Fin de pret",
-      "Date": "Tue Apr 14 14:01:16 2020",
-      "Objet": "Tronconneuse"
-    },
-    {
-      "Operation": "Ajout",
-      "Date": "Tue Apr 14 14:03:03 2020",
-      "Objet": "RussiaIsAHeaven"
-    },
-    {
-      "Operation": "Modifier",
-      "Date": "Tue Apr 14 14:27:49 2020",
-      "Objet": "TourPC Alienware -> TourPC LG"
-    },
-  ],
-  "KGB": [
-    {
-      "Operation": "Modifier",
-      "Date": "Tue Apr 14 14:04:49 2020",
-      "Objet": "TourPC Dell -> TourPC Asus"
-    },
-  ],
-  "Monsieur Durand": [
-    {
-      "Operation": "Modifier",
-      "Date": "Jeudi 16 Avril 2020 16:10:25",
-      "Objet": "aze"
-    },
-  ],
-  "az": [
   ],
   "admin": [
   ],
-  "Clement": [
-<<<<<<< HEAD
-=======
+  "clement": [
   ],
   "aze": [
     {
@@ -96,7 +58,6 @@
     },
     {
       "Operation": "Emprunt",
-<<<<<<< HEAD
       "Date": "Vendredi 17 Avril 2020 11:00:47",
       "Objet": "livre de test"
     },
@@ -122,14 +83,6 @@
     },
     {
       "Operation": "Emprunt",
-      "Date": "Vendredi 17 Avril 2020 10:38:08",
-      "Objet": "livre trop bien"
-=======
-      "Date": "Vendredi 17 Avril 2020 10:45:55",
-      "Objet": "livre trop bien"
-    },
-    {
-      "Operation": "Emprunt",
       "Date": "Vendredi 17 Avril 2020 10:45:49",
       "Objet": "MyLittlePoney"
     },
@@ -152,7 +105,6 @@
       "Operation": "Modifier",
       "Date": "Vendredi 17 Avril 2020 10:41:16",
       "Objet": "aze-->fil electrique"
->>>>>>> 05c5f76cb2e70bbf3acf8eef639d9c61fa5802d2
     },
     {
       "Operation": "Supprimer",
@@ -189,16 +141,6 @@
       "Date": "Jeudi 16 Avril 2020 19:25:40",
       "Objet": "livre trop bien"
     },
-  ],
-  "Clement": [
-  ],
-  "Clement": [
-  ],
-  "clement": [
-  ],
-  "azer": [
-  ],
-  "tt": [
   ],
   "test": [
     {
@@ -251,6 +193,5 @@
       "Date": "Jeudi 16 Avril 2020 19:24:19",
       "Objet": "livre de test"
     },
->>>>>>> 78ec7da0ee40baa02093f8914e74880f5b60b1ca
   ]
 }

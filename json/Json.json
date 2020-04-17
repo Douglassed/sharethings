@@ -1,5 +1,5 @@
 {
-  "livre": [
+  "Livre": [
     {
       "Name": "MausOfTheReich",
       "Description": "L'auteur est Grosinki",
@@ -61,7 +61,7 @@
       "Proprietaire": "Test"
     },
   ],
-  "electronique": [
+  "Informatique": [
     {
       "Name": "TourPC HP",
       "Description": "i7 GTX1050 8GoRAM 512GoSSD",
@@ -93,7 +93,7 @@
       "Proprietaire": "Monsieur Durand"
     },
   ],
-  "outil": [
+  "Bricolage": [
     {
       "Name": "Tronconneuse",
       "Description": "Tronconneuse electrique filaire",
@@ -106,5 +106,13 @@
       "En cours de pret": "KGB",
       "Proprietaire": "Bob"
     },
+  ],
+  "Sport": [
+  ],
+  "Jouet": [
+  ],
+  "Cuisine": [
+  ],
+  "Autre": [
   ]
 }
