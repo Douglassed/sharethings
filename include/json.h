@@ -37,5 +37,6 @@ int afficher_liste_obj_emprunte(char *obj,char *emprunteur);
 void avoir_choix_obj_du_emprunteur(char *cat,char *emprunteur, int choix, char **sauv, char **sauv2);
 int ligne_bonne_pers_hist(char *id);
 void del_historique(int num_ligne);
+void sauv_id(int choix, char **sauv);
 
 #endif

@@ -1,123 +1,45 @@
 {
   "Livre": [
     {
-      "Name": "MausOfTheReich",
-      "Description": "L'auteur est Grosinki",
-      "En cours de pret": "KGB",
-      "Proprietaire": "Kevin"
-    },
-    {
-      "Name": "RussiaIsAHeaven",
-      "Description": "L'auteur est Vladidi Putin The Best",
+      "Name": "La Bible Du C",
+      "Description": "Un super livre pour apprendre le langage C :) !",
       "En cours de pret": "Monsieur Durand",
-      "Proprietaire": "KGB"
-    },
-    {
-      "Name": "MyLittlePoney",
-      "Description": "L'auteur est Francois Hollande",
-      "En cours de pret": "Test",
-      "Proprietaire": "Francois luimeme"
-    },
-    {
-      "Name": "livre trop bien",
-      "Description": "en vrai pas si mal",
-      "En cours de pret": ".",
-      "Proprietaire": "aze"
-    },
-    {
-      "Name": "livreee",
-      "Description": "descrrdtrd",
-      "En cours de pret": ".",
-      "Proprietaire": "Test"
-    },
-    {
-      "Name": "MyLittlePoney",
-      "Description": "L'auteur est Francois Hollande",
-      "En cours de pret": ".",
-      "Proprietaire": "Francois luimeme"
-    },
-    {
-      "Name": "livre moyen",
-      "Description": "en vrai pas si mal",
-      "En cours de pret": ".",
-      "Proprietaire": "aze"
-    },
-    {
-      "Name": "LIVRE AJOUT COOL",
-      "Description": "historique",
-      "En cours de pret": "Test",
-      "Proprietaire": "aze"
-    },
-    {
-      "Name": "LesOiseauxDePologne",
-      "Description": "L'auteur est Muriel Latoupalampa",
-      "En cours de pret": "aze",
-      "Proprietaire": "PolskaEditor"
-    },
-    {
-      "Name": "livre de test",
-      "Description": "recrit par test",
-      "En cours de pret": ".",
-      "Proprietaire": "essai"
+      "Proprietaire": "P.Truillet"
     },
   ],
   "Informatique": [
     {
-      "Name": "TourPC HP",
-      "Description": "i7 GTX1050 8GoRAM 512GoSSD",
+      "Name": "Cable USB-USB",
+      "Description": "Il est bien rare celui-ci.",
       "En cours de pret": ".",
       "Proprietaire": "Monsieur Durand"
     },
     {
-      "Name": "TourPC AlienWare",
-      "Description": "i9 GTX1650 16GoRAM 1ToSSD",
-      "En cours de pret": ".",
-      "Proprietaire": "JeSuisPasUnAlien"
-    },
-    {
-      "Name": "fil electrique",
-      "Description": "de superbe qualidad",
-      "En cours de pret": ".",
-      "Proprietaire": "aze"
-    },
-    {
-      "Name": "tarte a la framboise",
-      "Description": "faites ce matin meme ",
-      "En cours de pret": ".",
-      "Proprietaire": "JeSuisPasUnAlien"
-    },
-    {
       "Name": "TourPC HP",
-      "Description": "i7 GTX1050 8GoRAM 512GoSSD",
+      "Description": "i5 GTX1080 8GoRAM 512GoSSD",
       "En cours de pret": ".",
       "Proprietaire": "Monsieur Durand"
     },
   ],
   "Bricolage": [
     {
-      "Name": "Tronconneuse",
-      "Description": "Tronconneuse electrique filaire",
-      "En cours de pret": "Bob",
+      "Name": "Marteau",
+      "Description": "Il est rustique mais fait l'affaire!",
+      "En cours de pret": ".",
       "Proprietaire": "Monsieur Durand"
-    },
-    {
-      "Name": "Perceuse",
-      "Description": "Perceuse sans fil",
-      "En cours de pret": "KGB",
-      "Proprietaire": "Bob"
     },
   ],
   "Sport": [
   ],
   "Jouet": [
-    {
-      "Name": "Barbie",
-      "Description": "Ce son celle de ma fille elle ne les utilisent plus",
-      "En cours de pret": ".",
-      "Proprietaire": "M.Truillet"
-    },
   ],
   "Cuisine": [
+    {
+      "Name": "Recette Crêpe",
+      "Description": "Ma propre recette, avec mon ingrédient secret : une gousse de vanille ! :p",
+      "En cours de pret": ".",
+      "Proprietaire": "P.Truillet"
+    },
   ],
   "Autre": [
   ]
