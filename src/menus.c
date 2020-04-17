@@ -381,7 +381,8 @@ void modif_user(int nbuser){
     /* déclaration */
     int choice;
     bool sorti = false;
-
+    char* id;
+    sauv_id(nbuser, &id);
     /* affcihe le menu modification d'un utilisateur */
     do{
         system("clear");
@@ -390,12 +391,12 @@ void modif_user(int nbuser){
         printf("1 - Supprimer le compte\n");
         printf("2 - Annuler\n");
         printf("\nChoix : ");
-
         /* gestion du choix */
         lire_entier(&choice, 1, 2);
         switch (choice) {
             case 1:
                 if (verification()){
+                    suppr_acc(id);
                     print_id(nbuser);
                     admin_del_someone(nbuser);
                     printf(" a été supprimer\n");

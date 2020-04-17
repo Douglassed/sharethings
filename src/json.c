@@ -314,6 +314,45 @@ bool check_n_id_existe(int choix){
 
 /*-------------------------------------------------------------------------*/
 
+void sauv_id(int choix, char **sauv){
+  /* Open the file for reading */
+  char *line_buf = NULL;
+  size_t line_buf_size = 0;
+  int line_count = 0;
+  ssize_t line_size;
+  FILE *fp = fopen("./json/Client.json", "r");
+
+  /* Get the first line of the file. */
+  line_size = getline(&line_buf, &line_buf_size, fp);
+
+  /* Loop through until we are done with the file. */
+  while (line_size >= 0)
+  {
+    line_count++;
+  /* Printing the lane we want */
+    if(line_count==(choix+1)){
+      for(int i = 3; (line_buf[i])!= '"'; i++){
+        printf("%c", line_buf[i]);
+        sauv[0][i-3]=line_buf[i];
+        sauv[0][i-2]='\0';
+      }
+    }
+    /* Get the next line */
+    line_size = getline(&line_buf, &line_buf_size, fp);
+  }
+  /* Free the allocated line buffer */
+  free(line_buf);
+
+  /* Close files now that we are done with */
+  fclose(fp);
+}
+//Exemple d'utilisation:
+//char *id = "NULL";
+//sauv_id(5, id);
+
+/*-------------------------------------------------------------------------*/
+
+
 void print_id(int choix){
   /* Open the file for reading */
   char *line_buf = NULL;
