@@ -7,7 +7,6 @@
 #include <ctype.h>
 #include <stdbool.h>
 
-// debut
 
 int menu_signup(char * modif){
     /* déclaration des variables */
@@ -270,12 +269,12 @@ void menu_user(char **ndc){
     /* affichage du menu utilisateur et choix de l'action */
     do {
         system("clear");
-        printf("menus : \n\n");
+        printf("Menus : \n\n");
         printf("1 - Rechercher une ressource\n");
         printf("2 - Gestion des ressources\n");
         printf("3 - Supprimer son compte\n");
         printf("4 - Modifier son mot de passe\n");
-        printf("5 - Quittez le programme\n\n");
+        printf("5 - Quitter le programme\n\n");
         printf("%s, Choisissez : ",*ndc);
         lire_entier(&choix, 0, 5);
         switch (choix) {
@@ -291,7 +290,7 @@ void menu_user(char **ndc){
                     suppr_acc(*ndc);
                     admin_del_someone(num_id(*ndc));
                     del_historique(ligne_bonne_pers_hist(*ndc));
-                    printf("Le compte %s a été supprimer avec succès\n", *ndc);
+                    printf("Le compte %s a été supprimé avec succès\n", *ndc);
                     printf("\nVous allez quitter le programme\n");
                     printf("\nappuyez sur entrer pour continuer\n");
                     getchar();
@@ -322,7 +321,7 @@ void menu_user(char **ndc){
         }
     }while (sortir == false);
     system("clear");
-    printf("\nAurevoir %s, et a bientot sur Sharethings :p\n\n", *ndc);
+    printf("\nAurevoir %s, et à bientôt sur Sharethings :p\n\n", *ndc);
 }
 
 /*-------------------------------------------------------------------------*/
@@ -335,9 +334,9 @@ void menu_admin(){
 
     /* affichage du menu admin et choix de l'action */
     do {
-        printf("menus : \n\n");
+        printf("Menus : \n\n");
         printf("1 - Modifier un inscrit\n");
-        printf("2 - Quittez le programme\n\n");
+        printf("2 - Quitter le programme\n\n");
         printf("admin, Choisissez : ");
         lire_entier(&choix, 1, 2);
         switch (choix) {
@@ -400,7 +399,7 @@ void modif_user(int nbuser){
                     del_historique(ligne_bonne_pers_hist(id));
                     print_id(nbuser);
                     admin_del_someone(nbuser);
-                    printf(" a été supprimer\n");
+                    printf(" a été supprimé\n");
                     sorti = true;
                 }
                 break;
@@ -422,7 +421,7 @@ bool verification(void){
     int verif;
     verif:
     system("clear");
-    printf("Êtes vous sur ? \n\n");
+    printf("Êtes vous sûr ? \n\n");
     printf("1 - Oui \n");
     printf("2 - Non \n");
     printf("\nChoix : ");
@@ -454,7 +453,7 @@ int menu_recherche_specifique(char *cat,int choix_cat, char* id){
       max_obj = afficher_liste_obj(cat);
       if (max_obj == 0){
           system("clear");
-          printf("Il n'y a pas d'objet dans la categorie %s\n", cat);
+          printf("Il n'y a pas d'objet dans la catégorie %s\n", cat);
           printf("\nAppuyez sur entrer pour continuer\n");
           getchar();
           return 0;
@@ -465,7 +464,7 @@ int menu_recherche_specifique(char *cat,int choix_cat, char* id){
           system("clear");
           afficher_detail_obj(cat, choix);
               if (savoir_si_en_pret(cat, choix) == 2){
-              printf("\nEmprunté ?\n\n");
+              printf("\nEmprunter ?\n\n");
               printf("1. Oui \n");
               printf("2. Non \n");
               printf("\nChoisissez : ");
@@ -593,7 +592,7 @@ void menu_gestion_ress(char** id){
                 max_emp = afficher_liste_obj_emprunte(cat,*id);
               if (max_emp == 0 && choix_cat != 0){
                   system("clear");
-                  printf("Vous n'avez aucun objet dans la categorie %s\n", cat);
+                  printf("Vous n'avez aucun objet dans la catégorie %s\n", cat);
                   printf("\nAppuyez sur entrer pour continuer");
                   getchar();
               }
@@ -654,7 +653,7 @@ int ajout_ress(char** id){
         if (j >= 50)
             lire_fin_ligne();
         system("clear");
-        printf("Format non respécté\n");
+        printf("Format non respecté\n");
         printf("\nAppuyez sur entrer pour continuer\n");
         getchar();
         return 1;
@@ -674,7 +673,7 @@ int ajout_ress(char** id){
     if (i >= 201 || i < 3){
         lire_fin_ligne();
         system("clear");
-        printf("Format non respécté\n");
+        printf("Format non respecté\n");
         getchar();
         return 1;
     }
@@ -703,7 +702,7 @@ int modif_ress(char **id){
     nb_obj = afficher_liste_obj_du_proprio(cat,*id);
     if (nb_obj == 0){
         system("clear");
-        printf("Vous n'avez aucun objet dans la categorie %s\n", cat);
+        printf("Vous n'avez aucun objet dans la catégorie %s\n", cat);
         printf("\nAppuyez sur entrer pour continuer");
         getchar();
         return 0;
@@ -726,7 +725,7 @@ int modif_ress(char **id){
     lire_entier(&choixnd,0,3);
     system("clear");
     if (1 == savoir_si_en_pret(cat, quel_n_eme_obj(ligne_bon_obj(choix, *id, sauvobj),ligne_bonne_categorie(choix)))){
-        printf("L'objet est actuellement en prêt, il ne peux pas être modifié ou supprimé\n");
+        printf("L'objet est actuellement en prêt, il ne peut pas être modifié ou supprimé\n");
         printf("\nAppuyez sur entrer pour continuer\n");
         getchar();
     }else {
@@ -823,7 +822,7 @@ int verif_suppr(char *id){
     system("clear");
     if (trouve == 1){
         system("clear");
-        printf("Vous possedez un objet qui est actuellement en cours de prêt\nOn ne peux pas supprimer votre compte\n");
+        printf("Vous possédez un objet qui est actuellement en cours de prêt\nOn ne peut pas supprimer votre compte\n");
         printf("\nAppuyez sur entrer pour continuer\n");
         getchar();
     }

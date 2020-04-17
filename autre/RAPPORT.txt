@@ -1,8 +1,10 @@
 1. Prérequis installation:
 
 - télécharger une bibliothèque de json-C : rentrer la commande "sudo apt install libjson-c-dev"
-- rentrer la commande "make"
+- rentrer la commande "make" à partir du dossier où se trouve le Makefile
+- pour lancer le programme, rentrer la commande ./Sharethings
 - et c'est tout !
+
 
 2. Organisation du programme:
 
@@ -10,6 +12,37 @@ Notre programme repose avant tout sur l'utilisation du json afin de bénéficier
 
 2.1 Le Json-c
 
-Concernant le json,
+Concernant le json, il y a de très nombreuses fonctions mais qui en général ont les mêmes attentes :
+- renseigner la position d'un objet, d'une personne, de détails (et de toute information) dans un fichier .json,
+- afficher les informations voulus situés dans un fichier .json,
+- modifier les informations voulus situés dans un fichier .json comme la suppression de données ou l'ajout,
+Le tout a été de construire une véritable passerelle entre le json et le C !
 
 2.2 L
+
+
+3. Explication du programme:
+
+
+4. Mode d'emploi:
+
+
+5. Bilan:
+
+5.1 Chronologie Importante
+
+- Annonce du projet par P.Truillet
+- Une petite semaine après, élaboration d'une mindmap afin de mieux comprendre le projet et ses aspects et création d'un github ainsi que création d'un groupe/serveur discord
+- Achat d'un PC Portable afin d'avoir de la mobilité et d'avoir un espace de travail "optimisé" pour le projet
+- Mi-Mars : problème majeur de compréhension du json-c car manque de documentation et/ou difficile à trouver
+- Mi-Avril : batterie de tests permettant de dénicher de nombreux bugs et problèmes de mémoire
+
+5.2 Résumé des difficultés rencontrés:
+
+- organisation en fonction des rythmes de vie décalés car de plus nous avons besoin l'un de l'autre pour avancer dans le coeur du projet (on a su en tirer profit par la suite)
+- la manipulation du json-c
+- la gestion de la mémoire
+
+
+Remarque :
+Temps estimé : 20 heures de travail effectif  (un zéro ne se serait-il pas échappé de ses deux copains? ;P )
