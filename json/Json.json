@@ -4,7 +4,7 @@
       "Name": "livre de test",
       "Description": "recrit par test",
       "En cours de pret": ".",
-      "Proprietaire": "test"
+      "Proprietaire": "essai"
     },
     {
       "Name": "MausOfTheReich",
@@ -19,18 +19,6 @@
       "Proprietaire": "KGB"
     },
     {
-      "Name": "MyLittlePoney",
-      "Description": "L'auteur est Francois Hollande",
-      "En cours de pret": ".",
-      "Proprietaire": "Francois luimeme"
-    },
-    {
-      "Name": "livre trop bien",
-      "Description": "en vrai pas si mal",
-      "En cours de pret": ".",
-      "Proprietaire": "aze"
-    },
-    {
       "Name": "LesOiseauxDePologne",
       "Description": "L'auteur est Muriel Latoupalampa",
       "En cours de pret": ".",
@@ -39,23 +27,23 @@
     {
       "Name": "ajout livre",
       "Description": "historique",
-      "En cours de pret": "test",
+      "En cours de pret": "essai",
+      "Proprietaire": "aze"
+    },
+    {
+      "Name": "MyLittlePoney",
+      "Description": "L'auteur est Francois Hollande",
+      "En cours de pret": "aze",
+      "Proprietaire": "Francois luimeme"
+    },
+    {
+      "Name": "livre trop bien",
+      "Description": "en vrai pas si mal",
+      "En cours de pret": ".",
       "Proprietaire": "aze"
     },
   ],
   "electronique": [
-    {
-      "Name": "des fois lever du lit ahah",
-      "Description": "qefdsqdfsdfsdfsdf",
-      "En cours de pret": ".",
-      "Proprietaire": "aze"
-    },
-    {
-      "Name": "tarte a la framboise",
-      "Description": "srgdfs",
-      "En cours de pret": ".",
-      "Proprietaire": "aze"
-    },
     {
       "Name": "TourPC HP",
       "Description": "i7 GTX1050 8GoRAM 512GoSSD",
@@ -63,17 +51,29 @@
       "Proprietaire": "Monsieur Durand"
     },
     {
-      "Name": "aze",
-      "Description": "abcde",
-      "En cours de pret": ".",
-      "Proprietaire": "aze"
-    },
-    {
       "Name": "TourPC AlienWare",
       "Description": "i9 GTX1650 16GoRAM 1ToSSD",
       "En cours de pret": ".",
       "Proprietaire": "JeSuisPasUnAlien"
-    }
+    },
+    {
+      "Name": "fil electrique",
+      "Description": "de superbe qualidad",
+      "En cours de pret": ".",
+      "Proprietaire": "aze"
+    },
+    {
+      "Name": "tarte a la framboise",
+      "Description": "faites ce matin meme ",
+      "En cours de pret": ".",
+      "Proprietaire": "aze"
+    },
+    {
+      "Name": "des fois lever du lit ahah",
+      "Description": "c'est dur le matin",
+      "En cours de pret": ".",
+      "Proprietaire": "aze"
+    },
   ],
   "outil": [
     {
@@ -87,6 +87,6 @@
       "Description": "Perceuse sans fil",
       "En cours de pret": "KGB",
       "Proprietaire": "Bob"
-    }
+    },
   ]
 }
