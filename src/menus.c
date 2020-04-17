@@ -288,6 +288,7 @@ void menu_user(char **ndc){
                 break;
             case 3:
                 if (verification() && (verif_suppr(*ndc) == 2)){
+                    suppr_acc(*ndc);
                     admin_del_someone(num_id(*ndc));
                     printf("Le compte %s a été supprimer avec succès\n", *ndc);
                     printf("\nVous allez quitter le programme\n");
@@ -494,11 +495,15 @@ int menu_affiche_ress(int fonction, char** cat, char* id){
       printf("Choisissez la catégorie de l'objet : \n\n");
       printf("0 - Retour\n\n");
       printf("1 - Livre\n");
-      printf("2 - Electronique\n");
-      printf("3 - Outil\n\n");
+      printf("2 - Informatique\n");
+      printf("3 - Bricolage\n");
+      printf("4 - Sport\n");
+      printf("5 - Jouet\n");
+      printf("6 - Cuisine\n");
+      printf("7 - Autre\n\n");
       printf("Choisissez : ");
       //printf("%s, Choisissez : ",*ndc);
-      lire_entier(&choix, 0, 3);
+      lire_entier(&choix, 0, 7);
       system("clear");
       switch (choix) {
           case 0:
@@ -506,17 +511,28 @@ int menu_affiche_ress(int fonction, char** cat, char* id){
               sorti=true;
               break;
           case 1:
-              *cat = "livre";
+              *cat = "Livre";
               break;
           case 2:
-              *cat = "electronique";
+              *cat = "Informatique";
               break;
           case 3:
-              *cat = "outil";
+              *cat = "Bricolage";
               break;
-
+          case 4:
+              *cat = "Sport";
+              break;
+          case 5:
+              *cat = "Jouet";
+              break;
+          case 6:
+              *cat = "Cuisine";
+              break;
+          case 7:
+              *cat = "Autre";
+              break;
           default:
-            break;
+              break;
       }
       if (!sorti && fonction == 1){
           menu_recherche_specifique(*cat,choix,id);
@@ -580,6 +596,7 @@ void menu_gestion_ress(char** id){
                   avoir_choix_obj_du_emprunteur(cat,*id, choix_emp, &obj_emp, &prop_emp);
                   if (verification()){
                       mettre_en_pret_ou_finir_le_pret(choix_cat, prop_emp, obj_emp, *id);
+                      add_hist(ligne_bonne_personne(*id), *id, 5);
                   }
               }
               break;
@@ -766,18 +783,33 @@ int verif_suppr(char *id){
     while (trouve == 2) {
         printf("%s %s\n",id,id);
 
-        for (int i = 0; i < 3; i++){
+        for (int i = 1; i < 8; i++){
             printf("%s %s\n",id,id);
-
             switch (i) {
                 case 0:
-                    cat = "livre";
+                    *cat = ".";
+                    //sorti=true;
                     break;
                 case 1:
-                    cat = "electronique";
+                    *cat = "Livre";
                     break;
                 case 2:
-                    cat = "outil";
+                    *cat = "Informatique";
+                    break;
+                case 3:
+                    *cat = "Bricolage";
+                    break;
+                case 4:
+                    *cat = "Sport";
+                    break;
+                case 5:
+                    *cat = "Jouet";
+                    break;
+                case 6:
+                    *cat = "Cuisine";
+                    break;
+                case 7:
+                    *cat = "Autre";
                     break;
                 default:
                     break;
@@ -808,16 +840,32 @@ void suppr_acc(char* id){
     char* cat;
     int count;
     char* sauvobj;
-    for (size_t i = 0; i < 3; i++) {
+    for (size_t i = 1; i < 8; i++) {
         switch (i) {
             case 0:
-                cat = "livre";
+                *cat = ".";
+                //sorti=true;
                 break;
             case 1:
-                cat = "electronique";
+                *cat = "Livre";
                 break;
             case 2:
-                cat = "outil";
+                *cat = "Informatique";
+                break;
+            case 3:
+                *cat = "Bricolage";
+                break;
+            case 4:
+                *cat = "Sport";
+                break;
+            case 5:
+                *cat = "Jouet";
+                break;
+            case 6:
+                *cat = "Cuisine";
+                break;
+            case 7:
+                *cat = "Autre";
                 break;
             default:
                 break;
