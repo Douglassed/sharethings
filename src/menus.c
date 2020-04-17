@@ -437,20 +437,29 @@ bool verification(void){
 
 /*-------------------------------------------------------------------------*/
 
-void menu_recherche_specifique(char *cat,int choix_cat, char* id){
+int menu_recherche_specifique(char *cat,int choix_cat, char* id){
   int choix;
   int ch_empr;
   bool sorti = false;
   char* proprio;
   char* obj;
+  int max_obj = 0;
+  int lecture;
   do {
       system("clear");
       printf("Choisissez un objet par son numéro pour plus de détails :\n\n");
       printf("0. Retour\n\n");
-      afficher_liste_obj(cat);
+      max_obj = afficher_liste_obj(cat);
+      if (max_obj == 0){
+          system("clear");
+          printf("Il n'y a pas d'objet dans la categorie %s\n", cat);
+          printf("\nAppuyez sur entrer pour continuer\n");
+          getchar();
+          return 0;
+      }
       printf("\nChoisissez : ");
-      lire_entier(&choix,0,0);
-      if (choix != 0){
+      lecture = lire_entier(&choix,0,max_obj);
+      if (choix != 0 && lecture == 0){
           system("clear");
           afficher_detail_obj(cat, choix);
               if (savoir_si_en_pret(cat, choix) == 2){
@@ -816,6 +825,12 @@ int verif_suppr(char *id){
         }
     }
     system("clear");
+    if (trouve == 1){
+        system("clear");
+        printf("Vous possedez un objet qui est actuellement en cours de prêt\nOn ne peux pas supprimer votre compte\n");
+        printf("\nAppuyez sur entrer pour continuer\n");
+        getchar();
+    }
     return trouve;
 }
 

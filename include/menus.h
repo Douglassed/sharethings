@@ -5,7 +5,6 @@
 typedef struct _menus * Menus;
 
 int menu_affiche_ress();
-void menu_recherche_specifique(char *obj,int choix, char* id);
 int menu_signup(char * modif);
 int menu_signin(char **ndc);
 bool compare_char(char *password,char *passwordbis);
@@ -23,6 +22,8 @@ int modif_ress(char **id);
 int menu_affiche_ress(int fonction, char** cat, char* id);
 int chiffrement (char* mdp);
 void suppr_acc(char* id);
+int menu_recherche_specifique(char *cat,int choix_cat, char* id);
+
 
 
 

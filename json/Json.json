@@ -37,12 +37,6 @@
       "Proprietaire": "aze"
     },
     {
-      "Name": "livre de test",
-      "Description": "recrit par test",
-      "En cours de pret": "essai",
-      "Proprietaire": "essai"
-    },
-    {
       "Name": "livreee",
       "Description": "descrrdtrd",
       "En cours de pret": ".",
@@ -59,6 +53,12 @@
       "Description": "en vrai pas si mal",
       "En cours de pret": ".",
       "Proprietaire": "aze"
+    },
+    {
+      "Name": "livre de test",
+      "Description": "recrit par test",
+      "En cours de pret": "aze",
+      "Proprietaire": "essai"
     },
   ],
   "Informatique": [
