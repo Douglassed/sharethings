@@ -77,7 +77,7 @@ void afficher_detail_obj(char *obj, int choix){
 
 /*-------------------------------------------------------------------------*/
 
-void afficher_liste_obj(char *obj){
+int afficher_liste_obj(char *obj){
   struct json_object *med_obj, *medi_array, *medi_array_obj, *medi_array_obj_name;
   int arraylen, j;
   static const char filename[] = "./json/Json.json";
@@ -102,6 +102,7 @@ void afficher_liste_obj(char *obj){
     else
       printf("\n");
   }
+  return arraylen;
 }
 //Exemple d'utilisation:
 //char *objet = "livre";
@@ -422,7 +423,7 @@ int num_id(char* iD){
     }
     //printf("PC:%d J:%d final\n", position_curseur,j);
     //printf("%d\n", (i-1));
-    //remove("temp.txt");
+    remove("temp.txt");
     return(i-1);
   }
 //char *nom = "Lou";
@@ -1637,3 +1638,101 @@ void avoir_choix_obj_du_emprunteur(char *cat,char *emprunteur, int choix, char *
 }
 //sauv NAMEOBJ
 //sauv 2 PROPRIO
+
+
+
+int ligne_bonne_pers_hist(char *id){
+    /* Open the file for reading and the other to write */
+    bool in_categorie;
+    char *line_buf = NULL;
+    size_t line_buf_size = 0;
+    int line_count = 0;
+    ssize_t line_size;
+    FILE *fp = fopen("./json/Historique.json", "r");
+    char *line_buf_check = NULL;
+    int res;
+
+    char *mot_deb = "  \"";
+    char *mot_fin = "\": [\n";
+    int Long = (strlen(mot_deb)+strlen(mot_fin)+strlen(id)+1);
+    line_buf_check = calloc(Long, sizeof(char));
+    strcat(line_buf_check, mot_deb);
+    strcat(line_buf_check, id);
+    strcat(line_buf_check, mot_fin);
+
+    /* Get the first line of the file. */
+    line_size = getline(&line_buf, &line_buf_size, fp);
+
+    /* Loop through until we are done with the file. */
+    while (line_size >= 0)
+    {
+      line_count++;
+      /* Show the line details and printing them into the second file */
+      //printf("Contents: %s", line_buf);
+      in_categorie = true;
+      for(int a = 0; line_buf_check[a]!='\0'; a++){
+        if(line_buf[a]!=line_buf_check[a])
+          in_categorie = false;
+      }
+      if(in_categorie==true)
+        res = line_count;
+
+      /* Get the next line */
+      line_size = getline(&line_buf, &line_buf_size, fp);
+    }
+
+    /* Free the allocated line buffer */
+    free(line_buf);
+    free(line_buf_check);
+
+    /* Close files now that we are done with */
+    fclose(fp);
+    return res;
+  }
+
+
+void del_historique(int num_ligne){
+    /* Open the file for reading and the other to write */
+    char *line_buf = NULL;
+    size_t line_buf_size = 0;
+    int line_count = 0;
+    ssize_t line_size;
+    FILE *fp = fopen("./json/Historique.json", "r");
+    FILE *fic2 = fopen("./json/Historiquebis.json", "w");
+    char *Test = "  ],\n";
+    char *Test2 = "  ]\n";
+
+    /* Get the first line of the file. */
+    line_size = getline(&line_buf, &line_buf_size, fp);
+
+    /* Loop through until we are done with the file. */
+    while (line_size >= 0)
+    {
+      /* Increment our line count */
+      line_count++;
+
+      /* Show the line details and printing them into the second file */
+      //printf("Contents: %s", line_buf);
+      if(line_count!=(num_ligne))
+          fputs(line_buf, fic2);
+      else{
+        while(strcmp(line_buf,Test)!=0 && strcmp(line_buf, Test2)!=0){
+          line_size = getline(&line_buf, &line_buf_size, fp);
+          line_count++;
+        }
+      }
+
+      /* Get the next line */
+      line_size = getline(&line_buf, &line_buf_size, fp);
+    }
+
+    /* Free the allocated line buffer */
+    free(line_buf);
+
+    /* Close files now that we are done with */
+    fclose(fp);
+    fclose(fic2);
+    system("sh ./script/scriptVirgule.sh ./json/Historiquebis.json");
+    remove("./json/Historique.json");
+    rename("./json/Historiquebis.json", "./json/Historique.json");
+    }

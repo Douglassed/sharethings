@@ -4,7 +4,7 @@
 
 void afficher_liste_obj_raw(char *obj);
 void afficher_detail_obj(char *obj, int choix);
-void afficher_liste_obj(char *obj);
+int afficher_liste_obj(char *obj);
 void chercher_mdp(char *iD, char **p);
 bool existe_id(char *iD);
 void stocker_id_mdp_inscription(char *iD, int mdp);
@@ -35,10 +35,8 @@ int ligne_bonne_personne(char *iD);
 void afficher_liste_historique_choix(char *iD, int J);
 int afficher_liste_obj_emprunte(char *obj,char *emprunteur);
 void avoir_choix_obj_du_emprunteur(char *cat,char *emprunteur, int choix, char **sauv, char **sauv2);
-
-
-
-
+int ligne_bonne_pers_hist(char *id);
+void del_historique(int num_ligne);
 
 
 #endif

@@ -437,20 +437,29 @@ bool verification(void){
 
 /*-------------------------------------------------------------------------*/
 
-void menu_recherche_specifique(char *cat,int choix_cat, char* id){
+int menu_recherche_specifique(char *cat,int choix_cat, char* id){
   int choix;
   int ch_empr;
   bool sorti = false;
   char* proprio;
   char* obj;
+  int max_obj = 0;
+  int lecture;
   do {
       system("clear");
       printf("Choisissez un objet par son numéro pour plus de détails :\n\n");
       printf("0. Retour\n\n");
-      afficher_liste_obj(cat);
+      max_obj = afficher_liste_obj(cat);
+      if (max_obj == 0){
+          system("clear");
+          printf("Il n'y a pas d'objet dans la categorie %s\n", cat);
+          printf("\nAppuyez sur entrer pour continuer\n");
+          getchar();
+          return 0;
+      }
       printf("\nChoisissez : ");
-      lire_entier(&choix,0,0);
-      if (choix != 0){
+      lecture = lire_entier(&choix,0,max_obj);
+      if (choix != 0 && lecture == 0){
           system("clear");
           afficher_detail_obj(cat, choix);
               if (savoir_si_en_pret(cat, choix) == 2){
@@ -555,7 +564,7 @@ void menu_gestion_ress(char** id){
   int choix_emp;
   char* obj_emp;
   char* prop_emp;
-  int max_emp;
+  int max_emp = 0;
   int choix_his;
   /* affichage du menu et choix de l'action */
   do {
@@ -584,15 +593,16 @@ void menu_gestion_ress(char** id){
               choix_cat = menu_affiche_ress(2, &cat, *id);
               printf("Les objets que vous voulez rendre : \n\n");
               printf("0. Annuler\n\n");
-              max_emp = afficher_liste_obj_emprunte(cat,*id);
-              if (max_emp == 0){
+              if (choix_cat != 0)
+                max_emp = afficher_liste_obj_emprunte(cat,*id);
+              if (max_emp == 0 && choix_cat != 0){
                   system("clear");
                   printf("Vous n'avez aucun objet dans la categorie %s\n", cat);
                   printf("\nAppuyez sur entrer pour continuer");
                   getchar();
               }
               printf("\nChoisissez : ",max_emp);
-              if (max_emp != 0 && lire_entier(&choix_emp,0,max_emp) == 0 && choix_emp != 0){
+              if (choix_cat != 0 && max_emp != 0 && lire_entier(&choix_emp,0,max_emp) == 0 && choix_emp != 0){
                   avoir_choix_obj_du_emprunteur(cat,*id, choix_emp, &obj_emp, &prop_emp);
                   if (verification()){
                       mettre_en_pret_ou_finir_le_pret(choix_cat, prop_emp, obj_emp, *id);
@@ -638,12 +648,12 @@ int ajout_ress(char** id){
     int j = 0;
     while ( cha != 10 && j < 50 ){
         cha = getchar();
-        printf("|%c %d|\n", cha, cha);
-        name[j] = cha;
+        if (cha != 10){
+            name[j] = cha;
+        }
         j++;
         name[j] = '\0';
     }
-    printf("??\n");
     if (j >= 50 || j < 3){
         if (j >= 50)
             lire_fin_ligne();
@@ -773,106 +783,90 @@ int chiffrement (char* mdp){
 
 }
 int verif_suppr(char *id){
-
+    int j;
+    int i;
     int trouve = 2;
     char* cat;
     char* sauvobj;
     int max_obj;
-    printf("%s %s\n",id,id);
-
-    while (trouve == 2) {
-        printf("%s %s\n",id,id);
-
-        for (int i = 1; i < 8; i++){
-            printf("%s %s\n",id,id);
+    while (trouve == 2 && i != 8) {
+        for (i = 1; i < 8; i++){
             switch (i) {
-                case 0:
-                    *cat = ".";
-                    //sorti=true;
-                    break;
                 case 1:
-                    *cat = "Livre";
+                    cat = "Livre";
                     break;
                 case 2:
-                    *cat = "Informatique";
+                    cat = "Informatique";
                     break;
                 case 3:
-                    *cat = "Bricolage";
+                    cat = "Bricolage";
                     break;
                 case 4:
-                    *cat = "Sport";
+                    cat = "Sport";
                     break;
                 case 5:
-                    *cat = "Jouet";
+                    cat = "Jouet";
                     break;
                 case 6:
-                    *cat = "Cuisine";
+                    cat = "Cuisine";
                     break;
                 case 7:
-                    *cat = "Autre";
+                    cat = "Autre";
                     break;
                 default:
                     break;
             }
-            printf("%s %s\n",id,id);
-
-
             max_obj = afficher_liste_obj_du_proprio(cat, id);
-            printf("%s %s\n",id,id);
-
-            for(int j = 1; j <= max_obj; j++){
-                printf("%s %s\n",cat,id);
-
+            for(j = 1; j <= max_obj; j++){
                 afficher_choix_obj_du_proprio(cat,id, j, &sauvobj);
-                printf("%d %s %s %d %s\n",max_obj,id,cat,i,sauvobj);
-                printf("%d %d\n", ligne_bon_obj(i, id, sauvobj),ligne_bonne_categorie(i));
                 trouve = savoir_si_en_pret(cat, quel_n_eme_obj(ligne_bon_obj(i, id, sauvobj),ligne_bonne_categorie(i)));
-                printf("%d %s\n",trouve,id);
 
             }
         }
     }
     system("clear");
+    if (trouve == 1){
+        system("clear");
+        printf("Vous possedez un objet qui est actuellement en cours de prêt\nOn ne peux pas supprimer votre compte\n");
+        printf("\nAppuyez sur entrer pour continuer\n");
+        getchar();
+    }
     return trouve;
 }
 
 void suppr_acc(char* id){
     char* cat;
+    int j;
     int count;
     char* sauvobj;
-    for (size_t i = 1; i < 8; i++) {
+    for (int i = 1; i < 8; i++) {
         switch (i) {
-            case 0:
-                *cat = ".";
-                //sorti=true;
-                break;
             case 1:
-                *cat = "Livre";
+                cat = "Livre";
                 break;
             case 2:
-                *cat = "Informatique";
+                cat = "Informatique";
                 break;
             case 3:
-                *cat = "Bricolage";
+                cat = "Bricolage";
                 break;
             case 4:
-                *cat = "Sport";
+                cat = "Sport";
                 break;
             case 5:
-                *cat = "Jouet";
+                cat = "Jouet";
                 break;
             case 6:
-                *cat = "Cuisine";
+                cat = "Cuisine";
                 break;
             case 7:
-                *cat = "Autre";
+                cat = "Autre";
                 break;
             default:
                 break;
         }
-
         count =  afficher_liste_obj_du_proprio(cat, id);
-        for (int j = 1; j <= count; j++) {
+        for (j = 1; j <= count; j++) {
             afficher_choix_obj_du_proprio(cat, id, j, &sauvobj);
             del_ressource(ligne_bon_obj(i, id, sauvobj));
         }
