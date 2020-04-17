@@ -43,34 +43,46 @@
       "Proprietaire": "Test"
     },
     {
+      "Name": "MyLittlePoney",
+      "Description": "L'auteur est Francois Hollande",
+      "En cours de pret": "aze",
+      "Proprietaire": "Francois luimeme"
+    },
+    {
+      "Name": "livre trop bien",
+      "Description": "en vrai pas si mal",
+      "En cours de pret": ".",
+      "Proprietaire": "aze"
+    },
+    {
       "Name": "livre de test",
       "Description": "recrit par test",
-      "En cours de pret": "aze",
+      "En cours de pret": ".",
       "Proprietaire": "Test"
     },
   ],
   "electronique": [
     {
-      "Name": "des fois lever du lit ahah",
-      "Description": "qefdsqdfsdfsdfsdf",
+      "Name": "TourPC HP",
+      "Description": "i7 GTX1050 8GoRAM 512GoSSD",
+      "En cours de pret": ".",
+      "Proprietaire": "Monsieur Durand"
+    },
+    {
+      "Name": "TourPC AlienWare",
+      "Description": "i9 GTX1650 16GoRAM 1ToSSD",
+      "En cours de pret": ".",
+      "Proprietaire": "JeSuisPasUnAlien"
+    },
+    {
+      "Name": "fil electrique",
+      "Description": "de superbe qualidad",
       "En cours de pret": ".",
       "Proprietaire": "aze"
     },
     {
       "Name": "tarte a la framboise",
-      "Description": "srgdfs",
-      "En cours de pret": ".",
-      "Proprietaire": "aze"
-    },
-    {
-      "Name": "aze",
-      "Description": "abcde",
-      "En cours de pret": ".",
-      "Proprietaire": "aze"
-    },
-    {
-      "Name": "TourPC AlienWare",
-      "Description": "i9 GTX1650 16GoRAM 1ToSSD",
+      "Description": "faites ce matin meme ",
       "En cours de pret": ".",
       "Proprietaire": "JeSuisPasUnAlien"
     },

@@ -459,8 +459,11 @@ void menu_recherche_specifique(char *cat,int choix_cat, char* id){
               printf("\nChoisissez : ");
               lire_entier(&ch_empr,1,2);
               if (ch_empr == 1){
+                  printf("?\n");
                   sauvegarder_detail_obj(cat, choix, 1, &obj);
+                  printf("?\n");
                   savoir_nom_proprio(cat, choix, &proprio);
+                  printf("?\n");
                   printf("%d %s %s %s\n",choix_cat,id,obj,proprio);
                   mettre_en_pret_ou_finir_le_pret(choix_cat,  proprio, obj,id);
                   printf("?\n");
@@ -499,6 +502,7 @@ int menu_affiche_ress(int fonction, char** cat, char* id){
       system("clear");
       switch (choix) {
           case 0:
+              *cat = ".";
               sorti=true;
               break;
           case 1:
@@ -575,7 +579,7 @@ void menu_gestion_ress(char** id){
               if (max_emp != 0 && lire_entier(&choix_emp,0,max_emp) == 0 && choix_emp != 0){
                   avoir_choix_obj_du_emprunteur(cat,*id, choix_emp, &obj_emp, &prop_emp);
                   if (verification()){
-                      mettre_en_pret_ou_finir_le_pret(choix_cat, *id, obj_emp, prop_emp);
+                      mettre_en_pret_ou_finir_le_pret(choix_cat, prop_emp, obj_emp, *id);
                   }
               }
               break;
@@ -600,25 +604,32 @@ int ajout_ress(char** id){
     char name[60];
     char* cat;
     // argu 1
-    int lignecat = ligne_bonne_categorie(menu_affiche_ress(2,&cat,*id)) + 2;
+    int choix_cat = menu_affiche_ress(2,&cat,*id);
+    if (choix_cat == 0){
+        return 1;
+    }
+    int lignecat = ligne_bonne_categorie(choix_cat) + 2;
     system("clear");
     if (lignecat == 0){
         return 1;
     }
     //argu 4
     system("clear");
-    printf("Entrez le nom de l'objet : \n(Entrer pour valider, 50 caractères maximum, 2 mini)\n");
+    printf("Entrez le nom de l'objet : \n(Entrer pour valider, 50 caractères maximum, 3 mini)\n");
     printf("\nNom de l'objet : ");
-    char cha = getchar();
+    char cha = 'a';
     int j = 0;
     while ( cha != 10 && j < 50 ){
-        name[j] = cha;
         cha = getchar();
+        printf("|%c %d|\n", cha, cha);
+        name[j] = cha;
         j++;
         name[j] = '\0';
     }
+    printf("??\n");
     if (j >= 50 || j < 3){
-        lire_fin_ligne();
+        if (j >= 50)
+            lire_fin_ligne();
         system("clear");
         printf("Format non respécté\n");
         printf("\nAppuyez sur entrer pour continuer\n");
@@ -627,7 +638,7 @@ int ajout_ress(char** id){
     }
 
     //argu 3
-    printf("\nEntrez la description de l'objet : \n(Entrer pour valider, 200 caractères maximum, 2 mini)\n");
+    printf("\nEntrez la description de l'objet : \n(Entrer pour valider, 200 caractères maximum, 3 mini)\n");
     printf("\nDescription : ");
     char ch = getchar();
     int i = 0;
@@ -789,7 +800,7 @@ int verif_suppr(char *id){
             }
         }
     }
-    //system("clear");
+    system("clear");
     return trouve;
 }
 

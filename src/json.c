@@ -10,7 +10,7 @@ void afficher_liste_obj_raw(char *obj){
   //char *field = "consoles";    Le mot a noter comme cela avec les guillemets
   //afficher_liste_obj(field);   Appel de la fonction
   FILE *fic;
-  char buffer[2048];//buffer à allouer dynamiquement???
+  char buffer[1024];//buffer à allouer dynamiquement???
 
   struct json_object *parsed_json;
   struct json_object *liste_objet;
@@ -19,7 +19,7 @@ void afficher_liste_obj_raw(char *obj){
   size_t i;
 
   fic = fopen("./json/Json.json","r");
-  fread(buffer, 2048, 1, fic);
+  fread(buffer, 1024, 1, fic);
   fclose(fic);
 
   parsed_json = json_tokener_parse(buffer);
@@ -197,11 +197,11 @@ void modifier_fichier_base_proto(){ //ne sert a rien, sert de base, schema pour 
   ssize_t line_size;
   FILE *fp = fopen("./json/Client.json", "r");
   FILE *fic2 = fopen("./json/Client2.json", "w");
-  if (!fp)
+  /*if (!fp)
   {
     fprintf(stderr, "Error opening file '%s'\n", "./json/Client.json");
     return EXIT_FAILURE;
-  }
+  }*/
 
   /* Get the first line of the file. */
   line_size = getline(&line_buf, &line_buf_size, fp);
@@ -222,7 +222,7 @@ void modifier_fichier_base_proto(){ //ne sert a rien, sert de base, schema pour 
 
   /* Free the allocated line buffer */
   free(line_buf);
-  line_buf = NULL;
+  //line_buf = NULL;
 
   /* Close files now that we are done with */
   fclose(fp);
