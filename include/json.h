@@ -22,12 +22,12 @@ void sauvegarder_detail_obj(char *obj, int choix, int choix_modif, char **sauv);
 int quel_n_eme_obj(int l,int l_c);
 void modif_ressource_sauf_pret(int num_cat, char *iD, char *ObjName, int choix_modif);
 int afficher_liste_obj_du_proprio(char *obj,char *proprio);
-void afficher_choix_obj_du_proprio(char *obj,char *proprio, int choix, char **sauv);
+void savoir_choix_obj_du_proprio(char *obj,char *proprio, int choix, char **sauv);
 void savoir_nom_pret(char *obj, int choix, char **sauv);
 int savoir_si_en_pret(char *obj, int choix);
 void mettre_en_pret_ou_finir_le_pret(int num_cat, char *iD, char *ObjName, char *iD2);
 void savoir_nom_proprio(char *obj, int choix, char **sauv);
-void afficher_choix_desc_du_proprio(char *obj,char *proprio, int choix, char **sauv);
+void savoir_choix_desc_du_proprio(char *obj,char *proprio, int choix, char **sauv);
 void add_hist(int num_ligne_pers, char *iD, int ope);
 void afficher_liste_historique(char *iD);
 void stocker_id_hist_inscription(char *iD);
@@ -37,6 +37,5 @@ int afficher_liste_obj_emprunte(char *obj,char *emprunteur);
 void avoir_choix_obj_du_emprunteur(char *cat,char *emprunteur, int choix, char **sauv, char **sauv2);
 int ligne_bonne_pers_hist(char *id);
 void del_historique(int num_ligne);
-
 
 #endif

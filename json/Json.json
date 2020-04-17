@@ -13,18 +13,6 @@
       "Proprietaire": "KGB"
     },
     {
-      "Name": "LesOiseauxDePologne",
-      "Description": "L'auteur est Muriel Latoupalampa",
-      "En cours de pret": ".",
-      "Proprietaire": "PolskaEditor"
-    },
-    {
-      "Name": "ajout livre",
-      "Description": "historique",
-      "En cours de pret": "Test",
-      "Proprietaire": "aze"
-    },
-    {
       "Name": "MyLittlePoney",
       "Description": "L'auteur est Francois Hollande",
       "En cours de pret": "Test",
@@ -55,9 +43,21 @@
       "Proprietaire": "aze"
     },
     {
+      "Name": "LIVRE AJOUT COOL",
+      "Description": "historique",
+      "En cours de pret": "Test",
+      "Proprietaire": "aze"
+    },
+    {
+      "Name": "LesOiseauxDePologne",
+      "Description": "L'auteur est Muriel Latoupalampa",
+      "En cours de pret": "aze",
+      "Proprietaire": "PolskaEditor"
+    },
+    {
       "Name": "livre de test",
       "Description": "recrit par test",
-      "En cours de pret": "aze",
+      "En cours de pret": ".",
       "Proprietaire": "essai"
     },
   ],

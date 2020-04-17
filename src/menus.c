@@ -717,8 +717,8 @@ int modif_ress(char **id){
     if(lire_entier(&choixobj,0,nb_obj) || choixobj == 0){
         return 0;
     }
-    afficher_choix_obj_du_proprio(cat, *id, choixobj, &sauvobj);
-    afficher_choix_desc_du_proprio(cat,*id, choixobj, &sauvdes);
+    savoir_choix_obj_du_proprio(cat, *id, choixobj, &sauvobj);
+    savoir_choix_desc_du_proprio(cat,*id, choixobj, &sauvdes);
 
     //sauvegarder_detail_obj(cat, choixobj, 2, &sauvdes);
     system("clear");
@@ -819,7 +819,7 @@ int verif_suppr(char *id){
             }
             max_obj = afficher_liste_obj_du_proprio(cat, id);
             for(j = 1; j <= max_obj; j++){
-                afficher_choix_obj_du_proprio(cat,id, j, &sauvobj);
+                savoir_choix_obj_du_proprio(cat,id, j, &sauvobj);
                 trouve = savoir_si_en_pret(cat, quel_n_eme_obj(ligne_bon_obj(i, id, sauvobj),ligne_bonne_categorie(i)));
 
             }
@@ -868,7 +868,7 @@ void suppr_acc(char* id){
         }
         count =  afficher_liste_obj_du_proprio(cat, id);
         for (j = 1; j <= count; j++) {
-            afficher_choix_obj_du_proprio(cat, id, j, &sauvobj);
+            savoir_choix_obj_du_proprio(cat, id, j, &sauvobj);
             del_ressource(ligne_bon_obj(i, id, sauvobj));
         }
     }

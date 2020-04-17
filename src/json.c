@@ -7,10 +7,8 @@
 
 
 void afficher_liste_obj_raw(char *obj){
-  //char *field = "consoles";    Le mot a noter comme cela avec les guillemets
-  //afficher_liste_obj(field);   Appel de la fonction
   FILE *fic;
-  char buffer[1024];//buffer à allouer dynamiquement???
+  char buffer[1024];
 
   struct json_object *parsed_json;
   struct json_object *liste_objet;
@@ -24,7 +22,7 @@ void afficher_liste_obj_raw(char *obj){
 
   parsed_json = json_tokener_parse(buffer);
 
-  json_object_object_get_ex(parsed_json, obj, &liste_objet);//changer "vert" en variable à choisir
+  json_object_object_get_ex(parsed_json, obj, &liste_objet);//changer "vert" en variable à choisir ici obj
 
   n_obj = json_object_array_length(liste_objet);
   printf("\n\nFound %lu %s(s)\n",n_obj, obj);
@@ -40,32 +38,32 @@ void afficher_liste_obj_raw(char *obj){
 
 /*-------------------------------------------------------------------------*/
 void afficher_detail_obj(char *obj, int choix){
-  struct json_object *med_obj, *medi_array, *medi_array_obj, *medi_array_obj_name;
+  struct json_object *o_obj, *o_array, *o_array_obj, *o_array_obj_name;
   int arraylen, j;
   static const char filename[] = "./json/Json.json";
-  med_obj = json_object_from_file(filename);
-  medi_array = json_object_object_get(med_obj, obj);//changer "vert" en objet à choisir
+  o_obj = json_object_from_file(filename);
+  o_array = json_object_object_get(o_obj, obj);//changer "vert" en objet à choisir ici obj
 
-  // medi_array is an array of objects
-  arraylen = json_object_array_length(medi_array);
+  // o_array is an array of objects
+  arraylen = json_object_array_length(o_array);
 
   choix = choix-1;
 
   for (j = 0; j < arraylen; j++) {
     if(choix==j){
-      // get the i-th object in medi_array
-      medi_array_obj = json_object_array_get_idx(medi_array, j);
+      // get the i-th object in o_array
+      o_array_obj = json_object_array_get_idx(o_array, j);
       // get the name attribute in the i-th object
-      medi_array_obj_name = json_object_object_get(medi_array_obj, "Name");//changer "vert" en détail à choisir
+      o_array_obj_name = json_object_object_get(o_array_obj, "Name");//changer "vert" en détail à choisir
       // print out the name attribute
-      printf("Name : %s\n",json_object_get_string(medi_array_obj_name));
-      medi_array_obj_name = json_object_object_get(medi_array_obj, "Description");//changer "vert" en détail à choisir
-      printf("Description : %s\n",json_object_get_string(medi_array_obj_name));
-      medi_array_obj_name = json_object_object_get(medi_array_obj, "En cours de pret");//changer "vert" en détail à choisir
-      if(strcmp(json_object_get_string(medi_array_obj_name),".")!=0)
-        printf("En cours de pret : %s\n",json_object_get_string(medi_array_obj_name));
-      medi_array_obj_name = json_object_object_get(medi_array_obj, "Proprietaire");//changer "vert" en détail à choisir
-      printf("Proprietaire : %s\n",json_object_get_string(medi_array_obj_name));
+      printf("Name : %s\n",json_object_get_string(o_array_obj_name));
+      o_array_obj_name = json_object_object_get(o_array_obj, "Description");//changer "vert" en détail à choisir
+      printf("Description : %s\n",json_object_get_string(o_array_obj_name));
+      o_array_obj_name = json_object_object_get(o_array_obj, "En cours de pret");//changer "vert" en détail à choisir
+      if(strcmp(json_object_get_string(o_array_obj_name),".")!=0)
+        printf("En cours de pret : %s\n",json_object_get_string(o_array_obj_name));
+      o_array_obj_name = json_object_object_get(o_array_obj, "Proprietaire");//changer "vert" en détail à choisir
+      printf("Proprietaire : %s\n",json_object_get_string(o_array_obj_name));
     }
   }
 }
@@ -78,24 +76,24 @@ void afficher_detail_obj(char *obj, int choix){
 /*-------------------------------------------------------------------------*/
 
 int afficher_liste_obj(char *obj){
-  struct json_object *med_obj, *medi_array, *medi_array_obj, *medi_array_obj_name;
+  struct json_object *o_obj, *o_array, *o_array_obj, *o_array_obj_name;
   int arraylen, j;
   static const char filename[] = "./json/Json.json";
-  med_obj = json_object_from_file(filename);
-  medi_array = json_object_object_get(med_obj, obj);//changer "vert" en objet à choisir
+  o_obj = json_object_from_file(filename);
+  o_array = json_object_object_get(o_obj, obj);//changer "vert" en objet à choisir ici obj
 
-  // medi_array is an array of objects
-  arraylen = json_object_array_length(medi_array);
+  // o_array is an array of objects
+  arraylen = json_object_array_length(o_array);
   int a;
 
   for (j = 0; j < arraylen; j++) {
-    // get the i-th object in medi_array
-    medi_array_obj = json_object_array_get_idx(medi_array, j);
+    // get the i-th object in o_array
+    o_array_obj = json_object_array_get_idx(o_array, j);
     // get the name attribute in the i-th object
-    medi_array_obj_name = json_object_object_get(medi_array_obj, "Name");//changer "vert" en détail à choisir
+    o_array_obj_name = json_object_object_get(o_array_obj, "Name");//changer "vert" en détail à choisir
     // print out the name attribute
-    printf("%d. %s",j+1,json_object_get_string(medi_array_obj_name));
-    medi_array_obj_name = json_object_object_get(medi_array_obj, "En cours de pret");
+    printf("%d. %s",j+1,json_object_get_string(o_array_obj_name));
+    o_array_obj_name = json_object_object_get(o_array_obj, "En cours de pret");
     int a = savoir_si_en_pret(obj, j+1);
     if(a==1)
       printf("  (Indisponible)\n");
@@ -177,7 +175,7 @@ void stocker_id_mdp_inscription(char *iD, int mdp){
     fputs(iD, fic);
     fputs("\": \"", fic);
     char b[12];
-    sprintf(b, "%d", mdp);
+    sprintf(b, "%d", mdp);//conversion int en string
     fputs(b, fic);
     fputs("\"\n}\n", fic);
 
@@ -270,7 +268,6 @@ void admin_del_someone(int choix){
   system("sh ./script/scriptVirgule.sh ./json/Client2.json");
   remove("./json/Client.json");
   rename("./json/Client2.json", "./json/Client.json");
-  //return 1;
 }
 //Exemple d'utilisation:
 //admin_del_someone(7);
@@ -278,7 +275,7 @@ void admin_del_someone(int choix){
 /*-------------------------------------------------------------------------*/
 
 bool check_n_id_existe(int choix){
-    /* Open the file for reading and the other to write */
+    /* Open the file for reading */
     char *line_buf = NULL;
     size_t line_buf_size = 0;
     int line_count = 0;
@@ -312,12 +309,13 @@ bool check_n_id_existe(int choix){
     /* Close files now that we are done with */
     fclose(fp);
   }
+//Exemple d'utilisation:
 //check_n_id_existe(6);
 
 /*-------------------------------------------------------------------------*/
 
 void print_id(int choix){
-  /* Open the file for reading and the other to write */
+  /* Open the file for reading */
   char *line_buf = NULL;
   size_t line_buf_size = 0;
   int line_count = 0;
@@ -347,6 +345,7 @@ void print_id(int choix){
   /* Close files now that we are done with */
   fclose(fp);
 }
+//Exemple d'utilisation:
 //print_id(5);
 
 /*-------------------------------------------------------------------------*/
@@ -383,6 +382,7 @@ void fprint_id(int choix){
     fclose(fp);
     fclose(ft);
   }
+//Exemple d'utilisation:
 //fprint_id(1);
 
 /*-------------------------------------------------------------------------*/
@@ -426,6 +426,7 @@ int num_id(char* iD){
     remove("temp.txt");
     return(i-1);
   }
+//Exemple d'utilisation:
 //char *nom = "Lou";
 //int a = num_id(nom);
 //printf("%d\n", a);
@@ -433,7 +434,7 @@ int num_id(char* iD){
 /*-------------------------------------------------------------------------*/
 
 int ligne_bonne_categorie(int choix){
-    /* Open the file for reading and the other to write */
+    /* Open the file for reading */
     bool in_categorie;
     char *line_buf = NULL;
     size_t line_buf_size = 0;
@@ -479,7 +480,7 @@ int ligne_bonne_categorie(int choix){
     while (line_size >= 0)
     {
       line_count++;
-      /* Show the line details and printing them into the second file */
+      /* Show the line details */
       //printf("Contents: %s", line_buf);
       in_categorie = true;
       for(int a = 0; line_buf_check[a]!='\0'; a++){
@@ -500,13 +501,14 @@ int ligne_bonne_categorie(int choix){
     fclose(fp);
     return res;
   }
+//Exemple d'utilisation:
 //int a = ligne_bonne_categorie(2);
 //printf("%d\n",a); --> 16
 
 /*-------------------------------------------------------------------------*/
 
 int ligne_bon_obj(int num_cat, char *iD, char *Obj){
-    /* Open the file for reading and the other to write */
+    /* Open the file for reading */
     bool in_categorie;
     char *line_buf = NULL;
     size_t line_buf_size = 0;
@@ -517,7 +519,6 @@ int ligne_bon_obj(int num_cat, char *iD, char *Obj){
     int bombe;
     int res;
 
-    /*---*//*---*//*---*/
     /*printf("C'est ça la taille de Obj: %ld.\n", strlen(Obj));
     char *mot_vide_obj = NULL;
     mot_vide_obj = malloc(sizeof(char) * 100);
@@ -530,12 +531,9 @@ int ligne_bon_obj(int num_cat, char *iD, char *Obj){
     //char *line_buf_check_obj = NULL;
     char *mot_deb = "      \"Name\": \"";//17
     char *mot_fin = "\",\n";
-    //char mot_0[] = "\0";
-    //line_buf_check_obj = (char *) malloc(sizeof(char) * (strlen(mot_deb)+strlen(mot_fin)+strlen(Obj)));
-    int Long = (strlen(mot_deb)+strlen(mot_fin)+strlen(Obj)+1);//+strlen(mot_0)
-    //printf("%d\n",LONG);
+    int Long = (strlen(mot_deb)+strlen(mot_fin)+strlen(Obj)+1);
+    //printf("%d\n",Long);
     char *line_buf_check_obj = (char *)calloc(Long, sizeof(char));
-    //printf("check\n");
     //printf("%s\n",line_buf_check_obj);
     strcat(line_buf_check_obj, mot_deb);
     strcat(line_buf_check_obj, Obj);
@@ -549,21 +547,10 @@ int ligne_bon_obj(int num_cat, char *iD, char *Obj){
     //printf("\n%s",line_buf_check_obj);
 
 
-
-    /*char mot_vide[128] = "      \"Proprietaire\": \"";//25
-    //printf("%s\n",line_buf_check_obj);
-    char mot_vide_fin2[3] = "\"";
-    char *line_buf_check_tmp = strcat(mot_vide, iD);
-    //printf("%s\n\n", line_buf_check_tmp);
-    //printf("%s\n\n", mot_vide);
-    char *line_buf_check_iD = strcat(line_buf_check_tmp, mot_vide_fin2);
-    //printf("%s\n\n", line_buf_check_iD);*/
-
     //char *line_buf_check_iD = NULL;
     char *mot_deb2 = "      \"Proprietaire\": \"";//25
     char *mot_fin2 = "\"";
     char *mot_02 = "\n";
-    //line_buf_check_iD = (char *) malloc(sizeof(char) * (strlen(mot_deb2)+strlen(mot_fin2)+strlen(iD)));
     int Long2 = (strlen(mot_deb2)+strlen(iD)+strlen(mot_fin2)+strlen(mot_02)+1);
     char *line_buf_check_iD = (char *)calloc(Long2, sizeof(char));
     /*printf("2.C'est ça la taille de mot_deb2: %ld.\n", strlen(mot_deb2));
@@ -578,7 +565,7 @@ int ligne_bon_obj(int num_cat, char *iD, char *Obj){
     //printf("%s", mot_fin2);
     //printf("%s\n", line_buf_check_iD);
     //printf("La lettre : %c", line_buf_check_iD[LONG2]);
-    //line_buf_check_iD[LONG2-1]='\"\0';
+    //line_buf_check_iD[Long2-1]='\"\0';
     //printf("2.C'est ça la taille de line_buf_check_iD: %ld.\n\n", strlen(line_buf_check_iD));
     //printf("%s\n",line_buf_check_obj);
     //printf("2.C'est ça la taille de line_buf_check_iD: %ld.\n\n", strlen(line_buf_check_iD));
@@ -586,19 +573,6 @@ int ligne_bon_obj(int num_cat, char *iD, char *Obj){
     //printf("%s\n\n", line_buf_check_iD);
     //printf("%s\n\n", line_buf_check_obj);
     //printf("%s\n\n", line_buf_check_iD);
-
-    /*char *line_buf_check_iD = NULL;
-    char mot_deb2[] = "      \"Proprietaire\": \"";//25
-    printf("%s\n",line_buf_check_obj);
-    char mot_fin2[] = "\"";
-    line_buf_check_iD = malloc(sizeof(char) * (strlen(mot_deb2)+strlen(mot_fin2)+strlen(iD)));
-    strcat(line_buf_check_iD, mot_deb2);
-    strcat(line_buf_check_iD, iD);
-    //printf("%s\n\n", line_buf_check_tmp);
-    //printf("%s\n\n", mot_fin2);
-    strcat(line_buf_check_iD, mot_fin2);
-    printf("%s\n\n", line_buf_check_iD);*/
-    //printf("%s", line_buf_check_iD);
 
     switch (num_cat) {
       case 1:
@@ -627,17 +601,13 @@ int ligne_bon_obj(int num_cat, char *iD, char *Obj){
     }
 
     /* Get the first line of the file. */
-    //printf("%s", line_buf_check_iD);
     line_size = getline(&line_buf, &line_buf_size, fp);
-    //printf("%d",line_size);
-    //printf("slslslsl");
-    //printf("%s", line_buf_check_iD);
 
     /* Loop through until we are done with the file. */
     while (line_size >= 0)
     {
       line_count++;
-      /* Show the line details and printing them into the second file */
+      /* Show the line details */
       //printf("Contents: %s", line_buf);
       in_categorie = true;
       //printf("Line_buf_check :%s a\nLine_buf :%s a\n",line_buf_check, line_buf);
@@ -647,7 +617,6 @@ int ligne_bon_obj(int num_cat, char *iD, char *Obj){
       }
       if(in_categorie==true){
         //printf("%d ", line_count);
-        //printf("check 1");
         goto N;
       }
 
@@ -662,7 +631,7 @@ int ligne_bon_obj(int num_cat, char *iD, char *Obj){
     while (line_size >= 0)
     {
       line_count++;
-      /* Show the line details and printing them into the second file */
+      /* Show the line details */
       //printf("Contents: %s", line_buf);
       //printf("Line_buf_check_obj :%s.\nLine_buf :%s.\n",line_buf_check_obj, line_buf);
       in_categorie = true;
@@ -672,7 +641,6 @@ int ligne_bon_obj(int num_cat, char *iD, char *Obj){
       }
       if(in_categorie==true){
         //printf("-%d-", line_count);
-        //printf("check 2 ");
         goto ID;
       }
 
@@ -682,7 +650,6 @@ int ligne_bon_obj(int num_cat, char *iD, char *Obj){
     }
 /*----------*//*----------*//*----------*//*----------*//*----------*/
     ID:
-    //printf("Dans ID:");
     bombe = 0;
     line_size = getline(&line_buf, &line_buf_size, fp);
 
@@ -690,9 +657,8 @@ int ligne_bon_obj(int num_cat, char *iD, char *Obj){
     while (line_size >= 0)
     {
       //printf("Line_buf_check_iD :%s\n",line_buf_check_iD);
-      //printf("slt_");
       line_count++;
-      /* Show the line details and printing them into the second file */
+      /* Show the line details */
       //printf("Contents: %s", line_buf);
       in_categorie = true;
       for(int a = 0; line_buf_check_iD[a]!='\n'; a++){
@@ -700,7 +666,6 @@ int ligne_bon_obj(int num_cat, char *iD, char *Obj){
           in_categorie = false;
       }
       if(in_categorie==true){
-        //printf("  On est ici");
         res = line_count;
         //printf(" \n---%d---\n\n",line_count);
       }
@@ -716,13 +681,14 @@ int ligne_bon_obj(int num_cat, char *iD, char *Obj){
 
     /* Close files now that we are done with */
     fclose(fp);
-    /* Free the allocated line buffer */
+    /* Free the allocated buffers */
     free(line_buf);
     free(line_buf_check_obj);
     free(line_buf_check_iD);
     //printf("\n\n---%d---\n\n",line_count);
     return res;
   }
+//Exemple d'utilisation:
 //char *Name = "TourPC HP";
 //char *iD = "Monsieur Durand";
 //int a = ligne_bon_obj(2,iD,Name);
@@ -766,6 +732,7 @@ void del_ressource(int num_ligne){
   remove("./json/Json.json");
   rename("./json/Jsonbis.json", "./json/Json.json");
   }
+//Exemple d'utilisation:
 //del_ressource(a);
 
 /*-------------------------------------------------------------------------*/
@@ -799,8 +766,8 @@ void add_ressource(int num_ligne_cat, char *iD, char *Descr, char *ObjName, char
 
       char *mot_deb = "      \"Name\": \"";
       char *mot_fin = "\",\n";
-      int LONG = (strlen(mot_deb)+strlen(mot_fin)+strlen(ObjName)+1);
-      Concat = calloc(LONG, sizeof(char));
+      int Long = (strlen(mot_deb)+strlen(mot_fin)+strlen(ObjName)+1);
+      Concat = calloc(Long, sizeof(char));
       strcat(Concat, mot_deb);
       strcat(Concat, ObjName);
       strcat(Concat, mot_fin);
@@ -811,8 +778,8 @@ void add_ressource(int num_ligne_cat, char *iD, char *Descr, char *ObjName, char
 
       char *mot_deb2 = "      \"Description\": \"";
       char *mot_fin2 = "\",\n";
-      int LONG2 = (strlen(mot_deb2)+strlen(mot_fin2)+strlen(Descr)+1);
-      Concat2 = calloc(LONG2, sizeof(char));
+      int Long2 = (strlen(mot_deb2)+strlen(mot_fin2)+strlen(Descr)+1);
+      Concat2 = calloc(Long2, sizeof(char));
       strcat(Concat2, mot_deb2);
       strcat(Concat2, Descr);
       strcat(Concat2, mot_fin2);
@@ -823,8 +790,8 @@ void add_ressource(int num_ligne_cat, char *iD, char *Descr, char *ObjName, char
 
       char *mot_deb3 = "      \"En cours de pret\": \"";
       char *mot_fin3 = "\",\n";
-      int LONG3 = (strlen(mot_deb3)+strlen(mot_fin3)+strlen(nom_pret)+1);
-      Concat3 = calloc(LONG3, sizeof(char));
+      int Long3 = (strlen(mot_deb3)+strlen(mot_fin3)+strlen(nom_pret)+1);
+      Concat3 = calloc(Long3, sizeof(char));
       strcat(Concat3, mot_deb3);
       strcat(Concat3, nom_pret);
       strcat(Concat3, mot_fin3);
@@ -835,8 +802,8 @@ void add_ressource(int num_ligne_cat, char *iD, char *Descr, char *ObjName, char
 
       char *mot_deb4 = "      \"Proprietaire\": \"";
       char *mot_fin4 = "\"\n";
-      int LONG4 = (strlen(mot_deb4)+strlen(mot_fin4)+strlen(iD)+1);
-      Concat4 = calloc(LONG4, sizeof(char));
+      int Long4 = (strlen(mot_deb4)+strlen(mot_fin4)+strlen(iD)+1);
+      Concat4 = calloc(Long4, sizeof(char));
       strcat(Concat4, mot_deb4);
       strcat(Concat4, iD);
       strcat(Concat4, mot_fin4);
@@ -862,6 +829,7 @@ void add_ressource(int num_ligne_cat, char *iD, char *Descr, char *ObjName, char
   remove("./json/Json.json");
   rename("./json/Jsonbis.json", "./json/Json.json");
   }
+//Exemple d'utilisation:
 //int n = 22;
 //char *id = "John";
 //char *pret = "KGB";
@@ -872,29 +840,29 @@ void add_ressource(int num_ligne_cat, char *iD, char *Descr, char *ObjName, char
 /*-------------------------------------------------------------------------*/
 
 void sauvegarder_detail_obj(char *obj, int choix, int choix_modif, char **sauv){
-    struct json_object *med_obj, *medi_array, *medi_array_obj, *medi_array_obj_name;
+    struct json_object *o_obj, *o_array, *o_array_obj, *o_array_obj_name;
     int arraylen, j;
     static const char filename[] = "./json/Json.json";
-    med_obj = json_object_from_file(filename);
-    medi_array = json_object_object_get(med_obj, obj);
+    o_obj = json_object_from_file(filename);
+    o_array = json_object_object_get(o_obj, obj);
 
-    // medi_array is an array of objects
-    arraylen = json_object_array_length(medi_array);
+    // o_array is an array of objects
+    arraylen = json_object_array_length(o_array);
 
     choix = choix-1;
 
     for (j = 0; j < arraylen; j++) {
       if(choix==j){
-        // get the i-th object in medi_array
-        medi_array_obj = json_object_array_get_idx(medi_array, j);
+        // get the i-th object in o_array
+        o_array_obj = json_object_array_get_idx(o_array, j);
         switch (choix_modif) {
           case 1:
-            medi_array_obj_name = json_object_object_get(medi_array_obj, "Name");
-            *sauv = json_object_get_string(medi_array_obj_name);
+            o_array_obj_name = json_object_object_get(o_array_obj, "Name");
+            *sauv = json_object_get_string(o_array_obj_name);
             break;
           case 2:
-            medi_array_obj_name = json_object_object_get(medi_array_obj, "Description");
-            *sauv = json_object_get_string(medi_array_obj_name);
+            o_array_obj_name = json_object_object_get(o_array_obj, "Description");
+            *sauv = json_object_get_string(o_array_obj_name);
             break;
           default:
             break;
@@ -902,6 +870,7 @@ void sauvegarder_detail_obj(char *obj, int choix, int choix_modif, char **sauv){
       }
     }
   }
+//Exemple d'utilisation:
 //char *objet = "livre";
 //int choix_livre = 2;
 //char *sauvegarde_detail;
@@ -923,6 +892,7 @@ int quel_n_eme_obj(int l,int l_c){
       return i;
     }
   }
+//Exemple d'utilisation:
 //int i = quel_n_eme_obj(19, 2);
 //printf("%d", i);
 
@@ -931,16 +901,12 @@ int quel_n_eme_obj(int l,int l_c){
 void modif_ressource_sauf_pret(int num_cat, char *iD, char *ObjName, int choix_modif){
     FILE *fp = fopen("./json/Json.json", "r+");
     int l = ligne_bon_obj(num_cat,iD,ObjName);
-    //printf("%d %s %s", num_cat, iD, ObjName);
-    //printf("\nl = %d\n",l);
     int l_c = ligne_bonne_categorie(num_cat+1);
-    //printf("%d\n",l_c);
     int l_c_toknow_n_eme_obj = ligne_bonne_categorie(num_cat);
-    //printf("%d %d\n",l_c_toknow_n_eme_obj, num_cat);
-    //printf("%d %d\n",l,l_c_toknow_n_eme_obj);
     char *categorie;
     char Nom[60];
     char Desc[250];
+
     switch (num_cat) {
       case 1:
         categorie = "Livre";
@@ -966,19 +932,16 @@ void modif_ressource_sauf_pret(int num_cat, char *iD, char *ObjName, int choix_m
       default:
         break;
     }
+
     int n_eme_obj = quel_n_eme_obj(l, l_c_toknow_n_eme_obj);
-    //printf("%d %d\n",l_c_toknow_n_eme_obj,n_eme_obj);
-    //sauvegarder_detail_obj(categorie,n_eme_obj,1,&Nom);
     char *Description = NULL;
     sauvegarder_detail_obj(categorie,n_eme_obj,2,&Description);
-    //printf("%s %d %s\n", categorie, n_eme_obj, Description);
     int i;
     char ch;
     if(choix_modif==1){
       printf("Actuel nom : %s\n", ObjName);
       printf("Nouveau nom: ");
 
-      //remplace scanf :
       i=0;
       ch = getchar();
       while ( ch != 10 ){
@@ -987,13 +950,11 @@ void modif_ressource_sauf_pret(int num_cat, char *iD, char *ObjName, int choix_m
           i++;
           Nom[i] = '\0';
       }
-      //scanf("%s\n", Nom);
     }
     else{
       printf("Actuelle description : %s\n", Description);
       printf("Nouvelle description: ");
-      //scanf("%s\n", Desc);
-      //remplace scanf :
+
       i=0;
       ch = getchar();
       while ( ch != 10 ){
@@ -1002,7 +963,6 @@ void modif_ressource_sauf_pret(int num_cat, char *iD, char *ObjName, int choix_m
           i++;
           Desc[i] = '\0';
       }
-      //scanf("%s\n", Desc);
     }
     char *id_pret = NULL;
     savoir_nom_pret(categorie, n_eme_obj, &id_pret);
@@ -1013,11 +973,11 @@ void modif_ressource_sauf_pret(int num_cat, char *iD, char *ObjName, int choix_m
     del_ressource(l);
     fclose(fp);
 
-
+    /* In order to make suitable the history for "name's modification" */
     char *NewName = NULL;
     char *mott = "-->";
-    int LONGE = (strlen(ObjName)+strlen(mott)+strlen(Nom)+1);
-    NewName = calloc(LONGE, sizeof(char));
+    int Longe = (strlen(ObjName)+strlen(mott)+strlen(Nom)+1);
+    NewName = calloc(Longe, sizeof(char));
     strcat(NewName, ObjName);
     strcat(NewName, mott);
     strcat(NewName, Nom);
@@ -1028,67 +988,70 @@ void modif_ressource_sauf_pret(int num_cat, char *iD, char *ObjName, int choix_m
       add_hist(Ligne, ObjName, 3);
     free(NewName);
   }
+//Exemple d'utilisation:
 //char *Name = "RussiaIsAHeaven";
 //char *iD = "KGB";
 //int choix_modif = 2;
 //modif_ressource_sauf_pret(1,iD,Name,choix_modif);
 
 /*-------------------------------------------------------------------------*/
+
 int afficher_liste_obj_du_proprio(char *obj,char *proprio){
-  struct json_object *med_obj, *medi_array, *medi_array_obj, *medi_array_obj_name;
+  struct json_object *o_obj, *o_array, *o_array_obj, *o_array_obj_name;
   int arraylen, j;
   int count = 0;
   bool appartient = true;
   static const char filename[] = "./json/Json.json";
-  med_obj = json_object_from_file(filename);
-  medi_array = json_object_object_get(med_obj, obj);
+  o_obj = json_object_from_file(filename);
+  o_array = json_object_object_get(o_obj, obj);
 
-  // medi_array is an array of objects
-  arraylen = json_object_array_length(medi_array);
+  // o_array is an array of objects
+  arraylen = json_object_array_length(o_array);
 
   for (j = 0; j < arraylen; j++) {
-    // get the i-th object in medi_array
-    medi_array_obj = json_object_array_get_idx(medi_array, j);
+    // get the i-th object in o_array
+    o_array_obj = json_object_array_get_idx(o_array, j);
     // get the name attribute in the i-th object
-    medi_array_obj_name = json_object_object_get(medi_array_obj, "Proprietaire");
-    char *id_a_check = json_object_get_string(medi_array_obj_name);
+    o_array_obj_name = json_object_object_get(o_array_obj, "Proprietaire");
+    char *id_a_check = json_object_get_string(o_array_obj_name);
     appartient = true;
     for(int a = 0; proprio[a]!='\0'; a++){
       if(id_a_check[a]!=proprio[a])
         appartient = false;
     }
     if(appartient==true){
-      medi_array_obj_name = json_object_object_get(medi_array_obj, "Name");
-      printf("%d. %s\n",count+1,json_object_get_string(medi_array_obj_name));
+      o_array_obj_name = json_object_object_get(o_array_obj, "Name");
+      printf("%d. %s\n",count+1,json_object_get_string(o_array_obj_name));
       count++;
     }
   }
   return count;
 }
+//Exemple d'utilisation:
 //char *objet = "electronique";
 //char *proprio ="Monsieur Durand";
 //afficher_liste_obj_du_proprio(objet, proprio);
 
 /*-------------------------------------------------------------------------*/
 
-void afficher_choix_obj_du_proprio(char *obj,char *proprio, int choix, char **sauv){
-  struct json_object *med_obj, *medi_array, *medi_array_obj, *medi_array_obj_name;
+void savoir_choix_obj_du_proprio(char *obj,char *proprio, int choix, char **sauv){ //donne le nom de l'objet
+  struct json_object *o_obj, *o_array, *o_array_obj, *o_array_obj_name;
   int arraylen, j;
   int count = 0;
   bool appartient = true;
   static const char filename[] = "./json/Json.json";
-  med_obj = json_object_from_file(filename);
-  medi_array = json_object_object_get(med_obj, obj);
+  o_obj = json_object_from_file(filename);
+  o_array = json_object_object_get(o_obj, obj);
 
-  // medi_array is an array of objects
-  arraylen = json_object_array_length(medi_array);
+  // o_array is an array of objects
+  arraylen = json_object_array_length(o_array);
 
   for (j = 0; j < arraylen; j++) {
-    // get the i-th object in medi_array
-    medi_array_obj = json_object_array_get_idx(medi_array, j);
+    // get the i-th object in o_array
+    o_array_obj = json_object_array_get_idx(o_array, j);
     // get the name attribute in the i-th object
-    medi_array_obj_name = json_object_object_get(medi_array_obj, "Proprietaire");
-    char *id_a_check = json_object_get_string(medi_array_obj_name);
+    o_array_obj_name = json_object_object_get(o_array_obj, "Proprietaire");
+    char *id_a_check = json_object_get_string(o_array_obj_name);
     appartient = true;
     for(int a = 0; proprio[a]!='\0'; a++){
       if(id_a_check[a]!=proprio[a])
@@ -1096,41 +1059,42 @@ void afficher_choix_obj_du_proprio(char *obj,char *proprio, int choix, char **sa
     }
     if(appartient==true){
       if(count==choix-1){
-        medi_array_obj_name = json_object_object_get(medi_array_obj, "Name");
-        //printf("%s\n",json_object_get_string(medi_array_obj_name));
-        *sauv = json_object_get_string(medi_array_obj_name);
+        o_array_obj_name = json_object_object_get(o_array_obj, "Name");
+        //printf("%s\n",json_object_get_string(o_array_obj_name));
+        *sauv = json_object_get_string(o_array_obj_name);
       }
       count++;
     }
   }
 }
+//Exemple d'utilisation:
 //char *objet = "electronique";
 //char *proprio ="Monsieur Durand";
 //int choix = 2;
 //char *sauvegarde_detail;
-//afficher_choix_obj_du_proprio(objet, proprio, choix, &sauvegarde_detail);
+//savoir_choix_obj_du_proprio(objet, proprio, choix, &sauvegarde_detail);
 //printf("%s\n", sauvegarde_detail);
 
 /*-------------------------------------------------------------------------*/
 
-void afficher_choix_desc_du_proprio(char *obj,char *proprio, int choix, char **sauv){
-  struct json_object *med_obj, *medi_array, *medi_array_obj, *medi_array_obj_name;
+void savoir_choix_desc_du_proprio(char *obj,char *proprio, int choix, char **sauv){//donne la description de l'objet
+  struct json_object *o_obj, *o_array, *o_array_obj, *o_array_obj_name;
   int arraylen, j;
   int count = 0;
   bool appartient = true;
   static const char filename[] = "./json/Json.json";
-  med_obj = json_object_from_file(filename);
-  medi_array = json_object_object_get(med_obj, obj);
+  o_obj = json_object_from_file(filename);
+  o_array = json_object_object_get(o_obj, obj);
 
-  // medi_array is an array of objects
-  arraylen = json_object_array_length(medi_array);
+  // o_array is an array of objects
+  arraylen = json_object_array_length(o_array);
 
   for (j = 0; j < arraylen; j++) {
-    // get the i-th object in medi_array
-    medi_array_obj = json_object_array_get_idx(medi_array, j);
+    // get the i-th object in o_array
+    o_array_obj = json_object_array_get_idx(o_array, j);
     // get the name attribute in the i-th object
-    medi_array_obj_name = json_object_object_get(medi_array_obj, "Proprietaire");
-    char *id_a_check = json_object_get_string(medi_array_obj_name);
+    o_array_obj_name = json_object_object_get(o_array_obj, "Proprietaire");
+    char *id_a_check = json_object_get_string(o_array_obj_name);
     appartient = true;
     for(int a = 0; proprio[a]!='\0'; a++){
       if(id_a_check[a]!=proprio[a])
@@ -1138,44 +1102,46 @@ void afficher_choix_desc_du_proprio(char *obj,char *proprio, int choix, char **s
     }
     if(appartient==true){
       if(count==choix-1){
-        medi_array_obj_name = json_object_object_get(medi_array_obj, "Description");
-        //printf("%s\n",json_object_get_string(medi_array_obj_name));
-        *sauv = json_object_get_string(medi_array_obj_name);
+        o_array_obj_name = json_object_object_get(o_array_obj, "Description");
+        //printf("%s\n",json_object_get_string(o_array_obj_name));
+        *sauv = json_object_get_string(o_array_obj_name);
       }
       count++;
     }
   }
 }
+//Exemple d'utilisation:
 //char *objet = "electronique";
 //char *proprio ="Monsieur Durand";
 //int choix = 2;
 //char *sauvegarde_detail;
-//afficher_choix_obj_du_proprio(objet, proprio, choix, &sauvegarde_detail);
+//savoir_choix_desc_du_proprio(objet, proprio, choix, &sauvegarde_detail);
 //printf("%s\n", sauvegarde_detail);
 
 /*-------------------------------------------------------------------------*/
 
 void savoir_nom_pret(char *obj, int choix, char **sauv){
-    struct json_object *med_obj, *medi_array, *medi_array_obj, *medi_array_obj_name;
+    struct json_object *o_obj, *o_array, *o_array_obj, *o_array_obj_name;
     int arraylen, j;
     static const char filename[] = "./json/Json.json";
-    med_obj = json_object_from_file(filename);
-    medi_array = json_object_object_get(med_obj, obj);
+    o_obj = json_object_from_file(filename);
+    o_array = json_object_object_get(o_obj, obj);
 
-    // medi_array is an array of objects
-    arraylen = json_object_array_length(medi_array);
+    // o_array is an array of objects
+    arraylen = json_object_array_length(o_array);
 
     choix = choix-1;
 
     for (j = 0; j < arraylen; j++) {
       if(choix==j){
-        // get the i-th object in medi_array
-        medi_array_obj = json_object_array_get_idx(medi_array, j);
-        medi_array_obj_name = json_object_object_get(medi_array_obj, "En cours de pret");
-        *sauv = json_object_get_string(medi_array_obj_name);
+        // get the i-th object in o_array
+        o_array_obj = json_object_array_get_idx(o_array, j);
+        o_array_obj_name = json_object_object_get(o_array_obj, "En cours de pret");
+        *sauv = json_object_get_string(o_array_obj_name);
       }
     }
   }
+//Exemple d'utilisation:
 //char *objet = "livre";
 //int choix_livre = 1;
 //char *ID;
@@ -1185,47 +1151,54 @@ void savoir_nom_pret(char *obj, int choix, char **sauv){
 /*-------------------------------------------------------------------------*/
 
 void savoir_nom_proprio(char *obj, int choix, char **sauv){
-    struct json_object *med_obj, *medi_array, *medi_array_obj, *medi_array_obj_name;
+    struct json_object *o_obj, *o_array, *o_array_obj, *o_array_obj_name;
     int arraylen, j;
     static const char filename[] = "./json/Json.json";
-    med_obj = json_object_from_file(filename);
-    medi_array = json_object_object_get(med_obj, obj);
+    o_obj = json_object_from_file(filename);
+    o_array = json_object_object_get(o_obj, obj);
 
-    // medi_array is an array of objects
-    arraylen = json_object_array_length(medi_array);
+    // o_array is an array of objects
+    arraylen = json_object_array_length(o_array);
 
     choix = choix-1;
 
     for (j = 0; j < arraylen; j++) {
       if(choix==j){
-        // get the i-th object in medi_array
-        medi_array_obj = json_object_array_get_idx(medi_array, j);
-        medi_array_obj_name = json_object_object_get(medi_array_obj, "Proprietaire");
-        *sauv = json_object_get_string(medi_array_obj_name);
+        // get the i-th object in o_array
+        o_array_obj = json_object_array_get_idx(o_array, j);
+        o_array_obj_name = json_object_object_get(o_array_obj, "Proprietaire");
+        *sauv = json_object_get_string(o_array_obj_name);
       }
     }
   }
+//Exemple d'utilisation:
+//char *objet = "livre";
+//int choix_livre = 1;
+//char *ID;
+//savoir_nom_proprio(objet, choix_livre, &ID);
+//printf("%s\n", ID);
 
+/*-------------------------------------------------------------------------*/
 
-int savoir_si_en_pret(char *obj, int choix){ // ne te sert pas
-    struct json_object *med_obj, *medi_array, *medi_array_obj, *medi_array_obj_name;
+int savoir_si_en_pret(char *obj, int choix){
+    struct json_object *o_obj, *o_array, *o_array_obj, *o_array_obj_name;
     int arraylen, j;
     static const char filename[] = "./json/Json.json";
-    med_obj = json_object_from_file(filename);
-    medi_array = json_object_object_get(med_obj, obj);
+    o_obj = json_object_from_file(filename);
+    o_array = json_object_object_get(o_obj, obj);
 
-    // medi_array is an array of objects
-    arraylen = json_object_array_length(medi_array);
+    // o_array is an array of objects
+    arraylen = json_object_array_length(o_array);
 
     choix = choix-1;
     int rep;
 
     for (j = 0; j < arraylen; j++) {
       if(choix==j){
-        // get the i-th object in medi_array
-        medi_array_obj = json_object_array_get_idx(medi_array, j);
-        medi_array_obj_name = json_object_object_get(medi_array_obj, "En cours de pret");
-        int test = strcmp(json_object_get_string(medi_array_obj_name), ".");
+        // get the i-th object in o_array
+        o_array_obj = json_object_array_get_idx(o_array, j);
+        o_array_obj_name = json_object_object_get(o_array_obj, "En cours de pret");
+        int test = strcmp(json_object_get_string(o_array_obj_name), ".");
       	if(test == 0)
           rep = 2;
         else
@@ -1234,6 +1207,7 @@ int savoir_si_en_pret(char *obj, int choix){ // ne te sert pas
     }
     return rep;
   }
+//Exemple d'utilisation:
 //char *objet = "livre";
 //int choix_livre = 2;
 //int a = savoir_si_en_pret(objet, choix_livre);
@@ -1246,11 +1220,10 @@ void mettre_en_pret_ou_finir_le_pret(int num_cat, char *iD, char *ObjName, char 
     int l = ligne_bon_obj(num_cat,iD,ObjName);
     int l_c = ligne_bonne_categorie(num_cat+1);
     int l_c_toknow_n_eme_obj = ligne_bonne_categorie(num_cat);
-    //printf("%d %d\n",l,l_c_toknow_n_eme_obj);
-    char *Nom;//malloc
-    char *Desc;//malloc
+    char *Nom;
+    char *Desc;
     char *categorie;
-    //printf("1check\n");
+
     switch (num_cat) {
       case 1:
         categorie = "Livre";
@@ -1276,10 +1249,9 @@ void mettre_en_pret_ou_finir_le_pret(int num_cat, char *iD, char *ObjName, char 
       default:
         break;
     }
-    //printf("2check\n");
-    //printf("%d %d\n",l,l_c_toknow_n_eme_obj);
+
     int n_eme_obj = quel_n_eme_obj(l, l_c_toknow_n_eme_obj);
-    //printf("3check\n");
+
     sauvegarder_detail_obj(categorie,n_eme_obj,1,&Nom);
     sauvegarder_detail_obj(categorie,n_eme_obj,2,&Desc);
     char *point;
@@ -1291,6 +1263,7 @@ void mettre_en_pret_ou_finir_le_pret(int num_cat, char *iD, char *ObjName, char 
     del_ressource(l);
     fclose(fp);
   }
+//Exemple d'utilisation:
 //char *Name = "RussiaIsAHeaven";
 //char *iD = "KGB"; -> proprietaire
 //char *ID2 = "FSB"; -> veux la ressource
@@ -1306,19 +1279,12 @@ void add_hist(int num_ligne_pers, char *iD, int ope){
   signed char date[64];
   fgets(date, 63, ftmp);
   fclose(ftmp);
-  //printf("%d",strlen(date));
+
   char *Datetmp = NULL;
-  int LARG = strlen(date);
-  Datetmp = calloc(LARG, sizeof(char));
+  int Larg = strlen(date);
+  Datetmp = calloc(Larg, sizeof(char));
   strcat(Datetmp, date);
   Datetmp[strlen(Datetmp)-1]='\0';
-  //printf("%s",date);
-  //printf("%s",Datetmp);
-  //printf("%d",strlen(Datetmp));
-  /*char *Date = NULL;
-  Date = (char *) malloc(sizeof(char)*strlen(Datetmp));
-  strcat(Date, Datetmp);
-  //printf("%d",strlen(Date));
   /*-----*//*-----*//*-----*/
   char *line_buf = NULL;
   size_t line_buf_size = 0;
@@ -1330,6 +1296,7 @@ void add_hist(int num_ligne_pers, char *iD, int ope){
   char *Concat = NULL;
   char *Concat2 = NULL;
   char *Concat3 = NULL;
+
   switch (ope) {
     case 1:
       Operation = "Ajout";
@@ -1366,8 +1333,8 @@ void add_hist(int num_ligne_pers, char *iD, int ope){
 
       char *mot_deb = "      \"Operation\": \"";
       char *mot_fin = "\",\n";
-      int LONG = (strlen(mot_deb)+strlen(mot_fin)+strlen(Operation)+1);
-      Concat = calloc(LONG, sizeof(char));
+      int Long = (strlen(mot_deb)+strlen(mot_fin)+strlen(Operation)+1);
+      Concat = calloc(Long, sizeof(char));
       strcat(Concat, mot_deb);
       strcat(Concat, Operation);
       strcat(Concat, mot_fin);
@@ -1379,8 +1346,8 @@ void add_hist(int num_ligne_pers, char *iD, int ope){
 
       char *mot_deb2 = "      \"Date\": \"";
       char *mot_fin2 = "\",\n";
-      int LONG2 = (strlen(mot_deb2)+strlen(mot_fin2)+strlen(Datetmp)+1);
-      Concat2 = calloc(LONG2, sizeof(char));
+      int Long2 = (strlen(mot_deb2)+strlen(mot_fin2)+strlen(Datetmp)+1);
+      Concat2 = calloc(Long2, sizeof(char));
       strcat(Concat2, mot_deb2);
       strcat(Concat2, Datetmp);
       strcat(Concat2, mot_fin2);
@@ -1392,8 +1359,8 @@ void add_hist(int num_ligne_pers, char *iD, int ope){
 
       char *mot_deb3 = "      \"Objet\": \"";
       char *mot_fin3 = "\"\n";
-      int LONG3 = (strlen(mot_deb3)+strlen(mot_fin3)+strlen(iD)+1);
-      Concat3 = calloc(LONG3, sizeof(char));
+      int Long3 = (strlen(mot_deb3)+strlen(mot_fin3)+strlen(iD)+1);
+      Concat3 = calloc(Long3, sizeof(char));
       strcat(Concat3, mot_deb3);
       strcat(Concat3, iD);
       strcat(Concat3, mot_fin3);
@@ -1411,7 +1378,7 @@ void add_hist(int num_ligne_pers, char *iD, int ope){
     line_size = getline(&line_buf, &line_buf_size, fp);
   }
 
-  /* Free the allocated line buffer */
+  /* Free the allocated line buffer and the one for the date */
   free(line_buf);
   free(Datetmp);
 
@@ -1423,6 +1390,7 @@ void add_hist(int num_ligne_pers, char *iD, int ope){
   remove("./json/Historique.json");
   rename("./json/Historiquebis.json", "./json/Historique.json");
   }
+//Exemple d'utilisation:
 //int n = 24;
 //char *obj = "Marteau";
 //int ope = 1;
@@ -1431,28 +1399,29 @@ void add_hist(int num_ligne_pers, char *iD, int ope){
 /*-------------------------------------------------------------------------*/
 
 void afficher_liste_historique(char *iD){
-    struct json_object *med_obj, *medi_array, *medi_array_obj, *medi_array_obj_name;
+    struct json_object *o_obj, *o_array, *o_array_obj, *o_array_obj_name;
     int arraylen, j;
     static const char filename[] = "./json/Historique.json";
-    med_obj = json_object_from_file(filename);
-    medi_array = json_object_object_get(med_obj, iD);
+    o_obj = json_object_from_file(filename);
+    o_array = json_object_object_get(o_obj, iD);
 
-    // medi_array is an array of objects
-    arraylen = json_object_array_length(medi_array);
+    // o_array is an array of objects
+    arraylen = json_object_array_length(o_array);
 
     for (j = 0; j < arraylen; j++) {
-      // get the i-th object in medi_array
-      medi_array_obj = json_object_array_get_idx(medi_array, j);
+      // get the i-th object in o_array
+      o_array_obj = json_object_array_get_idx(o_array, j);
       // get the name attribute in the i-th object
-      medi_array_obj_name = json_object_object_get(medi_array_obj, "Operation");
+      o_array_obj_name = json_object_object_get(o_array_obj, "Operation");
       // print out the name attribute
-      printf("%d. %s: ",j+1,json_object_get_string(medi_array_obj_name));
-      medi_array_obj_name = json_object_object_get(medi_array_obj, "Date");
-      printf(" %s,",json_object_get_string(medi_array_obj_name));
-      medi_array_obj_name = json_object_object_get(medi_array_obj, "Objet");
-      printf(" %s\n",json_object_get_string(medi_array_obj_name));
+      printf("%d. %s: ",j+1,json_object_get_string(o_array_obj_name));
+      o_array_obj_name = json_object_object_get(o_array_obj, "Date");
+      printf(" %s,",json_object_get_string(o_array_obj_name));
+      o_array_obj_name = json_object_object_get(o_array_obj, "Objet");
+      printf(" %s\n",json_object_get_string(o_array_obj_name));
     }
   }
+//Exemple d'utilisation:
 //char *iD = "John";
 //afficher_liste_historique(iD);
 
@@ -1473,6 +1442,7 @@ void stocker_id_hist_inscription(char *iD){
 //char *i = "New";
 //stocker_id_hist_inscription(i);
 
+/*-------------------------------------------------------------------------*/
 
 int ligne_bonne_personne(char *iD){
     /* Open the file for reading and the other to write */
@@ -1487,8 +1457,8 @@ int ligne_bonne_personne(char *iD){
 
     char *mot_deb = "  \"";
     char *mot_fin = "\": [\n";
-    int LONG = (strlen(mot_deb)+strlen(mot_fin)+strlen(iD)+1);
-    line_buf_check = calloc(LONG, sizeof(char));
+    int Long = (strlen(mot_deb)+strlen(mot_fin)+strlen(iD)+1);
+    line_buf_check = calloc(Long, sizeof(char));
     strcat(line_buf_check, mot_deb);
     strcat(line_buf_check, iD);
     strcat(line_buf_check, mot_fin);
@@ -1501,16 +1471,12 @@ int ligne_bonne_personne(char *iD){
     while (line_size >= 0)
     {
       line_count++;
-      /* Show the line details and printing them into the second file */
+      /* Show the line details */
       //printf("Contents: %s", line_buf);
       in_categorie = true;
       for(int a = 0; line_buf_check[a]!='\0'; a++){
-        //printf("%s\n%s",line_buf_check,line_buf);
-        //printf("%d %c et %c\n",line_count,line_buf[a],line_buf_check[a]);
-        if(line_buf[a]!=line_buf_check[a]){
+        if(line_buf[a]!=line_buf_check[a])
           in_categorie = false;
-          //printf("Ici\n");
-        }
       }
       //printf("%d",line_count);
       if(in_categorie==true)
@@ -1528,96 +1494,100 @@ int ligne_bonne_personne(char *iD){
     fclose(fp);
     return res;
   }
+//Exemple d'utilisation:
 //char *ID = "KGB";
 //int n = ligne_bonne_personne(ID);
-//char *obj = "Marteau";
-//int ope = 1;
-//add_hist(n, obj, ope);
+
+/*-------------------------------------------------------------------------*/
 
 void afficher_liste_historique_choix(char *iD, int J){
-    struct json_object *med_obj, *medi_array, *medi_array_obj, *medi_array_obj_name;
+    struct json_object *o_obj, *o_array, *o_array_obj, *o_array_obj_name;
     int arraylen, j;
     static const char filename[] = "./json/Historique.json";
-    med_obj = json_object_from_file(filename);
-    medi_array = json_object_object_get(med_obj, iD);
+    o_obj = json_object_from_file(filename);
+    o_array = json_object_object_get(o_obj, iD);
 
-    // medi_array is an array of objects
-    arraylen = json_object_array_length(medi_array);
+    // o_array is an array of objects
+    arraylen = json_object_array_length(o_array);
 
     for (j = 0; j < arraylen; j++) {
       if(j<=J){
-        // get the i-th object in medi_array
-        medi_array_obj = json_object_array_get_idx(medi_array, j);
+        // get the i-th object in o_array
+        o_array_obj = json_object_array_get_idx(o_array, j);
         // get the name attribute in the i-th object
-        medi_array_obj_name = json_object_object_get(medi_array_obj, "Operation");
+        o_array_obj_name = json_object_object_get(o_array_obj, "Operation");
         // print out the name attribute
-        printf("%d. %s: ",j+1,json_object_get_string(medi_array_obj_name));
-        medi_array_obj_name = json_object_object_get(medi_array_obj, "Date");
-        printf(" %s,",json_object_get_string(medi_array_obj_name));
-        medi_array_obj_name = json_object_object_get(medi_array_obj, "Objet");
-        printf(" %s\n",json_object_get_string(medi_array_obj_name));
+        printf("%d. %s: ",j+1,json_object_get_string(o_array_obj_name));
+        o_array_obj_name = json_object_object_get(o_array_obj, "Date");
+        printf(" %s,",json_object_get_string(o_array_obj_name));
+        o_array_obj_name = json_object_object_get(o_array_obj, "Objet");
+        printf(" %s\n",json_object_get_string(o_array_obj_name));
       }
     }
   }
+//Exemple d'utilisation:
 //int k = 10;
 //char *iD = "John";
 //afficher_liste_historique_choix(iD, k);
 
+/*-------------------------------------------------------------------------*/
 
-int afficher_liste_obj_emprunte(char *obj,char *emprunteur){
-  struct json_object *med_obj, *medi_array, *medi_array_obj, *medi_array_obj_name;
+int afficher_liste_obj_emprunte(char *obj, char *emprunteur){
+  struct json_object *o_obj, *o_array, *o_array_obj, *o_array_obj_name;
   int arraylen, j;
   int count = 0;
   bool appartient = true;
   static const char filename[] = "./json/Json.json";
-  med_obj = json_object_from_file(filename);
-  medi_array = json_object_object_get(med_obj, obj);
+  o_obj = json_object_from_file(filename);
+  o_array = json_object_object_get(o_obj, obj);
 
-  // medi_array is an array of objects
-  arraylen = json_object_array_length(medi_array);
+  // o_array is an array of objects
+  arraylen = json_object_array_length(o_array);
 
   for (j = 0; j < arraylen; j++) {
-    // get the i-th object in medi_array
-    medi_array_obj = json_object_array_get_idx(medi_array, j);
+    // get the i-th object in o_array
+    o_array_obj = json_object_array_get_idx(o_array, j);
     // get the name attribute in the i-th object
-    medi_array_obj_name = json_object_object_get(medi_array_obj, "En cours de pret");
-    char *id_a_check = json_object_get_string(medi_array_obj_name);
+    o_array_obj_name = json_object_object_get(o_array_obj, "En cours de pret");
+    char *id_a_check = json_object_get_string(o_array_obj_name);
     appartient = true;
     for(int a = 0; emprunteur[a]!='\0'; a++){
       if(id_a_check[a]!=emprunteur[a])
         appartient = false;
     }
     if(appartient==true){
-      medi_array_obj_name = json_object_object_get(medi_array_obj, "Name");
-      printf("%d. %s\n",count+1,json_object_get_string(medi_array_obj_name));
+      o_array_obj_name = json_object_object_get(o_array_obj, "Name");
+      printf("%d. %s\n",count+1,json_object_get_string(o_array_obj_name));
       count++;
     }
   }
   return count;
 }
+//Exemple d'utilisation:
 //char *objet = "electronique";
 //char *emprunteur ="Monsieur Durand";
 //afficher_liste_obj_emprunte(objet, emprunteur);
 
+/*-------------------------------------------------------------------------*/
 
-void avoir_choix_obj_du_emprunteur(char *cat,char *emprunteur, int choix, char **sauv, char **sauv2){
-  struct json_object *med_obj, *medi_array, *medi_array_obj, *medi_array_obj_name;
+void avoir_choix_obj_du_emprunteur(char *cat, char *emprunteur, int choix, char **sauv, char **sauv2){
+  struct json_object *o_obj, *o_array, *o_array_obj, *o_array_obj_name;
   int arraylen, j;
   int count = 0;
   bool appartient = true;
   static const char filename[] = "./json/Json.json";
-  med_obj = json_object_from_file(filename);
-  medi_array = json_object_object_get(med_obj, cat);
+  o_obj = json_object_from_file(filename);
+  o_array = json_object_object_get(o_obj, cat);
 
-  // medi_array is an array of objects
-  arraylen = json_object_array_length(medi_array);
+  // o_array is an array of objects
+  arraylen = json_object_array_length(o_array);
 
   for (j = 0; j < arraylen; j++) {
-    // get the i-th object in medi_array
-    medi_array_obj = json_object_array_get_idx(medi_array, j);
+    // get the i-th object in o_array
+    o_array_obj = json_object_array_get_idx(o_array, j);
     // get the name attribute in the i-th object
-    medi_array_obj_name = json_object_object_get(medi_array_obj, "En cours de pret");
-    char *id_a_check = json_object_get_string(medi_array_obj_name);
+    o_array_obj_name = json_object_object_get(o_array_obj, "En cours de pret");
+    char *id_a_check = json_object_get_string(o_array_obj_name);
     appartient = true;
     for(int a = 0; emprunteur[a]!='\0'; a++){
       if(id_a_check[a]!=emprunteur[a])
@@ -1625,21 +1595,26 @@ void avoir_choix_obj_du_emprunteur(char *cat,char *emprunteur, int choix, char *
     }
     if(appartient==true){
       if(count==choix-1){
-        medi_array_obj_name = json_object_object_get(medi_array_obj, "Name");
-        //printf("%s\n",json_object_get_string(medi_array_obj_name));
-        *sauv = json_object_get_string(medi_array_obj_name);
-        medi_array_obj_name = json_object_object_get(medi_array_obj, "Proprietaire");
-        //printf("%s\n",json_object_get_string(medi_array_obj_name));
-        *sauv2 = json_object_get_string(medi_array_obj_name);
+        o_array_obj_name = json_object_object_get(o_array_obj, "Name");
+        //printf("%s\n",json_object_get_string(o_array_obj_name));
+        *sauv = json_object_get_string(o_array_obj_name);
+        o_array_obj_name = json_object_object_get(o_array_obj, "Proprietaire");
+        //printf("%s\n",json_object_get_string(o_array_obj_name));
+        *sauv2 = json_object_get_string(o_array_obj_name);
       }
       count++;
     }
   }
 }
-//sauv NAMEOBJ
-//sauv 2 PROPRIO
+//Exemple d'utilisation:
+//char *sauv = "NAMEOBJ";     <--indication
+//char *sauv2 = "PROPRIO";     <--indication
+//char *categorie = "Livre";
+//char *emprunteur ="Monsieur Durand";
+//int choix = 2;
+//avoir_choix_obj_du_emprunteur(categorie, emprunteur, choix, NAMEOBJ, PROPRIO);
 
-
+/*-------------------------------------------------------------------------*/
 
 int ligne_bonne_pers_hist(char *id){
     /* Open the file for reading and the other to write */
@@ -1689,7 +1664,11 @@ int ligne_bonne_pers_hist(char *id){
     fclose(fp);
     return res;
   }
+//Exemple d'utilisation:
+//char *Id = "Durand";
+//int a = ligne_bonne_pers_hist(Id);
 
+/*-------------------------------------------------------------------------*/
 
 void del_historique(int num_ligne){
     /* Open the file for reading and the other to write */
@@ -1736,3 +1715,5 @@ void del_historique(int num_ligne){
     remove("./json/Historique.json");
     rename("./json/Historiquebis.json", "./json/Historique.json");
     }
+//Exemple d'utilisation:
+//del_historique(a);
