@@ -1,7 +1,0 @@
-#ifndef __MODULE_H__
-#define __MODULE_H__
-
-typedef struct _ressources *Ressources;
-
-void maressource();
-#endif

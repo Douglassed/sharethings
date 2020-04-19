@@ -13,26 +13,6 @@
       "Objet": "La Bible Du C"
     },
   ],
-  "Monsieur Durand": [
-    {
-      "Operation": "Ajout",
-      "Date": "Vendredi 17 Avril 2020 18:05:08",
-      "Objet": "Cable USB-USB"
-    },
-    {
-      "Operation": "Emprunt",
-      "Date": "Vendredi 17 Avril 2020 18:02:34",
-      "Objet": "La Bible Du C"
-    },
-    {
-      "Operation": "Ajout",
-      "Date": "Vendredi 17 Avril 2020 18:02:19",
-      "Objet": "Marteau"
-    },
-    {
-      "Operation": "Ajout",
-      "Date": "Vendredi 17 Avril 2020 18:00:45",
-      "Objet": "TourPC HP"
-    },
+  "toto": [
   ]
 }

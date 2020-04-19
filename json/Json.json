@@ -32,6 +32,12 @@
   "Sport": [
   ],
   "Jouet": [
+    {
+      "Name": "jouet de test",
+      "Description": "ptit descr",
+      "En cours de pret": ".",
+      "Proprietaire": "Monsieur Durand"
+    },
   ],
   "Cuisine": [
     {

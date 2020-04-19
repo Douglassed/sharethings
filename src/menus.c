@@ -860,11 +860,11 @@ void suppr_acc(char* id){
             default:
                 break;
         }
+        printf("c\n");
         count =  afficher_liste_obj_du_proprio(cat, id);
         for (j = count; j > 0; j--) {
             savoir_choix_obj_du_proprio(cat, id, j, &sauvobj);
             del_ressource(ligne_bon_obj(i, id, sauvobj));
-
         }
     }
     system("clear");
